@@ -71,8 +71,8 @@ public class HomeActivity extends Activity {
 
         } else if (state.isClosed()) {
             Log.i(TAG, "Logged out...");
-            TextView currentUser = (TextView) findViewById(R.id.currentUser);
-            currentUser.setVisibility(View.GONE);
+            userNameView.setVisibility(View.GONE);
+            profilePictureView.setVisibility(View.GONE);
         }
     }
 
