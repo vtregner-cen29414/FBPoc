@@ -9,10 +9,13 @@ import android.widget.TextView;
 import com.facebook.*;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
+import com.facebook.widget.ProfilePictureView;
 
 public class HomeActivity extends Activity {
     private static final String TAG = "FBPoc";
     UiLifecycleHelper uiHelper;
+    private ProfilePictureView profilePictureView;
+    private TextView userNameView;
 
     /**
      * Called when the activity is first created.
@@ -22,8 +25,15 @@ public class HomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         LoginButton authButton = (LoginButton) findViewById(R.id.authButton);
-        TextView currentUser = (TextView) findViewById(R.id.currentUser);
-        currentUser.setVisibility(View.GONE);
+
+        // Find the user's profile picture custom view
+        profilePictureView = (ProfilePictureView) findViewById(R.id.currentUser_profile_pic);
+        profilePictureView.setCropped(true);
+        profilePictureView.setVisibility(View.GONE);
+
+// Find the user's name view
+        userNameView = (TextView) findViewById(R.id.currentUser);
+        userNameView.setVisibility(View.GONE);
 
         uiHelper = new UiLifecycleHelper(this, new Session.StatusCallback() {
             @Override
@@ -39,7 +49,6 @@ public class HomeActivity extends Activity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
         uiHelper.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -52,9 +61,10 @@ public class HomeActivity extends Activity {
                 @Override
                 public void onCompleted(GraphUser user, Response response) {
                     if (user != null) {
-                        TextView currentUser = (TextView) findViewById(R.id.currentUser);
-                        currentUser.setVisibility(View.VISIBLE);
-                        currentUser.setText("Welcome " + user.getFirstName() + " " + user.getLastName());
+                        profilePictureView.setVisibility(View.VISIBLE);
+                        profilePictureView.setProfileId(user.getId());
+                        userNameView.setVisibility(View.VISIBLE);
+                        userNameView.setText(user.getName());
                     }
                 }
             }).executeAsync();
