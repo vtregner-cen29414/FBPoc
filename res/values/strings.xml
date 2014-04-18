@@ -2,4 +2,8 @@
 <resources>
     <string name="app_name">Friends 24</string>
     <string name="app_id">612138265545309</string>
+    <string name="error_dialog_title">Error</string>
+    <string name="error_dialog_button_text">OK</string>
+    <string name="choose_friend">Zvolte příjemce</string>
+    <string name="OK">OK</string>
 </resources>
