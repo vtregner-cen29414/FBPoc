@@ -1,23 +1,32 @@
 package cz.csas.startup.FBPoc;
 
 import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.facebook.*;
 import com.facebook.model.GraphObject;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 import com.facebook.widget.ProfilePictureView;
+import com.facebook.widget.WebDialog;
+import org.jivesoftware.smack.*;
+import org.jivesoftware.smack.packet.Message;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 public class HomeActivity extends Activity {
@@ -45,6 +54,7 @@ public class HomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         LoginButton authButton = (LoginButton) findViewById(R.id.authButton);
+        authButton.setReadPermissions(Arrays.asList("xmpp_login"));
 
         // Find the user's profile picture custom view
         profilePictureView = (ProfilePictureView) findViewById(R.id.currentUser_profile_pic);
@@ -76,6 +86,8 @@ public class HomeActivity extends Activity {
         });
 
         uiHelper.onCreate(savedInstanceState);
+
+
 
     }
 
@@ -119,13 +131,16 @@ public class HomeActivity extends Activity {
                         profilePictureView.setProfileId(user.getId());
                         userNameView.setText(user.getName());
                         setComponentsVisibility(View.VISIBLE);
+                        SmackAndroid.init(HomeActivity.this);
                     }
                 }
             }).executeAsync();
+            findViewById(R.id.send).setVisibility(View.VISIBLE);
 
         } else if (state.isClosed()) {
             Log.i(TAG, "Logged out...");
             setComponentsVisibility(View.GONE);
+            findViewById(R.id.send).setVisibility(View.GONE);
         }
     }
 
@@ -221,6 +236,112 @@ public class HomeActivity extends Activity {
             Log.e(TAG, "Unable to serialize users.", e);
         }
         return null;
+    }
+
+    public void onSendMoney(View view) {
+        Friends24Application application = (Friends24Application) getApplication();
+        if (application.getSelectedFrieds() != null && application.getSelectedFrieds().size() > 0) {
+            SendMessageTask task = new SendMessageTask();
+            task.execute(application.getSelectedFrieds().get(0));
+        }
+
+
+
+        /*Friends24Application application = (Friends24Application) getApplication();
+        if (application.getSelectedFrieds() != null && application.getSelectedFrieds().size() > 0) {
+
+            GraphUser user = application.getSelectedFrieds().get(0);
+            WebDialog requestsDialog =
+                    new WebDialog.RequestsDialogBuilder(this, Session.getActiveSession())
+                    .setMessage(userNameView.getText() + " ti posílá 5 Kč.")
+                    .setTo(user.getId())
+                    .setOnCompleteListener(new WebDialog.OnCompleteListener() {
+
+                        @Override
+                        public void onComplete(Bundle values,
+                                               FacebookException error) {
+                            if (error != null) {
+                                if (error instanceof FacebookOperationCanceledException) {
+                                    Toast.makeText(HomeActivity.this,
+                                            "Request cancelled",
+                                            Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(HomeActivity.this,
+                                            "Network Error",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                final String requestId = values.getString("request");
+                                if (requestId != null) {
+                                    Toast.makeText(HomeActivity.this,
+                                            "Request sent",
+                                            Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(HomeActivity.this,
+                                            "Request cancelled",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+
+                    })
+                    .build();
+            requestsDialog.show();
+        }*/
+    }
+
+    private class SendMessageTask extends AsyncTask<GraphUser, Void, Void> {
+
+        private Exception ex;
+
+        @Override
+        protected Void doInBackground(GraphUser... params) {
+            
+            ConnectionConfiguration config = new ConnectionConfiguration("chat.facebook.com", 5222);
+            SASLAuthentication.registerSASLMechanism("X-FACEBOOK-PLATFORM", SASLXFacebookPlatformMechanism.class);
+            SASLAuthentication.supportSASLMechanism("X-FACEBOOK-PLATFORM", 0);
+            config.setSASLAuthenticationEnabled(true);
+            config.setSecurityMode(ConnectionConfiguration.SecurityMode.required);
+            config.setSendPresence(false);
+            XMPPConnection xmpp = new XMPPConnection(config);
+            try {
+                xmpp.connect();
+                xmpp.login(Session.getActiveSession().getApplicationId(), Session.getActiveSession().getAccessToken(), "Application");
+
+                //send a chat message
+                ChatManager chatmanager = xmpp.getChatManager();
+                Chat newChat = chatmanager.createChat("-" + params[0].getId() + "@chat.facebook.com", new MessageListener() {
+                    @Override
+                    public void processMessage(Chat chat, Message msg) {
+                        Log.d(TAG, "message sent = "+ msg);
+                    }
+                });
+                //newChat.sendMessage("Váš přítel Vám posílá peníze. Klikněte na odkaz níže, kde doplníte číslo Vašeho účtu.\nhttps://www.servis24.cz");
+                Message message = new Message();
+                message.setSubject("Friends24 Platba");
+                message.setBody("Váš přítel Vám posílá peníze. Klikněte na odkaz níže, kde doplníte číslo Vašeho účtu.\nhttps://www.servis24.cz");
+                newChat.sendMessage(message);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                ex = e;
+            }
+            finally {
+                xmpp.disconnect();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            if (ex == null) {
+                Toast.makeText(HomeActivity.this, "Message sent", Toast.LENGTH_LONG).show();
+            }
+            else {
+                Toast.makeText(HomeActivity.this, "Error: "+ ex.getMessage(), Toast.LENGTH_LONG).show();
+            }
+
+        }
     }
 
 }
