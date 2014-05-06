@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:facebook="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:layout_width="match_parent"
@@ -10,7 +9,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="top"
-            android:background="#015693">
+            android:background="@color/back_blue">
         <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -21,18 +20,18 @@
 
 
 
-            <!--<com.facebook.widget.ProfilePictureView
+            <com.facebook.widget.ProfilePictureView
                     android:id="@+id/currentUser_profile_pic"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
-                    facebook:preset_size="small" />-->
-            <ImageView
+                    facebook:preset_size="small" />
+            <!--<ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/imageView"
-                    android:src="@drawable/ic_launcher"/>
+                    android:src="@drawable/ic_launcher"/>-->
 
             <TextView
                     android:id="@+id/currentUser"
@@ -62,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:text="PLATBA"
                     android:id="@+id/btnPayment"
-                    android:background="#de050f"
+                    android:background="@color/button_red"
                     android:textColor="#ffffff"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="20dp"
@@ -74,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:text="SBÍRKA"
                     android:id="@+id/btnCollection"
-                    android:background="#de050f"
+                    android:background="@color/button_red"
                     android:textColor="#ffffff"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="20dp"
@@ -107,4 +106,7 @@
     </LinearLayout>
 
 
+
 </LinearLayout>
+
+

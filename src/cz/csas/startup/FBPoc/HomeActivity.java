@@ -1,52 +1,26 @@
 package cz.csas.startup.FBPoc;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ListActivity;
-import android.content.AsyncTaskLoader;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.os.AsyncTask;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 import com.facebook.*;
 import com.facebook.model.GraphUser;
-import com.facebook.widget.LoginButton;
 import com.facebook.widget.ProfilePictureView;
 import cz.csas.startup.FBPoc.model.Account;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
-import org.apache.http.HttpVersion;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.params.ClientPNames;
-import org.apache.http.conn.ClientConnectionManager;
-import org.apache.http.conn.scheme.PlainSocketFactory;
-import org.apache.http.conn.scheme.Scheme;
-import org.apache.http.conn.scheme.SchemeRegistry;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
-import org.jivesoftware.smack.SmackAndroid;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
 import java.math.BigDecimal;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -66,23 +40,16 @@ public class HomeActivity extends ListActivity {
     private ProfilePictureView profilePictureView;
     private TextView userNameView;
     AccountsAdapter adapter;
+    private boolean isFetching=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
-        //LoginButton authButton = (LoginButton) findViewById(R.id.authButton);
-        //authButton.setReadPermissions(Arrays.asList("xmpp_login"));
 
         // Find the user's profile picture custom view
-        //profilePictureView = (ProfilePictureView) findViewById(R.id.currentUser_profile_pic);
-        //profilePictureView.setCropped(true);
-
-        adapter = new AccountsAdapter(this, R.layout.account_row);
-        //adapter.setData(createDummyData());
-        setListAdapter(adapter);
-        //etListShownNoAnimation(false);
+        profilePictureView = (ProfilePictureView) findViewById(R.id.currentUser_profile_pic);
+        profilePictureView.setCropped(true);
 
 
 // Find the user's name view
@@ -96,51 +63,56 @@ public class HomeActivity extends ListActivity {
         });
 
         uiHelper.onCreate(savedInstanceState);
-        new GetAccountsTask().execute();
+
+        adapter = new AccountsAdapter(this, R.layout.account_row);
+        Friends24Application application = (Friends24Application) getApplication();
+        if (application.getAccounts() != null) {
+            adapter.setData(application.getAccounts());
+        }
+        else {
+            new GetAccountsTask(this).execute();
+        }
+
+        setListAdapter(adapter);
+
+        //ensureOpenSession();
+        if (Session.getActiveSession() != null && Session.getActiveSession().isOpened()) {
+            GraphUser fbUser = ((Friends24Application) getApplication()).getFbUser();
+            profilePictureView.setProfileId(fbUser.getId());
+            userNameView.setText(fbUser.getName());
+        }
+        else {
+            Log.e(TAG, "FB session not opened!");
+        }
 
     }
 
-    private List<Account> createDummyData() {
-        List<Account> data = new ArrayList<Account>(2);
-        Account a1 = new Account();
-        a1.setNumber(123123L);
-        a1.setType("Běžný účet");
-        a1.setCurrency("Kč");
-        a1.setBalance(new BigDecimal(12340));
-        data.add(a1);
-
-        Account a2 = new Account();
-        a2.setNumber(4232242242L);
-        a2.setType("Spořící účet");
-        a2.setCurrency("Kč");
-        a2.setBalance(new BigDecimal(3340));
-        data.add(a2);
-        return data;
-    }
 
     private void onSessionStateChange(Session session, SessionState state, Exception exception) {
-        if (state.isOpened()) {
+        /*if (state.isOpened() && !isFetching) {
             Log.i(TAG, "Logged in...");
-
+            isFetching = true;
             // Request user data and show the results
             Request.newMeRequest(session, new Request.GraphUserCallback() {
                 @Override
                 public void onCompleted(GraphUser user, Response response) {
+                    isFetching = false;
                     if (user != null) {
-                        //profilePictureView.setProfileId(user.getId());
+                        profilePictureView.setProfileId(user.getId());
                         userNameView.setText(user.getName());
-                        //setComponentsVisibility(View.VISIBLE);
-                        //SmackAndroid.init(HomeActivityOld.this);
                     }
                 }
             }).executeAsync();
-            //findViewById(R.id.send).setVisibility(View.VISIBLE);
 
         } else if (state.isClosed()) {
-            Log.i(TAG, "Logged out...");
-            //setComponentsVisibility(View.GONE);
-            //findViewById(R.id.send).setVisibility(View.GONE);
-        }
+            Log.i(T*//*AG, "Logged out...");
+        }*/
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        uiHelper.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -177,16 +149,20 @@ public class HomeActivity extends ListActivity {
         uiHelper.onSaveInstanceState(outState);
     }
 
-    private class GetAccountsTask extends AsyncTask<Void, Void, List<Account>> {
+    private class GetAccountsTask extends Friend24AsyncTask<Void, Void, List<Account>> {
+
+        private GetAccountsTask(Context context) {
+            super(context);
+        }
 
         Exception ex;
 
         @Override
         protected List<Account> doInBackground(Void... params) {
             try {
-                String url = "http://friends24.apiary-mock.com/accounts";
+                String url = getBaseUrl() + "accounts";
                 HttpGet httpReq = new HttpGet(url);
-                HttpClient client = getNewHttpClient();
+                HttpClient client = getHttpClient();
                 HttpResponse response = client.execute(httpReq);
                 int statusCode = response.getStatusLine().getStatusCode();
                 Log.d(TAG, "Response status code:" + statusCode + "/" + response.getStatusLine().getReasonPhrase());
@@ -239,52 +215,13 @@ public class HomeActivity extends ListActivity {
             }
             else {
                 adapter.setData(accounts);
+                ((Friends24Application) HomeActivity.this.getApplication()).setAccounts(accounts);
             }
         }
 
-        public void showError(String message, Exception e) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
-            String m = message != null ? message : "";
-            m+=e != null ? e.getMessage() : "";
-            builder.setTitle(R.string.error_dialog_title).
-                    setMessage("Chyba: " + m);
-            builder.show();
-        }
 
-        public HttpClient getNewHttpClient() {
-            HttpParams params = new BasicHttpParams();
-            HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
-            HttpProtocolParams.setContentCharset(params, HTTP.UTF_8);
-            HttpConnectionParams.setConnectionTimeout(params, 10000);
-            HttpConnectionParams.setSoTimeout(params, 30000);
-            params.setParameter(ClientPNames.HANDLE_REDIRECTS, Boolean.TRUE);
-            SchemeRegistry registry = new SchemeRegistry();
-            registry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
-            ClientConnectionManager ccm = new ThreadSafeClientConnManager(params, registry);
-            return new DefaultHttpClient(ccm, params);
 
-            /*SchemeRegistry registry = new SchemeRegistry();
-            registry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
 
-            try {
-                if (!context.getResources().getString(R.string.deployment).equals("PROD")) {
-                    KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
-                    trustStore.load(null, null);
-
-                    SSLSocketFactory sf = new NoValidatingSSLSocketFactory(trustStore);
-                    sf.setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
-                    registry.register(new Scheme("https", sf, 443));
-                }
-                else {
-                    registry.register(new Scheme("https", SSLSocketFactory.getSocketFactory(), 443));
-                }
-
-                ClientConnectionManager ccm = new ThreadSafeClientConnManager(params, registry);
-                return new DefaultHttpClient(ccm, params);
-            } catch (Exception e) {
-                return new DefaultHttpClient();
-            }*/
-        }
 
     }
 }

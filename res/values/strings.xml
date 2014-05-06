@@ -7,4 +7,9 @@
     <string name="choose_friend">Zvolte příjemce</string>
     <string name="OK">OK</string>
     <string name="send">Send</string>
+    <string name="username">Login</string>
+    <string name="password">Heslo</string>
+    <string name="login">Přihlásit</string>
+    <string name="loginHint">Nemáte přístupové údaje?</string>
+    <string name="loginHintLink"><a href="http://www.csas.cz">www.csas.cz</a></string>
 </resources>
