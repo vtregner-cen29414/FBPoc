@@ -1,13 +1,17 @@
 package cz.csas.startup.FBPoc;
 
 import android.app.Activity;
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.facebook.*;
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.ProfilePictureView;
 import cz.csas.startup.FBPoc.model.Account;
@@ -22,13 +26,12 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by cen29414 on 29.4.2014.
  */
-public class HomeActivity extends ListActivity {
+public class HomeActivity extends Activity {
 
     private static final String TAG = "Friends24";
 
@@ -39,7 +42,7 @@ public class HomeActivity extends ListActivity {
     UiLifecycleHelper uiHelper;
     private ProfilePictureView profilePictureView;
     private TextView userNameView;
-    AccountsAdapter adapter;
+    //AccountsAdapter adapter;
     private boolean isFetching=false;
 
     @Override
@@ -64,16 +67,17 @@ public class HomeActivity extends ListActivity {
 
         uiHelper.onCreate(savedInstanceState);
 
-        adapter = new AccountsAdapter(this, R.layout.account_row);
+        //adapter = new AccountsAdapter(this, R.layout.account_row);
         Friends24Application application = (Friends24Application) getApplication();
         if (application.getAccounts() != null) {
-            adapter.setData(application.getAccounts());
+            //adapter.setData(application.getAccounts());
+            appendAccountsView(application.getAccounts());
         }
         else {
             new GetAccountsTask(this).execute();
         }
 
-        setListAdapter(adapter);
+        //setListAdapter(adapter);
 
         //ensureOpenSession();
         if (Session.getActiveSession() != null && Session.getActiveSession().isOpened()) {
@@ -83,6 +87,28 @@ public class HomeActivity extends ListActivity {
         }
         else {
             Log.e(TAG, "FB session not opened!");
+        }
+
+    }
+
+    private void appendAccountsView(List<Account> accounts) {
+        if (accounts.size() > 0) {
+            LinearLayout accountListView = (LinearLayout) findViewById(R.id.accountList);
+            LayoutInflater inflater = LayoutInflater.from(this);
+            for (Account account : accounts) {
+                View view = inflater.inflate(R.layout.account_row, null);
+                TextView aView = (TextView) view.findViewById(R.id.accountNumber);
+                TextView aType = (TextView) view.findViewById(R.id.accountType);
+                TextView aBalance = (TextView) view.findViewById(R.id.accountBalance);
+
+                StringBuilder a = new StringBuilder();
+                if (account.getPrefix() != null) a.append(account.getPrefix()).append("-");
+                a.append(account.getNumber()).append("/0800");
+                aView.setText(a.toString());
+                aType.setText(account.getType());
+                aBalance.setText(account.getBalance().toString() + " " + account.getCurrency());
+                accountListView.addView(view);
+            }
         }
 
     }
@@ -214,8 +240,9 @@ public class HomeActivity extends ListActivity {
                 showError("Chyba", ex);
             }
             else {
-                adapter.setData(accounts);
+                //adapter.setData(accounts);
                 ((Friends24Application) HomeActivity.this.getApplication()).setAccounts(accounts);
+                appendAccountsView(accounts);
             }
         }
 
