@@ -3,9 +3,10 @@ package cz.csas.startup.FBPoc;
 import android.app.Application;
 import com.facebook.model.GraphUser;
 import cz.csas.startup.FBPoc.model.Account;
-import org.apache.http.client.HttpClient;
+import cz.csas.startup.FBPoc.model.Payment;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by cen29414 on 18.4.2014.
@@ -13,9 +14,10 @@ import java.util.List;
 public class Friends24Application extends Application {
     private List<GraphUser> selectedFrieds;
     private List<Account> accounts;
-    private HttpClient httpClient;
     private GraphUser fbUser;
     private boolean appLogged;
+    private Map<Account, List<Payment>> payments;
+    private String authHeader;
 
     public List<GraphUser> getSelectedFrieds() {
         return selectedFrieds;
@@ -33,14 +35,6 @@ public class Friends24Application extends Application {
         this.accounts = accounts;
     }
 
-    public HttpClient getHttpClient() {
-        return httpClient;
-    }
-
-    public void setHttpClient(HttpClient httpClient) {
-        this.httpClient = httpClient;
-    }
-
     public GraphUser getFbUser() {
         return fbUser;
     }
@@ -55,5 +49,21 @@ public class Friends24Application extends Application {
 
     public void setAppLogged(boolean appLogged) {
         this.appLogged = appLogged;
+    }
+
+    public Map<Account, List<Payment>> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(Map<Account, List<Payment>> payments) {
+        this.payments = payments;
+    }
+
+    public String getAuthHeader() {
+        return authHeader;
+    }
+
+    public void setAuthHeader(String authHeader) {
+        this.authHeader = authHeader;
     }
 }

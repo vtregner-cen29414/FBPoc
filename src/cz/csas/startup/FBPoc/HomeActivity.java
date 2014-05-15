@@ -1,8 +1,8 @@
 package cz.csas.startup.FBPoc;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,17 +15,7 @@ import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.ProfilePictureView;
 import cz.csas.startup.FBPoc.model.Account;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.protocol.HTTP;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -74,7 +64,7 @@ public class HomeActivity extends Activity {
             appendAccountsView(application.getAccounts());
         }
         else {
-            new GetAccountsTask(this).execute();
+            //new GetAccountsTask(this).execute();
         }
 
         //setListAdapter(adapter);
@@ -92,14 +82,18 @@ public class HomeActivity extends Activity {
     }
 
     private void appendAccountsView(List<Account> accounts) {
+        findViewById(R.id.progressBar).setVisibility(View.GONE);
         if (accounts.size() > 0) {
             LinearLayout accountListView = (LinearLayout) findViewById(R.id.accountList);
             LayoutInflater inflater = LayoutInflater.from(this);
+            int row=1;
             for (Account account : accounts) {
                 View view = inflater.inflate(R.layout.account_row, null);
                 TextView aView = (TextView) view.findViewById(R.id.accountNumber);
                 TextView aType = (TextView) view.findViewById(R.id.accountType);
                 TextView aBalance = (TextView) view.findViewById(R.id.accountBalance);
+                Drawable background = (row++%2 == 0) ? getResources().getDrawable(R.color.cell_even) : getResources().getDrawable(R.color.cell_odd);
+                view.findViewById(R.id.rowMarkColor).setBackground(background);
 
                 StringBuilder a = new StringBuilder();
                 if (account.getPrefix() != null) a.append(account.getPrefix()).append("-");
@@ -175,80 +169,13 @@ public class HomeActivity extends Activity {
         uiHelper.onSaveInstanceState(outState);
     }
 
-    private class GetAccountsTask extends Friend24AsyncTask<Void, Void, List<Account>> {
-
-        private GetAccountsTask(Context context) {
-            super(context);
-        }
-
-        Exception ex;
-
-        @Override
-        protected List<Account> doInBackground(Void... params) {
-            try {
-                String url = getBaseUrl() + "accounts";
-                HttpGet httpReq = new HttpGet(url);
-                HttpClient client = getHttpClient();
-                HttpResponse response = client.execute(httpReq);
-                int statusCode = response.getStatusLine().getStatusCode();
-                Log.d(TAG, "Response status code:" + statusCode + "/" + response.getStatusLine().getReasonPhrase());
-                if (statusCode == HttpStatus.SC_OK) {
-                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                    response.getEntity().writeTo(outputStream);
-                    String responseContent = new String(outputStream.toByteArray(), HTTP.UTF_8);
-                    Log.d(TAG, "Response received:");
-                    Log.d(TAG, responseContent);
-                    JSONObject r = new JSONObject(responseContent);
-                    JSONArray jaccounts = r.getJSONArray("accounts");
-                    List<Account> accounts = new ArrayList<Account>();
-                    for (int i=0; i< jaccounts.length(); i++) {
-                        JSONObject jaccount = jaccounts.getJSONObject(i);
-                        Account account = new Account();
-                        if (jaccount.has("prefix")) account.setPrefix(jaccount.getLong("prefix"));
-                        account.setNumber(jaccount.getLong("number"));
-                        int type = jaccount.getInt("type");
-                        if (type == 1) {
-                            account.setType("Běžný účet");
-                        }
-                        else {
-                            account.setType("Spořící účet");
-                        }
-
-                        account.setCurrency(jaccount.getString("currency"));
-                        account.setBalance(new BigDecimal(jaccount.getString("balance")));
-                        accounts.add(account);
-                    }
-                    return accounts;
-                }
-                else {
-                    //showError(String.valueOf(statusCode), null);
-                    ex = new RuntimeException("Invalid response: " + statusCode);
-                    return null;
-                }
-
-            } catch (Exception e) {
-                //showError(null, e);
-                ex = e;
-                return null;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(List<Account> accounts) {
-            super.onPostExecute(accounts);
-            if (ex != null) {
-                showError("Chyba", ex);
-            }
-            else {
-                //adapter.setData(accounts);
-                ((Friends24Application) HomeActivity.this.getApplication()).setAccounts(accounts);
-                appendAccountsView(accounts);
-            }
-        }
-
-
-
-
-
+    public void onNewPayment(View view) {
+        Intent intent = new Intent(this, PaymentsActivity.class);
+        startActivity(intent);
     }
+
+    public void onNewCollection(View view) {
+    }
+
+
 }

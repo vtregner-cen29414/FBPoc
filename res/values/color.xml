@@ -7,6 +7,11 @@
     <color name="back_light_blue">#ff0169b3</color>
     <color name="for_white">#ffffff</color>
     <color name="light_blue">#ffd5edfa</color>
+    <color name="homepage_background">#ECF0F1</color>
+    <color name="cell_odd">#EE5B61</color>
+    <color name="cell_even">#015693</color>
+
+
 
     <color name="yellow1">#FFFF99</color>
     <color name="yellow2">#FFCC00</color>

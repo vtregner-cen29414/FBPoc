@@ -1,24 +1,29 @@
 package cz.csas.startup.FBPoc;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import com.facebook.*;
 import com.facebook.model.GraphUser;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.message.BasicNameValuePair;
+import cz.csas.startup.FBPoc.model.Account;
+import cz.csas.startup.FBPoc.service.AsyncTask;
+import cz.csas.startup.FBPoc.service.AsyncTaskResult;
+import cz.csas.startup.FBPoc.utils.Utils;
+import org.apache.http.client.methods.HttpGet;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -73,7 +78,11 @@ public class LoginActivity extends Activity {
         final TextView username = (TextView) findViewById(R.id.loginUsername);
         final TextView password = (TextView) findViewById(R.id.loginPassword);
         Log.d(TAG, "onLogin");
-        new LoginTask(this).execute(username.getText().toString().trim(), password.getText().toString().trim());
+        Friends24Application application = (Friends24Application) getApplication();
+        String authorizationString = "Basic " + Base64.encodeToString((username.getText().toString().trim() + ":" + password.getText().toString().trim()).getBytes(), Base64.NO_WRAP);
+        application.setAuthHeader(authorizationString);
+
+        new GetAccountsTask(this).execute();
     }
 
     private boolean ensureOpenSession() {
@@ -171,57 +180,65 @@ public class LoginActivity extends Activity {
         uiHelper.onSaveInstanceState(outState);
     }
 
+    private class GetAccountsTask extends AsyncTask<Void, Void, List<Account>> {
+        private static final String uri = "accounts";
 
-    public class LoginTask extends Friend24AsyncTask<String, Void, Boolean> {
-        Exception ex;
+        ProgressDialog progressDialog;
 
-        protected LoginTask(Context context) {
-            super(context);
+        private GetAccountsTask(Context context) {
+            super(context, uri, HttpGet.METHOD_NAME, null, true, true);
         }
 
         @Override
-        protected Boolean doInBackground(String... params) {
-            try {
-                HttpPost httpPost = new HttpPost(getBaseUrl() + "login");
-                ArrayList<NameValuePair> parameters = new ArrayList<NameValuePair>(2);
-                parameters.add(new BasicNameValuePair("username", params[0]));
-                parameters.add(new BasicNameValuePair("password", params[1]));
-                httpPost.setEntity(new UrlEncodedFormEntity(parameters));
-                HttpResponse response = getHttpClient().execute(httpPost);
-                int statusCode = response.getStatusLine().getStatusCode();
-                Log.d(TAG, "Response status code:" + statusCode + "/" + response.getStatusLine().getReasonPhrase());
-                if (statusCode == HttpStatus.SC_OK) {
-                    return true;
+        public List<Account> parseResponseObject(JSONObject object) throws JSONException {
+            JSONArray jaccounts = object.getJSONArray("accounts");
+            List<Account> accounts = new ArrayList<Account>();
+            for (int i=0; i< jaccounts.length(); i++) {
+                JSONObject jaccount = jaccounts.getJSONObject(i);
+                Account account = new Account();
+                if (jaccount.has("prefix")) account.setPrefix(jaccount.getLong("accountprefix"));
+                account.setNumber(jaccount.getLong("accountnumber"));
+                int type = jaccount.getInt("type");
+                if (type == 1) {
+                    account.setType("Běžný účet");
                 }
                 else {
-                    ex = new RuntimeException("Invalid response: " + statusCode);
-                    return null;
+                    account.setType("Spořící účet");
                 }
 
-            } catch (Exception e) {
-                ex = e;
-                return null;
+                account.setCurrency(jaccount.getString("currency"));
+                account.setBalance(new BigDecimal(jaccount.getString("balance")));
+                accounts.add(account);
             }
+            return accounts;
         }
 
         @Override
-        protected void onPostExecute(Boolean result) {
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog =ProgressDialog.show(getContext(), getContext().getResources().getString(R.string.logging), null);
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult<List<Account>> result) {
             super.onPostExecute(result);
-            if (ex != null) {
-                showError("Chyba", ex);
-            }
-            else {
-                Log.i(TAG, "User log in into Friend24 successfully!");
-                Friends24Application application = (Friends24Application) LoginActivity.this.getApplication();
-                application.setAppLogged(true);
+            progressDialog.dismiss();
+            if (result.getStatus().equals(AsyncTaskResult.Status.OK)) {
+                getApplication().setAccounts(result.getResult());
+                getApplication().setAppLogged(true);
                 // login to FB
-                if (LoginActivity.this.ensureOpenSession() && application.getFbUser() != null) {
+                if (LoginActivity.this.ensureOpenSession() && getApplication().getFbUser() != null) {
                     Intent intent = new Intent(getContext(), HomeActivity.class);
                     // home screen is always on the top
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     getContext().startActivity(intent);
                 }
             }
+            else {
+                Utils.showErrorDialog(getContext(), result);
+            }
+
         }
     }
+
 }

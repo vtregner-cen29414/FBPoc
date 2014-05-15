@@ -6,10 +6,33 @@
     <string name="error_dialog_button_text">OK</string>
     <string name="choose_friend">Zvolte příjemce</string>
     <string name="OK">OK</string>
-    <string name="send">Send</string>
+    <string name="send">Odeslat</string>
     <string name="username">Login</string>
     <string name="password">Heslo</string>
     <string name="login">Přihlásit</string>
     <string name="loginHint">Nemáte přístupové údaje?</string>
     <string name="loginHintLink"><a href="http://www.csas.cz">www.csas.cz</a></string>
+    <string name="payment">Platby</string>
+    <string name="collection">Sbírky</string>
+    <string name="my_accounts">PŘEHLED MÝCH ÚČTŮ</string>
+    <string name="new_payment">Nová platba</string>
+    <string name="amount">Částka</string>
+    <string name="amountHint">Částka v korunách</string>
+    <string name="recipent">Příjemce</string>
+    <string name="messageForRecipient">Zpráva pro příjemce</string>
+    <string name="notif_email">Email notifikace</string>
+    <string name="friends24_server_url">http://friends24.apiary-mock.com/</string>
+    <string name="error">Chyba</string>
+    <string name="info">Info</string>
+    <string name="error_common">V aplikace došlo k chybě. Prosím kontaktujte správce aplikace.</string>
+    <string name="invalid_password">Zadané heslo je nesprávné</string>
+    <string name="locked_password">Přístup do aplikace byl zablokován</string>
+    <string name="ok">OK</string>
+    <string name="communicationError">Chyba při komunikaci se serverem</string>
+    <string name="no_network_connection">Chyba připojení k internetu. Zkontrolujte nastavení telefonu</string>
+    <string name="logging">Přihlašuji</string>
+    <string name="loading">Načítám</string>
+    <string name="login_logo1">PLATBY&amp;SBÍRKY</string>
+    <string name="login_logo2">s facebook přáteli</string>
+
 </resources>
