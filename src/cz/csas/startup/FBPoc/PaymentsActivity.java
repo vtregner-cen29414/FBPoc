@@ -1,13 +1,15 @@
 package cz.csas.startup.FBPoc;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import cz.csas.startup.FBPoc.model.Account;
 import cz.csas.startup.FBPoc.model.Payment;
@@ -20,9 +22,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -54,6 +55,10 @@ public class PaymentsActivity extends ListActivity {
                         new GetPaymentsTask(PaymentsActivity.this, account, paymentsAdapter).execute();
                     }
                     else {
+                        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+                        progressBar.setVisibility(View.GONE);
+                        ListView listView = (ListView) findViewById(android.R.id.list);
+                        listView.setVisibility(View.VISIBLE);
                         paymentsAdapter.setData(application.getPayments().get(account));
                     }
                 }
@@ -89,22 +94,15 @@ public class PaymentsActivity extends ListActivity {
         public static final String URI = "payments/";
 
         Account account;
-        ProgressDialog progressDialog;
+        ProgressBar progressBar;
         PaymentsAdapter paymentsAdapter;
+        ListView listView;
 
         private GetPaymentsTask(Context context, Account account, PaymentsAdapter paymentsAdapter) {
-            super(context, createUri(account), HttpGet.METHOD_NAME, null, true, true);
+            super(context, URI+account.getId(), HttpGet.METHOD_NAME, null, true, true);
             this.account = account;
             this.paymentsAdapter = paymentsAdapter;
         }
-
-        private static String createUri(Account account) {
-            String url = URI;
-            if (account.getPrefix() != null) url = url + account.getPrefix() + "-";
-            url+=account.getNumber();
-            return url;
-        }
-
 
         @Override
         public List<Payment> parseResponseObject(JSONObject object) throws JSONException {
@@ -119,14 +117,7 @@ public class PaymentsActivity extends ListActivity {
                 payment.setAmount(new BigDecimal(jpayment.getString("amount")));
                 payment.setCurrency(jpayment.getString("currency"));
                 if (jpayment.has("note")) payment.setNote(jpayment.getString("note"));
-                SimpleDateFormat sfd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-                String created = jpayment.getString("created");
-                try {
-                    payment.setPaymentDate(sfd.parse(created));
-                } catch (ParseException e) {
-                    Log.e(TAG, "Cannot parse payment date: " + created);
-                    payment.setPaymentDate(null);
-                }
+                payment.setPaymentDate(new Date(jpayment.getLong("created")));
                 payment.setStatus(Payment.Status.valueOf(jpayment.getInt("status")));
 
                 payments.add(payment);
@@ -138,14 +129,17 @@ public class PaymentsActivity extends ListActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = ProgressDialog.show(getContext(), getContext().getString(R.string.loading), null);
-            progressDialog.show();
+            progressBar = (ProgressBar) ((Activity)getContext()).findViewById(R.id.progressBar);
+            progressBar.setVisibility(View.VISIBLE);
+            listView = (ListView) ((Activity)getContext()).findViewById(android.R.id.list);
+            listView.setVisibility(View.GONE);
         }
 
         @Override
         protected void onPostExecute(AsyncTaskResult<List<Payment>> result) {
             super.onPostExecute(result);
-            progressDialog.dismiss();
+            progressBar.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
             if (result.getStatus().equals(AsyncTaskResult.Status.OK)) {
                 getApplication().getPayments().put(account, result.getResult());
                 paymentsAdapter.setData(result.getResult());

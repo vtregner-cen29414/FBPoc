@@ -11,6 +11,7 @@
     <color name="cell_odd">#EE5B61</color>
     <color name="cell_even">#015693</color>
     <color name="cell_text">#015693</color>
+    <color name="gray_input_text">#8E8E8E</color>
 
 
 

@@ -197,7 +197,7 @@ public class LoginActivity extends Activity {
                 JSONObject jaccount = jaccounts.getJSONObject(i);
                 Account account = new Account();
                 account.setId(jaccount.getLong("id"));
-                if (jaccount.has("accountPrefix")) account.setPrefix(jaccount.getLong("accountPrefix"));
+                if (!jaccount.isNull("accountPrefix")) account.setPrefix(jaccount.getLong("accountPrefix"));
                 account.setNumber(jaccount.getLong("accountNumber"));
                 int type = jaccount.getInt("type");
                 if (type == 1) {

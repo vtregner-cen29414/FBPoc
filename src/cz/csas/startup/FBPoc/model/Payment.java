@@ -6,15 +6,10 @@ import java.util.Date;
 /**
  * Created by cen29414 on 9.5.2014.
  */
-public class Payment {
+public class Payment extends CreatePayment {
     private String id;
-    private String recipientId;
-    private String recipientName;
-    private BigDecimal amount;
-    private String currency;
     private Status status;
     private Date paymentDate;
-    private String note;
 
     public enum Status {
         PENDING(0), ACCEPTED(1), REFUSED(2), TIMEOUTED(3);
@@ -49,38 +44,6 @@ public class Payment {
         this.id = id;
     }
 
-    public String getRecipientId() {
-        return recipientId;
-    }
-
-    public void setRecipientId(String recipientId) {
-        this.recipientId = recipientId;
-    }
-
-    public String getRecipientName() {
-        return recipientName;
-    }
-
-    public void setRecipientName(String recipientName) {
-        this.recipientName = recipientName;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
-    public String getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
-
     public Status getStatus() {
         return status;
     }
@@ -97,11 +60,4 @@ public class Payment {
         this.paymentDate = paymentDate;
     }
 
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
 }

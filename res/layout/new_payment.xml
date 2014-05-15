@@ -95,6 +95,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:layout_gravity="center_vertical"
                         android:text="@string/recipent"
                         />
 
@@ -102,21 +103,33 @@
                 <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
+                        android:layout_height="wrap_content"
                         android:onClick="onSelectRecipient"
+                        android:layout_marginLeft="10dp"
                         android:clickable="true">
 
-                    <ImageView
+                    <!--<ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@id/pickFriend"
-                            android:src="@drawable/pick_friend"/>
+                            android:src="@drawable/pick_friend"/>-->
+
+                    <com.facebook.widget.ProfilePictureView
+                            android:id="@+id/recipient_pic"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center_horizontal"
+                            facebook:preset_size="small"
+                            />
 
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/selected_friend_name"
+                            android:id="@+id/recipent_name"
                             android:text="Zvolte příjemce"
+                            android:textColor="@color/gray_input_text"
+                            android:layout_marginLeft="5dp"
                             android:layout_gravity="center_vertical"/>
                 </LinearLayout>
 
@@ -172,6 +185,7 @@
                     style="@style/RedButton"
                     android:padding="10dp"
                     android:layout_marginBottom="20dp"
+                    android:onClick="onCretePayment"
                     android:layout_gravity="center_horizontal"/>
 
         </LinearLayout>

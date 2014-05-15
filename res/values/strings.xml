@@ -15,7 +15,7 @@
     <string name="payment">Platby</string>
     <string name="collection">Sbírky</string>
     <string name="my_accounts">PŘEHLED MÝCH ÚČTŮ</string>
-    <string name="new_payment">NOVÁ PLATBA</string>
+    <string name="new_payment">Nová platba</string>
     <string name="amount">Částka</string>
     <string name="amountHint">Částka</string>
     <string name="recipent">Příjemce</string>
@@ -36,5 +36,9 @@
     <string name="login_logo2">s facebook přáteli</string>
     <string name="paymentHistory">HISTORIE PLATEB</string>
     <string name="CZK">Kč</string>
+    <string name="amountError">Zadejte částku</string>
+    <string name="noteError">Zadejte Poznámku</string>
+    <string name="recipientError">Vyberte příjemnce</string>
+
 
 </resources>
