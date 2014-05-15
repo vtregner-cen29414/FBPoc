@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
@@ -19,6 +20,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,7 +42,6 @@ public class PaymentsActivity extends ListActivity {
         Spinner accountSpinner = (Spinner) findViewById(R.id.accountSelector);
         final Friends24Application application = (Friends24Application) getApplication();
         AccountsAdapter adapter = new AccountsAdapter(this, R.layout.account_selector);
-        //adapter.setDropDownViewResource(R.layout.account_selector);
         accountSpinner.setAdapter(adapter);
         adapter.setData(application.getAccounts());
 
@@ -112,10 +114,19 @@ public class PaymentsActivity extends ListActivity {
                 JSONObject jpayment = jpayments.getJSONObject(i);
                 Payment payment = new Payment();
                 payment.setId(jpayment.getString("id"));
-                payment.setRecipientId(jpayment.getString("recipientid"));
-                payment.setRecipientName(jpayment.getString("recipientname"));
+                payment.setRecipientId(jpayment.getString("recipientId"));
+                payment.setRecipientName(jpayment.getString("recipientName"));
                 payment.setAmount(new BigDecimal(jpayment.getString("amount")));
                 payment.setCurrency(jpayment.getString("currency"));
+                if (jpayment.has("note")) payment.setNote(jpayment.getString("note"));
+                SimpleDateFormat sfd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                String created = jpayment.getString("created");
+                try {
+                    payment.setPaymentDate(sfd.parse(created));
+                } catch (ParseException e) {
+                    Log.e(TAG, "Cannot parse payment date: " + created);
+                    payment.setPaymentDate(null);
+                }
                 payment.setStatus(Payment.Status.valueOf(jpayment.getInt("status")));
 
                 payments.add(payment);

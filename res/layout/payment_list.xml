@@ -4,7 +4,7 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:id="@+id/paymentListRoot">
+              android:background="@color/homepage_background">
 
     <Spinner
             android:layout_width="match_parent"
@@ -12,17 +12,28 @@
             android:id="@+id/accountSelector"
             android:layout_gravity="center_horizontal"
             android:padding="0dp"
-
             android:spinnerMode="dropdown"/>
 
-    <Button
-            android:layout_width="wrap_content"
+    <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/new_payment"
-            android:id="@+id/btnNewPayment"
-            android:onClick="onNewPayment"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="24dp"/>
+            android:orientation="vertical"
+            android:background="@color/back_blue"
+            android:gravity="center_horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp">
+
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/RedButton"
+                android:text="@string/new_payment"
+                android:id="@+id/btnNewPayment"
+                android:onClick="onNewPayment"
+                android:layout_margin="20dp"/>
+    </LinearLayout>
+
 
     <ListView
             android:layout_width="match_parent"
@@ -30,6 +41,9 @@
             android:id="@android:id/list"
             android:layout_gravity="center_horizontal"
             android:choiceMode="none"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"/>
+            android:background="@color/for_white"
+            android:headerDividersEnabled="true"
+            android:footerDividersEnabled="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
 </LinearLayout>

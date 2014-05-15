@@ -7,6 +7,8 @@ import java.math.BigDecimal;
  * Created by cen29414 on 29.4.2014.
  */
 public class Account implements Serializable {
+
+    private Long id;
     private Long prefix;
     private Long number;
     private String type;
@@ -53,6 +55,14 @@ public class Account implements Serializable {
         this.currency = currency;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         StringBuilder a = new StringBuilder();
@@ -65,20 +75,17 @@ public class Account implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || this.getClass() != o.getClass()) return false;
 
         Account account = (Account) o;
 
-        if (!number.equals(account.number)) return false;
-        if (prefix != null ? !prefix.equals(account.prefix) : account.prefix != null) return false;
+        if (!id.equals(account.id)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = prefix != null ? prefix.hashCode() : 0;
-        result = 31 * result + number.hashCode();
-        return result;
+        return id.hashCode();
     }
 }

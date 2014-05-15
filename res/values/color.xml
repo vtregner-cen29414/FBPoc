@@ -10,6 +10,7 @@
     <color name="homepage_background">#ECF0F1</color>
     <color name="cell_odd">#EE5B61</color>
     <color name="cell_even">#015693</color>
+    <color name="cell_text">#015693</color>
 
 
 

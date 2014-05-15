@@ -1,123 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
-
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/new_payment"
-            android:layout_gravity="center_horizontal"/>
-
-    <Spinner
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:facebook="http://schemas.android.com/apk/res-auto"
+            android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/accountSelector"
-            android:layout_gravity="center_horizontal"/>
+            android:background="@color/homepage_background">
 
-    <GridLayout
+    <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:rowCount="4"
-            android:columnCount="2"
-            android:useDefaultMargins="true">
+            android:layout_height="wrap_content">
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/amount"
-                android:id="@+id/textView"
-                android:layout_row="0"
-                android:layout_column="0"/>
-
-        <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:ems="10"
-                android:id="@+id/amount"
-                android:hint="@string/amountHint"
-                android:layout_row="0"
-                android:layout_column="1"/>
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/recipent"
-                android:layout_row="1"
-                android:layout_column="0"
-                android:textAlignment="gravity"
-                android:layout_gravity="center_vertical"/>
+        <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:id="@+id/accountSelector"
+                android:layout_gravity="center_horizontal"
+                android:padding="0dp"
+                android:spinnerMode="dropdown"/>
 
         <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_column="1"
-                android:layout_row="1"
-                >
-
-            <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@id/pickFriend"
-                    android:src="@drawable/pick_friend"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/for_white">
+            >
 
             <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/new_payment"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:background="@color/back_blue"
+                    android:textColor="@color/for_white"/>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:weightSum="1">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/amount"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:layout_weight="0.18"
+                        android:textIsSelectable="false"/>
+
+                <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:ems="6"
+                        android:id="@+id/amount"
+                        style="@style/AppEditText.GrayBorder"
+                        android:hint="@string/amountHint"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/CZK"
+                        />
+
+            </LinearLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_margin="20dp"
+                    android:layerType="software"
+                    android:background="@drawable/dashed_line_1"
+                    />
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="10dp">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/recipent"
+                        />
+
+
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:onClick="onSelectRecipient"
+                        android:clickable="true">
+
+                    <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@id/pickFriend"
+                            android:src="@drawable/pick_friend"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/selected_friend_name"
+                            android:text="Zvolte příjemce"
+                            android:layout_gravity="center_vertical"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_margin="20dp"
+                    android:layerType="software"
+                    android:background="@drawable/dashed_line_1"
+                    />
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="10dp">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/messageForRecipient"
+                        />
+
+                <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="72dp"
+                        android:inputType="textMultiLine"
+                        android:id="@+id/messageForRecipient"
+                        android:lines="3"
+                        style="@style/AppEditText.GrayBorder"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="10dp"/>
+
+            </LinearLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_margin="20dp"
+                    android:layerType="software"
+                    android:background="@drawable/dashed_line_1"
+                    />
+
+
+            <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/selected_friend_name"
-                    android:text="Martin"
-                    android:layout_gravity="center_vertical"/>
+                    android:text="@string/send"
+                    android:id="@+id/btnSend"
+                    style="@style/RedButton"
+                    android:padding="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_gravity="center_horizontal"/>
+
         </LinearLayout>
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/messageForRecipient"
-                android:layout_row="3"
-                android:layout_column="0"/>
-
-        <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
-                android:ems="10"
-                android:id="@+id/messageForRecipient"
-                android:hint="@string/messageForRecipient"
-                android:layout_row="3"
-                android:layout_column="1"
-                />
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/notif_email"
-                android:layout_row="2"
-                android:layout_column="0"/>
-
-        <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:ems="10"
-                android:id="@+id/email"
-                android:hint="@string/notif_email"
-                android:layout_row="2"
-                android:layout_column="1"
-                />
-
-    </GridLayout>
-
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/send"
-            android:id="@+id/btnSend"
-            android:layout_gravity="center_horizontal"/>
 
 
-</LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

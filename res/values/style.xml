@@ -17,6 +17,9 @@
         <item name="android:padding">10dp</item>
         <item name="android:textColor">#8E8E8E</item>
     </style>
+    <style name="AppEditText.GrayBorder">
+        <item name="android:background">@drawable/white_edit_text_with_border</item>
+    </style>
 
     <style name="RedButton" parent="@android:style/Widget.Button">
         <item name="android:background">@drawable/button_red_selector</item>

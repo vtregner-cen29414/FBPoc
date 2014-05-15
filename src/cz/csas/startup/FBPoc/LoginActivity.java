@@ -35,7 +35,7 @@ public class LoginActivity extends Activity {
     private static final String TAG = "Friends24";
 
     private boolean isFetching=false;
-    UiLifecycleHelper uiHelper;
+    private UiLifecycleHelper uiHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,8 +196,9 @@ public class LoginActivity extends Activity {
             for (int i=0; i< jaccounts.length(); i++) {
                 JSONObject jaccount = jaccounts.getJSONObject(i);
                 Account account = new Account();
-                if (jaccount.has("prefix")) account.setPrefix(jaccount.getLong("accountprefix"));
-                account.setNumber(jaccount.getLong("accountnumber"));
+                account.setId(jaccount.getLong("id"));
+                if (jaccount.has("accountPrefix")) account.setPrefix(jaccount.getLong("accountPrefix"));
+                account.setNumber(jaccount.getLong("accountNumber"));
                 int type = jaccount.getInt("type");
                 if (type == 1) {
                     account.setType("Běžný účet");

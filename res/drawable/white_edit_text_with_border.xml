@@ -2,5 +2,5 @@
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_focused="true" android:drawable="@drawable/white_box_with_focused_border"/>
-    <item android:drawable="@color/for_white"/>
+    <item android:drawable="@drawable/white_box_with_gray_border"/>
 </selector>

@@ -28,7 +28,7 @@
                 style="@android:style/TextAppearance.Medium"
                 android:id="@+id/accountType"
                 android:clickable="true"
-                android:textColor="#015693"/>
+                android:textColor="@color/cell_text"/>
 
         <TextView
                 android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:text="12 340 Kč"
             android:id="@+id/accountBalance"
-            android:textColor="#015693"
+            android:textColor="@color/cell_text"
             android:textStyle="bold"
             android:gravity="right"
             style="@android:style/TextAppearance.Medium"

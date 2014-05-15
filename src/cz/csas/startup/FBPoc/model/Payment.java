@@ -1,6 +1,7 @@
 package cz.csas.startup.FBPoc.model;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * Created by cen29414 on 9.5.2014.
@@ -12,6 +13,8 @@ public class Payment {
     private BigDecimal amount;
     private String currency;
     private Status status;
+    private Date paymentDate;
+    private String note;
 
     public enum Status {
         PENDING(0), ACCEPTED(1), REFUSED(2), TIMEOUTED(3);
@@ -84,5 +87,21 @@ public class Payment {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Date getPaymentDate() {
+        return paymentDate;
+    }
+
+    public void setPaymentDate(Date paymentDate) {
+        this.paymentDate = paymentDate;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }
