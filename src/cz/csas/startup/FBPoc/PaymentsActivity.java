@@ -7,10 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.Spinner;
+import android.widget.*;
 import cz.csas.startup.FBPoc.model.Account;
 import cz.csas.startup.FBPoc.model.Payment;
 import cz.csas.startup.FBPoc.service.AsyncTask;
@@ -30,10 +27,11 @@ import java.util.List;
 /**
  * Created by cen29414 on 9.5.2014.
  */
-public class PaymentsActivity extends ListActivity {
+public class PaymentsActivity extends Activity {
     private static final String TAG = "Friends24";
 
-    PaymentsAdapter paymentsAdapter;
+    //PaymentsAdapter paymentsAdapter;
+    ExpandablePaymentsAdapter paymentsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +68,16 @@ public class PaymentsActivity extends ListActivity {
             }
         });
 
+        /*
         paymentsAdapter = new PaymentsAdapter(this, R.layout.payment_row);
         setListAdapter(paymentsAdapter);
         getListView().addHeaderView(getLayoutInflater().inflate(R.layout.payment_list_header, null));
+        */
+
+        paymentsAdapter = new ExpandablePaymentsAdapter(this, R.layout.payment_row, R.layout.payment_row_expanded);
+        ExpandableListView listView = (ExpandableListView) findViewById(android.R.id.list);
+        listView.setAdapter(paymentsAdapter);
+        listView.addHeaderView(getLayoutInflater().inflate(R.layout.payment_list_header, null));
 
         if (application.getPayments() == null) {
             application.setPayments(new HashMap<Account, List<Payment>>(application.getAccounts().size()));
@@ -95,10 +100,10 @@ public class PaymentsActivity extends ListActivity {
 
         Account account;
         ProgressBar progressBar;
-        PaymentsAdapter paymentsAdapter;
+        ExpandablePaymentsAdapter paymentsAdapter;
         ListView listView;
 
-        private GetPaymentsTask(Context context, Account account, PaymentsAdapter paymentsAdapter) {
+        private GetPaymentsTask(Context context, Account account, ExpandablePaymentsAdapter paymentsAdapter) {
             super(context, URI+account.getId(), HttpGet.METHOD_NAME, null, true, true);
             this.account = account;
             this.paymentsAdapter = paymentsAdapter;

@@ -39,7 +39,19 @@
             android:layout_height="wrap_content"
             android:id="@id/progressBar"
             android:layout_gravity="center"/>
-    <ListView
+    <!--<ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@android:id/list"
+            android:layout_gravity="center_horizontal"
+            android:choiceMode="none"
+            android:background="@color/for_white"
+            android:headerDividersEnabled="true"
+            android:footerDividersEnabled="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>-->
+
+    <ExpandableListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@android:id/list"
@@ -50,4 +62,6 @@
             android:footerDividersEnabled="true"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"/>
+
+
 </LinearLayout>

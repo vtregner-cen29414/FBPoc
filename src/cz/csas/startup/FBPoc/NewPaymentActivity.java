@@ -177,33 +177,38 @@ public class NewPaymentActivity extends Activity {
     }
 
     public void onCretePayment(View view) {
-        validateFields();
-        Friends24Application application = (Friends24Application) getApplication();
-        CreatePayment createPayment = new CreatePayment();
-        createPayment.setAmount(new BigDecimal(amountView.getText().toString()));
-        createPayment.setRecipientId(application.getSelectedFrieds().get(0).getId());
-        createPayment.setRecipientName(application.getSelectedFrieds().get(0).getName());
-        createPayment.setNote(messageForRecipientView.getText().toString());
-        createPayment.setSenderAccount(((Account)accountSpinner.getSelectedItem()).getId());
-        new CreatePaymentTask(this, createPayment).execute();
-
+        if (validateFields()) {
+            Friends24Application application = (Friends24Application) getApplication();
+            CreatePayment createPayment = new CreatePayment();
+            createPayment.setAmount(new BigDecimal(amountView.getText().toString()));
+            createPayment.setRecipientId(application.getSelectedFrieds().get(0).getId());
+            createPayment.setRecipientName(application.getSelectedFrieds().get(0).getName());
+            createPayment.setNote(messageForRecipientView.getText().toString());
+            createPayment.setSenderAccount(((Account) accountSpinner.getSelectedItem()).getId());
+            new CreatePaymentTask(this, createPayment).execute();
+        }
     }
 
-    private void validateFields() {
+    private boolean validateFields() {
+        boolean valid = true;
         if (amountView.getText() == null || amountView.getText().length() == 0) {
             amountView.setError(getString(R.string.amountError));
+            valid = false;
         }
         else amountView.setError(null);
 
         if (messageForRecipientView.getText() == null || messageForRecipientView.getText().toString().trim().length() == 0) {
             messageForRecipientView.setError(getString(R.string.noteError));
+            valid = false;
         }
         else messageForRecipientView.setError(null);
 
         if (recipientPicture.getProfileId() == null) {
             recipientName.setError(getString(R.string.recipientError));
+            valid = false;
         }
         else recipientName.setError(null);
+        return valid;
     }
 
     private class CreatePaymentTask extends AsyncTask<CreatePayment, Void, Payment> {

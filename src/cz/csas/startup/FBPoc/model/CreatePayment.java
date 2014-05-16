@@ -81,4 +81,9 @@ public class CreatePayment implements Serializable {
         }
     }
 
+    public String getShortRecipentName() {
+        String[] split = getRecipientName().split("\\s");
+        return split[0];
+    }
+
 }
