@@ -217,7 +217,7 @@ public class LoginActivity extends Activity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog =ProgressDialog.show(getContext(), getContext().getResources().getString(R.string.logging), null);
+            progressDialog =ProgressDialog.show(getContext(), null, getContext().getResources().getString(R.string.waitPlease));
         }
 
         @Override

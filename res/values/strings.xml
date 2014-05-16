@@ -30,8 +30,6 @@
     <string name="ok">OK</string>
     <string name="communicationError">Chyba při komunikaci se serverem</string>
     <string name="no_network_connection">Chyba připojení k internetu. Zkontrolujte nastavení telefonu</string>
-    <string name="logging">Přihlašuji</string>
-    <string name="loading">Načítám</string>
     <string name="login_logo1">PLATBY&amp;SBÍRKY</string>
     <string name="login_logo2">s facebook přáteli</string>
     <string name="paymentHistory">HISTORIE PLATEB</string>
@@ -39,6 +37,8 @@
     <string name="amountError">Zadejte částku</string>
     <string name="noteError">Zadejte Poznámku</string>
     <string name="recipientError">Vyberte příjemnce</string>
+    <string name="waitPlease">Čekejte prosím</string>
+    <string name="sendFBMessageError">Chyba při posílání zprávy na Facebook</string>
 
 
 </resources>

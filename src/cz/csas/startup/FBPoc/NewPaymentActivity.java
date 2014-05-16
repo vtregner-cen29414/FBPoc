@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,9 +12,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
+import com.facebook.android.Util;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.ProfilePictureView;
 import cz.csas.startup.FBPoc.model.Account;
@@ -21,7 +24,11 @@ import cz.csas.startup.FBPoc.model.CreatePayment;
 import cz.csas.startup.FBPoc.model.Payment;
 import cz.csas.startup.FBPoc.service.AsyncTask;
 import cz.csas.startup.FBPoc.service.AsyncTaskResult;
+import cz.csas.startup.FBPoc.service.OnTaskCompleteListener;
+import cz.csas.startup.FBPoc.service.SendFBMessageTask;
+import cz.csas.startup.FBPoc.utils.Utils;
 import org.apache.http.client.methods.HttpPost;
+import org.jivesoftware.smack.SmackAndroid;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -42,6 +49,7 @@ public class NewPaymentActivity extends Activity {
     private EditText amountView;
     private EditText messageForRecipientView;
     private Spinner accountSpinner;
+    SmackAndroid smackAndroid;
 
 
     @Override
@@ -72,6 +80,7 @@ public class NewPaymentActivity extends Activity {
 
         amountView = (EditText) findViewById(R.id.amount);
         messageForRecipientView = (EditText) findViewById(R.id.messageForRecipient);
+        smackAndroid = SmackAndroid.init(NewPaymentActivity.this);
 
     }
 
@@ -136,8 +145,14 @@ public class NewPaymentActivity extends Activity {
         }
 
         uiHelper.onResume();
+
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        uiHelper.onStop();
+    }
 
     @Override
     public void onPause() {
@@ -149,6 +164,7 @@ public class NewPaymentActivity extends Activity {
     public void onDestroy() {
         super.onDestroy();
         uiHelper.onDestroy();
+        smackAndroid.onDestroy();
     }
 
     @Override
@@ -191,15 +207,17 @@ public class NewPaymentActivity extends Activity {
         public static final String URI = "addPaymentOrder";
 
         ProgressDialog progressDialog;
+        CreatePayment createPayment;
 
         public CreatePaymentTask(Context context, CreatePayment payment) {
             super(context, URI, HttpPost.METHOD_NAME, payment, true, false);
+            this.createPayment = payment;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = ProgressDialog.show(getContext(), null, "Čekejte prosím");
+            progressDialog = ProgressDialog.show(getContext(), null, getContext().getString(R.string.waitPlease));
         }
 
         @Override
@@ -214,13 +232,43 @@ public class NewPaymentActivity extends Activity {
             payment.setCurrency(object.getString("currency"));
             payment.setNote(object.getString("note"));
             payment.setStatus(Payment.Status.valueOf(object.getInt("status")));
+
+            // TODO just becase use of mock
+            payment.setRecipientId(createPayment.getRecipientId());
+            payment.setAmount(createPayment.getAmount());
+            payment.setNote(createPayment.getNote());
             return payment;
         }
 
         @Override
-        protected void onPostExecute(AsyncTaskResult<Payment> paymentAsyncTaskResult) {
-            super.onPostExecute(paymentAsyncTaskResult);
-            progressDialog.dismiss();
+        protected void onPostExecute(AsyncTaskResult<Payment> result) {
+            super.onPostExecute(result);
+            if (result.getStatus().equals(AsyncTaskResult.Status.OK)) {
+                SendFBMessageTask sendFBMessageTask = new SendFBMessageTask(getContext(), progressDialog, new OnTaskCompleteListener<Void>() {
+                    @Override
+                    public void onTaskComplete(Void aVoid) {
+                        // TODO
+                        Toast.makeText(getContext(), "Platba uspesne odeslana", Toast.LENGTH_LONG).show();
+                        ((Activity) getContext()).finishActivity(0);
+                    }
+
+                    @Override
+                    public void onTaskError(Throwable throwable) {
+                        Log.e(TAG, "Error while sending message to FB", throwable);
+                        Utils.showMessage(getContext(), R.string.sendFBMessageError, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // TODO handle this use case
+                                ((Activity) getContext()).finishActivity(0);
+                            }
+                        });
+                    }
+                });
+                sendFBMessageTask.execute(result.getResult());
+            }
+            else {
+                Utils.showErrorDialog(getContext(), result);
+            }
         }
     }
 
