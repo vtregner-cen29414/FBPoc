@@ -1,6 +1,7 @@
 package cz.csas.startup.FBPoc;
 
 import android.app.Application;
+import android.util.Log;
 import com.facebook.model.GraphUser;
 import cz.csas.startup.FBPoc.model.Account;
 import cz.csas.startup.FBPoc.model.Payment;
@@ -65,5 +66,14 @@ public class Friends24Application extends Application {
 
     public void setAuthHeader(String authHeader) {
         this.authHeader = authHeader;
+    }
+
+    public Account getAccount(Long id) {
+        if (accounts != null) {
+            for (Account account : accounts) {
+                if (account.getId().equals(id)) return account;
+            }
+        }
+        return null;
     }
 }

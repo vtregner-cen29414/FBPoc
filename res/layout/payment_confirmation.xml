@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:facebook="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/homepage_background"
+              android:gravity="center_horizontal">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="vertical"
+                  android:background="@color/back_blue"
+                  android:layout_width="match_parent"
+                  android:layout_height="72dp"
+                  android:gravity="center"  >
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Osobní účet - 12 546 Kč"
+                android:id="@+id/accountRow1"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="123123/0800"
+                android:textColor="#8E8E8E"
+                android:id="@+id/accountRow2"
+                />
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/for_white">
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/confirmation"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="12dp"
+                android:background="@color/back_blue"
+                android:textColor="@color/for_white"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/payment_confirm_1"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"/>
+
+
+            <!--<ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@id/pickFriend"
+                    android:src="@drawable/pick_friend"/>-->
+
+            <com.facebook.widget.ProfilePictureView
+                    android:id="@+id/recipient_pic"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal"
+                    facebook:preset_size="small"
+                    />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recipent_name"
+                    android:text="Kamila"
+                    android:textColor="@color/gray_input_text"
+                    android:gravity="center_horizontal"/>
+
+
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/payment_confirm_2"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"/>
+
+
+    </LinearLayout>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnNewPayment"
+            android:text="@string/new_payment_link"
+            android:layout_gravity="center_horizontal"
+            android:drawableLeft="@drawable/newpayment"
+            android:textColor="@color/gray_input_text"
+            android:gravity="center_vertical"
+            android:layout_marginTop="20dp"
+            android:clickable="true"
+            android:onClick="onNewPayment"/>
+
+
+</LinearLayout>

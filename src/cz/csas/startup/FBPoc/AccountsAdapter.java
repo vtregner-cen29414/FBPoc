@@ -50,15 +50,23 @@ public class AccountsAdapter extends ArrayAdapter<Account> {
         }
         else holder = (AccountHolder) convertView.getTag();
 
-        StringBuilder a = new StringBuilder();
         Account account = getItem(position);
 
-        if (account.getPrefix() != null) a.append(account.getPrefix()).append("-");
-        a.append(account.getNumber()).append("/0800");
-        holder.accountRow2.setText(a.toString());
-        holder.accountRow1.setText(account.getType() + " - " + account.getBalance() + account.getCurrency());
+        holder.accountRow2.setText(getAccountRow2(account));
+        holder.accountRow1.setText(getAccountRow1(account));
 
         return convertView;
+    }
+
+    public static String getAccountRow2(Account account) {
+        StringBuilder a = new StringBuilder();
+        if (account.getPrefix() != null) a.append(account.getPrefix()).append("-");
+        a.append(account.getNumber()).append("/0800");
+        return a.toString();
+    }
+
+    public static String getAccountRow1(Account account) {
+        return account.getType() + " - " + account.getBalance() + account.getCurrency();
     }
 
     static class AccountHolder {

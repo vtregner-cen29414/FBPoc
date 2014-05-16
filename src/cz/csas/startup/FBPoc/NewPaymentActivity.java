@@ -237,19 +237,21 @@ public class NewPaymentActivity extends Activity {
             payment.setRecipientId(createPayment.getRecipientId());
             payment.setAmount(createPayment.getAmount());
             payment.setNote(createPayment.getNote());
+            payment.setSenderAccount(createPayment.getSenderAccount());
             return payment;
         }
 
         @Override
-        protected void onPostExecute(AsyncTaskResult<Payment> result) {
+        protected void onPostExecute(final AsyncTaskResult<Payment> result) {
             super.onPostExecute(result);
             if (result.getStatus().equals(AsyncTaskResult.Status.OK)) {
                 SendFBMessageTask sendFBMessageTask = new SendFBMessageTask(getContext(), progressDialog, new OnTaskCompleteListener<Void>() {
                     @Override
                     public void onTaskComplete(Void aVoid) {
-                        // TODO
-                        Toast.makeText(getContext(), "Platba uspesne odeslana", Toast.LENGTH_LONG).show();
-                        ((Activity) getContext()).finishActivity(0);
+                        Intent intent = new Intent(getContext(), PaymentConfirmationActivity.class);
+                        intent.putExtra("data", result.getResult());
+                        startActivity(intent);
+                        finish();
                     }
 
                     @Override
@@ -259,7 +261,7 @@ public class NewPaymentActivity extends Activity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // TODO handle this use case
-                                ((Activity) getContext()).finishActivity(0);
+                                finish();
                             }
                         });
                     }

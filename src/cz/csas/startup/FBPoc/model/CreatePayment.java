@@ -4,12 +4,13 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
  * Created by cen29414 on 15.5.2014.
  */
-public class CreatePayment {
+public class CreatePayment implements Serializable {
     private String recipientId;
     private String recipientName;
     private BigDecimal amount;

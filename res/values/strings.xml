@@ -39,6 +39,10 @@
     <string name="recipientError">Vyberte příjemnce</string>
     <string name="waitPlease">Čekejte prosím</string>
     <string name="sendFBMessageError">Chyba při posílání zprávy na Facebook</string>
+    <string name="confirmation">POTVRZENÍ</string>
+    <string name="payment_confirm_1">Vašemu příteli</string>
+    <string name="payment_confirm_2">byl zaslán požadavek na přijetí\n platby. Stav platby si můžete\n kdykoliv zkontrolovat v aplikaci\n Friends24 nebo Servis24</string>
+    <string name="new_payment_link"><u>NOVÁ PLATBA</u></string>
 
 
 </resources>

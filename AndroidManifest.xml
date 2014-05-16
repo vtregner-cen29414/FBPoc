@@ -24,6 +24,8 @@
                   android:label="@string/app_name" />
         <activity android:name=".NewPaymentActivity"
                   android:label="@string/app_name" />
+        <activity android:name=".PaymentConfirmationActivity"
+                  android:label="@string/app_name" />
         <activity android:name=".LoginActivity"
                   android:theme="@android:style/Theme.Holo.NoActionBar">
             <intent-filter>

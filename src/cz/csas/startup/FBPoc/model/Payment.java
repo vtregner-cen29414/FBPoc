@@ -1,12 +1,13 @@
 package cz.csas.startup.FBPoc.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
 /**
  * Created by cen29414 on 9.5.2014.
  */
-public class Payment extends CreatePayment {
+public class Payment extends CreatePayment implements Serializable {
     private String id;
     private Status status;
     private Date paymentDate;
