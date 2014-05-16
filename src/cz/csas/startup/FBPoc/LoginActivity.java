@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ScaleDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -45,6 +47,14 @@ public class LoginActivity extends Activity {
         final TextView password = (TextView) findViewById(R.id.loginPassword);
         final Button loginButton = (Button) findViewById(R.id.btnLogin);
         loginButton.setEnabled(false);
+        // Fix level of existing drawables
+        Drawable[] drawables = loginButton.getCompoundDrawables();
+        for (Drawable d : drawables) if (d != null && d instanceof ScaleDrawable) {
+            d.setLevel(1);
+            //((ScaleDrawable)d).getIntrinsicHeight()
+        }
+        loginButton.setCompoundDrawables(drawables[0], drawables[1], drawables[2], drawables[3]);
+
         TextWatcher watcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -58,6 +59,8 @@ public class NewPaymentActivity extends Activity {
         setContentView(R.layout.new_payment);
 
         recipientName = (TextView) findViewById(R.id.recipent_name);
+        recipientName.setText(Html.fromHtml(getString(R.string.selectRecipient)));
+
         recipientPicture = (ProfilePictureView) findViewById(R.id.recipient_pic);
         recipientPicture.setCropped(true);
 

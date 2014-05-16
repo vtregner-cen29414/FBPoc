@@ -127,7 +127,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/recipent_name"
-                            android:text="Zvolte příjemce"
+                            android:text="@string/new_payment_link"
                             android:textColor="@color/gray_input_text"
                             android:layout_marginLeft="5dp"
                             android:layout_gravity="center_vertical"/>
