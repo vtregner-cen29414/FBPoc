@@ -1,8 +1,6 @@
 package cz.csas.startup.FBPoc;
 
 import android.app.Activity;
-import android.app.ListActivity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,7 +28,6 @@ import java.util.List;
 public class PaymentsActivity extends Activity {
     private static final String TAG = "Friends24";
 
-    //PaymentsAdapter paymentsAdapter;
     ExpandablePaymentsAdapter paymentsAdapter;
 
     @Override
@@ -121,7 +118,7 @@ public class PaymentsActivity extends Activity {
                 payment.setRecipientName(jpayment.getString("recipientName"));
                 payment.setAmount(new BigDecimal(jpayment.getString("amount")));
                 payment.setCurrency(jpayment.getString("currency"));
-                if (jpayment.has("note")) payment.setNote(jpayment.getString("note"));
+                if (!jpayment.isNull("note")) payment.setNote(jpayment.getString("note"));
                 payment.setPaymentDate(new Date(jpayment.getLong("created")));
                 payment.setStatus(Payment.Status.valueOf(jpayment.getInt("status")));
 

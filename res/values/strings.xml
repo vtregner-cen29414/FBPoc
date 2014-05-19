@@ -46,4 +46,8 @@
     <string name="fb_message_accout_not_known">Váš přítel Vám posílá peníze. Klikněte na odkaz níže, kde doplníte číslo Vašeho účtu.</string>
     <string name="fb_message_account_known">Váš přítel Vám posílá peníze. Pokud si přejete pro budoucí platby změnit číslo účtu, klikněte na odkaz níže.</string>
     <string name="selectRecipient"><![CDATA[<u>Zvolte příjemce</u>]]></string>
+    <string name="newCollection">Nová sbírka</string>
+    <string name="collectionHistory">HISTORIE SBÍREK</string>
+    <string name="collectionLinkInfo">Více info</string>
+    <string name="notify">Připomenout</string>
 </resources>

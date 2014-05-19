@@ -12,36 +12,21 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Poznamka"
+            android:text="dárek pro Ivetu"
+            android:id="@+id/collectionName"
+            android:textAppearance="@android:style/TextAppearance.Medium"
+            android:textColor="@color/grey"
             android:layout_marginLeft="12dp"
-            android:id="@+id/messageForRecipient"
-            android:textColor="@color/cell_text"
             android:layout_weight="1"
             android:layout_gravity="center_vertical"/>
 
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="125 CZK"
-            android:id="@+id/paymentAmount"
-            android:textAppearance="@android:style/TextAppearance.Medium"
-            android:textColor="@color/cell_text"
-            android:textStyle="bold"
-            android:gravity="right"
-            android:layout_weight="0"
-            android:layout_gravity="center_vertical"/>
-
     <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:id="@+id/paymentStatus"
+            android:id="@+id/collectionProgress"
             android:src="@drawable/paymentaccepted"
             android:layout_weight="0"
             android:layout_marginLeft="12dp"
             android:layout_gravity="center_vertical"/>
-
-
-
-
 </LinearLayout>

@@ -60,11 +60,7 @@ public class HomeActivity extends Activity {
         //adapter = new AccountsAdapter(this, R.layout.account_row);
         Friends24Application application = (Friends24Application) getApplication();
         if (application.getAccounts() != null) {
-            //adapter.setData(application.getAccounts());
             appendAccountsView(application.getAccounts());
-        }
-        else {
-            //new GetAccountsTask(this).execute();
         }
 
         //setListAdapter(adapter);
@@ -169,12 +165,16 @@ public class HomeActivity extends Activity {
         uiHelper.onSaveInstanceState(outState);
     }
 
-    public void onNewPayment(View view) {
+    public void onPayments(View view) {
+        ((Friends24Application) getApplication()).setPayments(null);
         Intent intent = new Intent(this, PaymentsActivity.class);
         startActivity(intent);
     }
 
-    public void onNewCollection(View view) {
+    public void onCollections(View view) {
+        ((Friends24Application) getApplication()).setCollections(null);
+        Intent intent = new Intent(this, CollectionsActivity.class);
+        startActivity(intent);
     }
 
 

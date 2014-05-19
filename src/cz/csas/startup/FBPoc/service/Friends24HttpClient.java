@@ -1,10 +1,12 @@
 package cz.csas.startup.FBPoc.service;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 import cz.csas.startup.FBPoc.Friends24Application;
+import cz.csas.startup.FBPoc.LoginActivity;
 import cz.csas.startup.FBPoc.R;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
@@ -100,19 +102,20 @@ public class Friends24HttpClient<REQ, RES> {
 
             if (doAuthorization) {
                 Friends24Application application = (Friends24Application) context.getApplicationContext();
-                httpReq.addHeader("Authorization", application.getAuthHeader());
+                if (application.getAuthHeader() != null) {
+                    httpReq.addHeader("Authorization", application.getAuthHeader());
+                }
+                else {
+                    Intent intent = new Intent(context, LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    context.startActivity(intent);
+                    return new AsyncTaskResult<RES>(AsyncTaskResult.Status.OTHER_ERROR);
+                }
             }
             HttpClient client = getNewHttpClient();
             HttpResponse response = client.execute(httpReq);
             int statusCode = response.getStatusLine().getStatusCode();
             Log.d(TAG, "Response status code:" + statusCode + "/" + response.getStatusLine().getReasonPhrase());
-            /*
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            response.getEntity().writeTo(outputStream);
-            String responseContent = new String(outputStream.toByteArray(), HTTP.UTF_8);
-            Log.d(TAG, "Response received:");
-            Log.d(TAG, responseContent);
-            */
 
             switch (statusCode) {
                 case HttpStatus.SC_OK:

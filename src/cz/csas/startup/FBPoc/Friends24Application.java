@@ -1,9 +1,9 @@
 package cz.csas.startup.FBPoc;
 
 import android.app.Application;
-import android.util.Log;
 import com.facebook.model.GraphUser;
 import cz.csas.startup.FBPoc.model.Account;
+import cz.csas.startup.FBPoc.model.Collection;
 import cz.csas.startup.FBPoc.model.Payment;
 
 import java.util.List;
@@ -18,6 +18,7 @@ public class Friends24Application extends Application {
     private GraphUser fbUser;
     private boolean appLogged;
     private Map<Account, List<Payment>> payments;
+    private Map<Account, List<Collection>> collections;
     private String authHeader;
 
     public List<GraphUser> getSelectedFrieds() {
@@ -75,5 +76,13 @@ public class Friends24Application extends Application {
             }
         }
         return null;
+    }
+
+    public Map<Account, List<Collection>> getCollections() {
+        return collections;
+    }
+
+    public void setCollections(Map<Account, List<Collection>> collections) {
+        this.collections = collections;
     }
 }

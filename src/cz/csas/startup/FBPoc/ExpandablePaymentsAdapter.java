@@ -96,10 +96,26 @@ public class ExpandablePaymentsAdapter extends BaseExpandableListAdapter {
         else holder = (PaymentHolder) convertView.getTag();
 
         Payment payment = (Payment) getGroup(groupPosition);
-        holder.recipientNameView.setText(payment.getShortRecipentName());
+        holder.recipientNameView.setText(!isExpanded ? payment.getShortRecipentName() : payment.getRecipientName());
+
         holder.amountView.setText(payment.getAmount() + " " + payment.getCurrency());
+        holder.amountView.setVisibility(isExpanded ? View.GONE : View.VISIBLE);
+
         SimpleDateFormat sfd = new SimpleDateFormat("dd.MM.");
         if (payment.getPaymentDate() != null) holder.paymentDate.setText(sfd.format(payment.getPaymentDate()));
+
+        fillStatus(holder, payment);
+
+        holder.statusView.setVisibility(isExpanded ? View.GONE : View.VISIBLE);
+
+        setRowMarker(groupPosition, holder);
+
+
+
+        return convertView;
+    }
+
+    private void fillStatus(PaymentHolder holder, Payment payment) {
         if (payment.getStatus() == Payment.Status.PENDING) {
             holder.statusView.setImageDrawable(getContext().getResources().getDrawable(R.drawable.paymentpending));
         }
@@ -113,12 +129,6 @@ public class ExpandablePaymentsAdapter extends BaseExpandableListAdapter {
             Log.e(TAG, "Unexpected payment type: " + payment.getStatus());
             holder.statusView.setImageDrawable(null);
         }
-
-        setRowMarker(groupPosition, holder);
-
-
-
-        return convertView;
     }
 
     private void setRowMarker(int groupPosition, PaymentHolder holder) {
@@ -132,17 +142,19 @@ public class ExpandablePaymentsAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             convertView = layoutInflater.inflate(childLayoutId, parent, false);
             holder = new PaymentHolder();
-            holder.recipientNameView = (TextView) convertView.findViewById(R.id.recipientName);
             holder.note = (TextView) convertView.findViewById(R.id.messageForRecipient);
             holder.rowMarker  = convertView.findViewById(R.id.rowMarkColor);
+            holder.amountView = (TextView) convertView.findViewById(R.id.paymentAmount);
+            holder.statusView = (ImageView) convertView.findViewById(R.id.paymentStatus);
             convertView.setTag(holder);
 
         }
         else holder = (PaymentHolder) convertView.getTag();
 
         Payment payment = (Payment) getGroup(groupPosition);
-        holder.recipientNameView.setText(payment.getRecipientName());
         holder.note.setText(payment.getNote() != null ? payment.getNote() : "");
+        holder.amountView.setText(payment.getAmount() + " " + payment.getCurrency());
+        fillStatus(holder, payment);
 
         setRowMarker(groupPosition, holder);
 
