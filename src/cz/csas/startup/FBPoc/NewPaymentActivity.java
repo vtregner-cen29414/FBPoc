@@ -237,7 +237,7 @@ public class NewPaymentActivity extends Activity {
             payment.setRecipientId(object.getString("recipientId"));
             payment.setRecipientName(object.getString("recipientName"));
             payment.setAmount(new BigDecimal(object.getString("amount")));
-            payment.setCurrency(object.getString("currency"));
+            payment.setCurrency(Utils.getCurrencyDesc(getContext(), object.getString("currency")));
             payment.setNote(object.getString("note"));
             payment.setStatus(Payment.Status.valueOf(object.getInt("status")));
 

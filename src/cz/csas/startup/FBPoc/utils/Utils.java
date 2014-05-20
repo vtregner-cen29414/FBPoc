@@ -135,5 +135,19 @@ public class Utils {
 
     }
 
+    public static String getCurrencyDesc(Context context, String currency) {
+        if ("CZK".equals(currency)) {
+            return context.getString(R.string.CZK);
+        }
+        else return currency;
+    }
+
+    public static String getShortFacebookName(String name) {
+        String[] split = name.split("\\s");
+        String shortName = split[0];
+        if (split.length > 1) shortName = shortName + " " + split[1].charAt(0) + ".";
+        return shortName;
+    }
+
 
 }

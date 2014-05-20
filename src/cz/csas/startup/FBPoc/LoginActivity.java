@@ -217,7 +217,7 @@ public class LoginActivity extends Activity {
                     account.setType("Spořící účet");
                 }
 
-                account.setCurrency(jaccount.getString("currency"));
+                account.setCurrency(Utils.getCurrencyDesc(getContext(), jaccount.getString("currency")));
                 account.setBalance(new BigDecimal(jaccount.getString("balance")));
                 accounts.add(account);
             }

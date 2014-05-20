@@ -54,6 +54,7 @@ public class Friends24HttpClient<REQ, RES> {
     private JsonResponseParser<RES> responseParser;
     private boolean doAuthorization = true;
     private boolean followRedirect = false;
+    private boolean binaryResponse = false;
 
 
     public Friends24HttpClient(Context context, String uri, String httpMethod, REQ jsonReq, JsonResponseParser<RES> responseParser, boolean followRedirect) {
@@ -63,6 +64,14 @@ public class Friends24HttpClient<REQ, RES> {
         this.responseParser = responseParser;
         this.followRedirect = followRedirect;
         setUri(uri);
+    }
+
+    public boolean isBinaryResponse() {
+        return binaryResponse;
+    }
+
+    public void setBinaryResponse(boolean binaryResponse) {
+        this.binaryResponse = binaryResponse;
     }
 
     public void setUri(String uri) {
@@ -129,17 +138,26 @@ public class Friends24HttpClient<REQ, RES> {
 
                     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
                     response.getEntity().writeTo(outputStream);
-                    String responseContent = new String(outputStream.toByteArray(), HTTP.UTF_8);
-                    Log.d(TAG, "Response received:");
-                    Log.d(TAG, responseContent);
+                    String responseContent = null;
+                    if (!binaryResponse) {
+                        responseContent = new String(outputStream.toByteArray(), HTTP.UTF_8);
+                        Log.d(TAG, "Response received:");
+                        Log.d(TAG, responseContent);
+                    }
+
                     if (status == AsyncTaskResult.Status.OK_REDIRECT) {
                         return new AsyncTaskResult<RES>(status, response.getHeaders("Location")[0].getValue());
                     }
                     else if (responseParser != null) {
                         JSONObject r = new JSONObject(responseContent);
                         return new AsyncTaskResult<RES>(status, responseParser.parseResponseObject(r));
-                    } else
+                    }
+                    else if (binaryResponse) {
+                        return new AsyncTaskResult<RES>(status, (RES) outputStream.toByteArray());
+                    }
+                    else {
                         return new AsyncTaskResult<RES>(status);
+                    }
                 case HttpStatus.SC_UNAUTHORIZED:
                     Header reason = response.getFirstHeader("reason");
                     status = AsyncTaskResult.Status.OTHER_ERROR;

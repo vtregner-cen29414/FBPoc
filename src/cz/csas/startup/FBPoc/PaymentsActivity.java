@@ -117,7 +117,7 @@ public class PaymentsActivity extends Activity {
                 payment.setRecipientId(jpayment.getString("recipientId"));
                 payment.setRecipientName(jpayment.getString("recipientName"));
                 payment.setAmount(new BigDecimal(jpayment.getString("amount")));
-                payment.setCurrency(jpayment.getString("currency"));
+                payment.setCurrency(Utils.getCurrencyDesc(getContext(), jpayment.getString("currency")));
                 if (!jpayment.isNull("note")) payment.setNote(jpayment.getString("note"));
                 payment.setPaymentDate(new Date(jpayment.getLong("created")));
                 payment.setStatus(Payment.Status.valueOf(jpayment.getInt("status")));

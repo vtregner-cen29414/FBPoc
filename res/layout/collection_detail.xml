@@ -1,131 +1,254 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:facebook="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/homepage_background"
-              android:gravity="center_horizontal">
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:orientation="vertical"
-                  android:background="@color/back_blue"
-                  android:layout_width="match_parent"
-                  android:layout_height="72dp"
-                  android:gravity="center"  >
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Osobní účet - 12 546 Kč"
-                android:id="@+id/accountRow1"
-                android:textColor="#ffffff"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="123123/0800"
-                android:textColor="#8E8E8E"
-                android:id="@+id/accountRow2"
-                />
-    </LinearLayout>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:facebook="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
     <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="20dp"
-            android:background="@color/for_white">
+            android:background="@color/homepage_background"
+            android:gravity="center_horizontal">
 
-        <TextView
-                android:id="@+id/collectionHeader1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="KOLOBĚŽKA PRO VIKTORA"
-                android:paddingTop="12dp"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:background="@color/back_blue"
-                android:textColor="@color/for_white"/>
 
-        <TextView
-                android:id="@+id/collectionHeader2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:paddingBottom="12dp"
-                android:text="7000 Kč do 12.5.2014"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:background="@color/back_blue"
-                android:textColor="@color/collectionHeader2"/>
-
-        <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="12dp">
-
-            <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/collectionImage"
-                    android:src="@drawable/collectiondetail"
-                    android:background="@drawable/blue_border"
-                    android:maxHeight="96dp"
-                    android:padding="1dp"
-                    android:adjustViewBounds="true"/>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:orientation="vertical"
+                      android:background="@color/back_blue"
+                      android:layout_width="match_parent"
+                      android:layout_height="72dp"
+                      android:gravity="center">
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="KBike K6 kolobka na 25. narozky pro našeho Viktora."
-                    android:id="@+id/collectionDescription"
-                    android:layout_alignParentTop="true"
-                    android:layout_toRightOf="@+id/collectionImage"
+                    android:text="Osobní účet - 12 546 Kč"
+                    android:id="@+id/accountRow1"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="123123/0800"
+                    android:textColor="#8E8E8E"
+                    android:id="@+id/accountRow2"
+                    />
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/for_white">
+
+            <TextView
+                    android:id="@+id/collectionHeader1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="KOLOBĚŽKA PRO VIKTORA"
+                    android:paddingTop="12dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:background="@color/back_blue"
+                    android:textColor="@color/for_white"/>
+
+            <TextView
+                    android:id="@+id/collectionHeader2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:paddingBottom="12dp"
+                    android:text="7000 Kč do 12.5.2014"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:background="@color/back_blue"
+                    android:textColor="@color/collectionHeader2"/>
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="12dp"
-                    android:layout_marginRight="12dp"/>
+                    android:layout_marginTop="12dp">
+
+                <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/collectionImageContainer">
+
+                    <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/collectionImage"
+                            android:src="@drawable/collectiondetail"
+                            android:maxHeight="96dp"
+                            android:padding="1dp"
+                            android:adjustViewBounds="true"
+                            android:background="@drawable/gray_border"
+                            android:baselineAlignBottom="false"
+                            android:cropToPadding="false"
+                            android:maxWidth="96dp"
+                            android:onClick="onImageDetail"/>
+
+                    <ProgressBar
+                            android:layout_width="96dp"
+                            android:layout_height="96dp"
+                            android:background="@drawable/gray_border"
+                            android:id="@+id/imageProgressBar"/>
+
+                </FrameLayout>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="KBike K6 kolobka na 25. narozky pro našeho Viktora."
+                        android:id="@+id/collectionDescription"
+                        android:layout_alignParentTop="true"
+                        android:layout_toRightOf="@+id/collectionImageContainer"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/collectionLinkInfo"
+                        android:id="@+id/collectionLink"
+                        android:layout_below="@+id/collectionDescription"
+                        android:layout_alignLeft="@+id/collectionDescription"/>
+
+            </RelativeLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_margin="15dp"
+                    android:layerType="software"
+                    android:background="@drawable/dashed_line_1"
+                    />
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/collectionLinkInfo"
-                    android:id="@+id/collectionLink"
-                    android:layout_below="@+id/collectionDescription"
-                    android:layout_alignLeft="@+id/collectionDescription"/>
+                    android:text="Vybráno"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="12dp"/>
 
-        </RelativeLayout>
+            <ProgressBar
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="12dp"
+                    android:progressDrawable="@drawable/greenprogressbar"
+                    android:background="@drawable/gray_rect_1"
+                    android:id="@+id/progressBar"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:max="100"
+                    android:progress="40"
+                    android:indeterminate="false"/>
 
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_margin="20dp"
-                android:layerType="software"
-                android:background="@drawable/dashed_line_1"
-                />
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center_horizontal">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1655 Kč"
+                        android:id="@+id/currentAmount"
+                        android:textColor="@color/back_light_blue"
+                        android:layout_marginRight="5dp"
+                        android:textStyle="bold"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="z 7000 Kč"
+                        android:id="@+id/targetAmount"/>
+
+            </LinearLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_margin="15dp"
+                    android:layerType="software"
+                    android:background="@drawable/dashed_line_1"
+                    />
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="12dp">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Účastníci"
+                        android:layout_marginRight="2dp"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="(x)"
+                        android:id="@+id/numberOfParticipants"
+                        android:textColor="@color/gray_input_text"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/participantList"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/gray_rect_1"
+                    android:showDividers="middle"
+                    android:divider="@drawable/horizontal_divider_1"
+                    >
+
+            </LinearLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_margin="15dp"
+                    android:layerType="software"
+                    android:background="@drawable/dashed_line_1"
+                    />
+
+            <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/RedButton"
+                    android:text="@string/notify"
+                    android:id="@+id/btnNotify"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/for_white"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="48dp"
+                    android:layout_marginRight="48dp"
+                    android:layout_marginBottom="12dp"
+                    android:onClick="onNotify"
+                    android:clickable="true"/>
+
+
+
+        </LinearLayout>
 
 
     </LinearLayout>
 
-    <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            style="@style/RedButton"
-            android:text="@string/notify"
-            android:id="@+id/btnNotify"
-            android:layout_gravity="center_horizontal"
-            android:textColor="@color/for_white"
-            android:layout_marginTop="24dp"
-            android:layout_marginLeft="48dp"
-            android:layout_marginRight="48dp"
-            android:onClick="onNotify"
-            android:clickable="true"/>
-
-
-</LinearLayout>
+</ScrollView>

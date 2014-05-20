@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:facebook="http://schemas.android.com/apk/res-auto"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <View   android:id="@+id/rowMarkColor"
+            android:layout_width="4dp"
+            android:layout_height="match_parent"
+            android:background="@color/cell_odd" />
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp">
+
+
+
+        <com.facebook.widget.ProfilePictureView
+                android:id="@+id/participantPic"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center_horizontal"
+                android:layout_marginRight="10dp"
+                facebook:preset_size="small" />
+        <!--<ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/participantPic"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_launcher"/>-->
+        <TextView
+                android:id="@+id/participantName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ANASTÁZIE K."
+                android:layout_gravity="center_vertical"/>
+
+    </LinearLayout>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="125 CZK"
+            android:id="@+id/amount"
+            android:textAppearance="@android:style/TextAppearance.Medium"
+            android:textColor="@color/cell_text"
+            android:textStyle="bold"
+            android:gravity="right"
+            android:layout_weight="0"
+            android:layout_gravity="center_vertical"/>
+
+    <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/participantStatus"
+            android:src="@drawable/paymentaccepted"
+            android:layout_weight="0"
+            android:layout_marginLeft="12dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="5dp"/>
+
+</LinearLayout>

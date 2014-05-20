@@ -36,7 +36,7 @@ public class AsyncTask<Params, Progress, Result> extends android.os.AsyncTask<Pa
         return null;
     }
 
-    public Friends24HttpClient<Params, Result> getFriends24HttpClient() {
+    public Friends24HttpClient<Params, Result> getHttpClient() {
         return friends24HttpClient;
     }
 

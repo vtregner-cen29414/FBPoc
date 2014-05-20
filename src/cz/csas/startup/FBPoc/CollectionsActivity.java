@@ -69,7 +69,7 @@ public class CollectionsActivity extends ListActivity {
 
         collectionsAdapter = new CollectionsAdapter(this, R.layout.collection_row);
         setListAdapter(collectionsAdapter);
-        getListView().addHeaderView(getLayoutInflater().inflate(R.layout.collection_list_header, null));
+        getListView().addHeaderView(getLayoutInflater().inflate(R.layout.collection_list_header, null), null, false);
         if (application.getCollections() == null) {
             application.setCollections(new HashMap<Account, List<Collection>>(application.getAccounts().size()));
             for (Account account : application.getAccounts()) {
@@ -114,7 +114,7 @@ public class CollectionsActivity extends ListActivity {
                 collection.setDueDate(new Date(jcollection.getLong("dueDate")));
                 collection.setCollectionAccount(jcollection.getLong("collectionAccount"));
                 collection.setTargetAmount(new BigDecimal(jcollection.getString("targetAmount")));
-                collection.setCurrency(jcollection.getString("currency"));
+                collection.setCurrency(Utils.getCurrencyDesc(getContext(), jcollection.getString("currency")));
                 collection.setName(jcollection.getString("name"));
                 if (!jcollection.isNull("description")) collection.setDescription(jcollection.getString("description"));
 
@@ -122,6 +122,8 @@ public class CollectionsActivity extends ListActivity {
                     byte[] bytes = Base64.decode(jcollection.getString("image"), Base64.NO_WRAP);
                     collection.setImage(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
                 }
+
+                collection.setHasImage(jcollection.getBoolean("hasImage"));
 
                 if (jcollection.has("link")) collection.setLink(jcollection.getString("link"));
 

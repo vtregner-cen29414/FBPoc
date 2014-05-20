@@ -20,6 +20,7 @@ public class Collection implements Parcelable {
     private String currency;
     private String description;
     private Bitmap image;
+    private boolean hasImage;
     private String link;
     private Date dueDate;
     private Date created;
@@ -122,6 +123,38 @@ public class Collection implements Parcelable {
         this.currency = currency;
     }
 
+    public boolean isHasImage() {
+        return hasImage;
+    }
+
+    public void setHasImage(boolean hasImage) {
+        this.hasImage = hasImage;
+    }
+
+    public BigDecimal getCurrentCollectedAmount() {
+        BigDecimal sum = BigDecimal.ZERO;
+        if (getFbParticipants() != null) {
+            for (FacebookCollectionParticipant participant : fbParticipants) {
+                if (participant.getStatus().equals(CollectionParticipant.Status.DONE)) {
+                    sum = sum.add(participant.getAmount());
+                }
+            }
+            for (EmailCollectionParticipant participant : emailParticipants) {
+                if (participant.getStatus().equals(CollectionParticipant.Status.DONE)) {
+                    sum = sum.add(participant.getAmount());
+                }
+            }
+        }
+        return sum;
+    }
+
+    public int getNumberOfParticipants() {
+        int num = 0;
+        if (getFbParticipants() != null) num += getFbParticipants().size();
+        if (getEmailParticipants() != null) num += getEmailParticipants().size();
+        return num;
+    }
+
 
     @Override
     public int describeContents() {
@@ -142,6 +175,7 @@ public class Collection implements Parcelable {
         dest.writeLong(created != null ? created.getTime() : -1);
         dest.writeTypedList(fbParticipants);
         dest.writeTypedList(emailParticipants);
+        dest.writeByte(hasImage ? (byte)1 : 0);
     }
 
     public Collection() {
@@ -164,6 +198,7 @@ public class Collection implements Parcelable {
         emailParticipants = new ArrayList<EmailCollectionParticipant>();
         in.readTypedList(fbParticipants, FacebookCollectionParticipant.CREATOR);
         in.readTypedList(emailParticipants, EmailCollectionParticipant.CREATOR);
+        this.hasImage = in.readByte() == 1;
     }
 
     public static Parcelable.Creator<Collection> CREATOR = new Parcelable.Creator<Collection>() {
