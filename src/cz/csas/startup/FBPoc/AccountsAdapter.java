@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import cz.csas.startup.FBPoc.model.Account;
@@ -34,7 +35,11 @@ public class AccountsAdapter extends ArrayAdapter<Account> {
 
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
-        return getView(position, convertView, parent);
+        View view = getView(position, convertView, parent);
+        final float scale = getContext().getResources().getDisplayMetrics().density;
+        // set height if dropdown item to 96dp
+        view.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int)(96*scale+0.5f)));
+        return view;
     }
 
     @Override

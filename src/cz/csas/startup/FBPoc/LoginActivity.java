@@ -19,6 +19,7 @@ import com.facebook.model.GraphUser;
 import cz.csas.startup.FBPoc.model.Account;
 import cz.csas.startup.FBPoc.service.AsyncTask;
 import cz.csas.startup.FBPoc.service.AsyncTaskResult;
+import cz.csas.startup.FBPoc.utils.FontsOverride;
 import cz.csas.startup.FBPoc.utils.Utils;
 import org.apache.http.client.methods.HttpGet;
 import org.json.JSONArray;
@@ -43,6 +44,9 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+
+        FontsOverride.setDefaultFont(this, "MONOSPACE", "fonts/Gotham-Medium.otf");
+
         final TextView username = (TextView) findViewById(R.id.loginUsername);
         final TextView password = (TextView) findViewById(R.id.loginPassword);
         final Button loginButton = (Button) findViewById(R.id.btnLogin);

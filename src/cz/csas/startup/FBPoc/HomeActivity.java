@@ -1,5 +1,6 @@
 package cz.csas.startup.FBPoc;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -39,6 +40,13 @@ public class HomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
+
+        final ActionBar actionBar = getActionBar();
+        actionBar.setCustomView(R.layout.actionbar);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayUseLogoEnabled(false);
+        actionBar.setDisplayShowHomeEnabled(false);
 
         // Find the user's profile picture custom view
         profilePictureView = (ProfilePictureView) findViewById(R.id.currentUser_profile_pic);

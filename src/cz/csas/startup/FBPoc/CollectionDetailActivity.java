@@ -3,7 +3,6 @@ package cz.csas.startup.FBPoc;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -15,8 +14,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import com.facebook.Session;
 import com.facebook.SessionState;
@@ -27,11 +26,9 @@ import cz.csas.startup.FBPoc.service.AsyncTask;
 import cz.csas.startup.FBPoc.service.AsyncTaskResult;
 import cz.csas.startup.FBPoc.utils.Utils;
 import org.apache.http.client.methods.HttpGet;
-import org.w3c.dom.Text;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.List;
 
 /**
  * Created by cen29414 on 19.5.2014.
@@ -144,7 +141,7 @@ public class CollectionDetailActivity extends Activity {
     }
 
     private void appendParticipants(Collection collection) {
-        LinearLayout participantsList = (LinearLayout) findViewById(R.id.participantList);
+        TableLayout participantsList = (TableLayout) findViewById(R.id.participantList);
         LayoutInflater inflater = LayoutInflater.from(this);
         int row=1;
         participantsList.removeAllViews();

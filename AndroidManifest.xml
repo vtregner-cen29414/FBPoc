@@ -6,7 +6,7 @@
     <uses-sdk android:minSdkVersion="16"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <application android:label="@string/app_name" android:icon="@drawable/ic_launcher" android:theme="@android:style/Theme.Holo.Light" android:name=".Friends24Application">
+    <application android:label="@string/app_name" android:icon="@drawable/ic_launcher" android:theme="@style/Friends24Theme" android:name=".Friends24Application">
         <activity android:name=".HomeActivity"
                   android:label="@string/app_name">
             <!--<intent-filter>

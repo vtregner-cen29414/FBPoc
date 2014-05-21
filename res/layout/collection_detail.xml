@@ -15,7 +15,7 @@
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                       android:orientation="vertical"
-                      android:background="@color/back_blue"
+                      android:background="@drawable/backgroundtile"
                       android:layout_width="match_parent"
                       android:layout_height="72dp"
                       android:gravity="center">
@@ -206,7 +206,7 @@
                         android:textColor="@color/gray_input_text"/>
             </LinearLayout>
 
-            <LinearLayout
+            <!--<LinearLayout
                     android:id="@+id/participantList"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
@@ -217,9 +217,19 @@
                     android:background="@drawable/gray_rect_1"
                     android:showDividers="middle"
                     android:divider="@drawable/horizontal_divider_1"
-                    >
+                    />-->
 
-            </LinearLayout>
+            <TableLayout
+                    android:id="@+id/participantList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/gray_rect_1"
+                    android:showDividers="middle"
+                    android:divider="@drawable/horizontal_divider_1"
+                    />
 
             <View
                     android:layout_width="match_parent"

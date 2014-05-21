@@ -9,7 +9,7 @@
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:orientation="vertical"
-                  android:background="@color/back_blue"
+                  android:background="@drawable/backgroundtile"
                   android:layout_width="match_parent"
                   android:layout_height="72dp"
                   android:gravity="center"  >
