@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import com.facebook.Session;
 import com.facebook.SessionState;
@@ -77,10 +77,37 @@ public class HomeActivity extends Activity {
 
     }
 
-    private void appendAccountsView(List<Account> accounts) {
+    /*private void appendAccountsView(List<Account> accounts) {
         findViewById(R.id.progressBar).setVisibility(View.GONE);
         if (accounts.size() > 0) {
             LinearLayout accountListView = (LinearLayout) findViewById(R.id.accountList);
+            LayoutInflater inflater = LayoutInflater.from(this);
+            int row=1;
+            for (Account account : accounts) {
+                View view = inflater.inflate(R.layout.account_row, null);
+                TextView aView = (TextView) view.findViewById(R.id.accountNumber);
+                TextView aType = (TextView) view.findViewById(R.id.accountType);
+                TextView aBalance = (TextView) view.findViewById(R.id.accountBalance);
+                Drawable background = (row++%2 == 0) ? getResources().getDrawable(R.color.cell_even) : getResources().getDrawable(R.color.cell_odd);
+                view.findViewById(R.id.rowMarkColor).setBackground(background);
+
+                StringBuilder a = new StringBuilder();
+                if (account.getPrefix() != null) a.append(account.getPrefix()).append("-");
+                a.append(account.getNumber()).append("/0800");
+                aView.setText(a.toString());
+                aType.setText(account.getType());
+                aBalance.setText(account.getBalance().toString() + " " + account.getCurrency());
+                accountListView.addView(view);
+            }
+        }
+
+    }*/
+
+
+    private void appendAccountsView(List<Account> accounts) {
+        findViewById(R.id.progressBar).setVisibility(View.GONE);
+        if (accounts.size() > 0) {
+            TableLayout accountListView = (TableLayout) findViewById(R.id.accountList);
             LayoutInflater inflater = LayoutInflater.from(this);
             int row=1;
             for (Account account : accounts) {
