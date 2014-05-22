@@ -86,6 +86,10 @@ public class CollectionsActivity extends ListActivity {
     }
 
     public void onNewCollection(View view) {
+        Intent intent = new Intent(this, NewCollectionActivity.class);
+        Spinner accounts = (Spinner) findViewById(R.id.accountSelector);
+        intent.putExtra("account", accounts.getSelectedItemPosition());
+        startActivity(intent);
     }
 
     private static class GetCollectionsTask extends AsyncTask<Void, Void, List<Collection>> {

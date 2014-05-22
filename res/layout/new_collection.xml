@@ -31,8 +31,8 @@
                 android:background="@color/for_white"
                 android:measureWithLargestChild="false"
                 android:stretchColumns="1"
-                android:showDividers="middle"
-                android:divider="@drawable/dashed_line_1">
+                android:shrinkColumns="2"
+                >
 
             <TableRow
                     android:layout_height="wrap_content"
@@ -52,22 +52,36 @@
                         android:layout_margin="12dp"/>
             </TableRow>
 
+
             <TableRow>
 
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/collectionName"
                         />
 
                 <EditText
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/collectionName"
                         android:hint="Název sbírky"
+                        style="@style/AppEditText.GrayBorder"
                         android:layout_span="2"
                         android:layout_column="1"/>
+            </TableRow>
+
+            <TableRow>
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_span="3"
+                        android:layout_height="2dp"
+                        android:layout_margin="20dp"
+                        android:layerType="software"
+                        android:background="@drawable/dashed_line_1"
+                        />
             </TableRow>
 
             <TableRow
@@ -79,14 +93,15 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/amount"
-                        />
+                        android:layout_marginLeft="10dp"/>
 
                 <EditText
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        style="@style/AppEditText.GrayBorder"
                         android:inputType="numberDecimal"
-                        android:ems="10"
-                        android:id="@+id/editText"
+                        android:ems="6"
+                        android:id="@+id/amount"
                         android:layout_column="1"/>
 
                 <TextView
@@ -94,6 +109,17 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/CZK"
+                        />
+            </TableRow>
+
+            <TableRow>
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_span="3"
+                        android:layout_height="2dp"
+                        android:layout_margin="20dp"
+                        android:layerType="software"
+                        android:background="@drawable/dashed_line_1"
                         />
             </TableRow>
 
@@ -106,7 +132,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="Popis"
-                        />
+                        android:layout_marginLeft="10dp"/>
 
                 <RelativeLayout
                         android:layout_width="fill_parent"
@@ -116,6 +142,7 @@
                     <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            style="@style/AppEditText.GrayBorder"
                             android:inputType="textMultiLine"
                             android:ems="10"
                             android:id="@+id/collectionDescription"
@@ -142,6 +169,17 @@
                 </RelativeLayout>
             </TableRow>
 
+            <TableRow>
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_span="3"
+                        android:layout_height="2dp"
+                        android:layout_margin="20dp"
+                        android:layerType="software"
+                        android:background="@drawable/dashed_line_1"
+                        />
+            </TableRow>
+
             <TableRow
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent">
@@ -151,11 +189,12 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="Ukončení"
-                        />
+                        android:layout_marginLeft="10dp"/>
 
                 <EditText
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        style="@style/AppEditText.GrayBorder"
                         android:inputType="date"
                         android:ems="10"
                         android:id="@+id/collectionDueDate"
@@ -170,13 +209,25 @@
 
             </TableRow>
 
+            <TableRow>
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_span="3"
+                        android:layout_height="2dp"
+                        android:layout_margin="20dp"
+                        android:layerType="software"
+                        android:background="@drawable/dashed_line_1"
+                        />
+            </TableRow>
+
             <TableRow
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent">
 
                 <RelativeLayout
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp">
 
                     <TextView
                             android:id="@+id/fbParticipantLabel"
@@ -194,6 +245,178 @@
                             android:layout_below="@id/fbParticipantLabel"
                             android:textColor="@color/gray_input_text"/>
                 </RelativeLayout>
+
+                <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_span="2"
+                        android:gravity="center_vertical">
+
+                    <LinearLayout
+                            android:id="@+id/fbParticipants"
+                            android:orientation="horizontal"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content">
+                    </LinearLayout>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Přidat kamaráda"
+                            android:clickable="true"
+                            android:id="@+id/addFbParticipantLink"
+                            android:layout_below="@id/fbParticipants"
+                            android:layout_centerVertical="true"/>
+                </RelativeLayout>
+            </TableRow>
+
+            <TableRow>
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_span="3"
+                        android:layout_height="2dp"
+                        android:layout_margin="20dp"
+                        android:layerType="software"
+                        android:background="@drawable/dashed_line_1"
+                        />
+            </TableRow>
+
+            <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp">
+
+                    <TextView
+                            android:id="@+id/emailParticipantLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="Účastník"
+                            />
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="skrze email"
+                            android:layout_below="@id/emailParticipantLabel"
+                            android:textColor="@color/gray_input_text"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_span="2"
+                        android:gravity="center_vertical">
+
+                    <LinearLayout
+                            android:id="@+id/emailParticipants"
+                            android:orientation="horizontal"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content">
+                    </LinearLayout>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Přidat kamaráda"
+                            android:clickable="true"
+                            android:id="@+id/addEmailParticipantLink"
+                            android:layout_below="@id/emailParticipants"
+                            android:layout_centerVertical="true"
+                            />
+                </RelativeLayout>
+            </TableRow>
+
+            <TableRow>
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_span="3"
+                        android:layout_height="2dp"
+                        android:layout_margin="20dp"
+                        android:layerType="software"
+                        android:background="@drawable/dashed_line_1"
+                        />
+            </TableRow>
+
+            <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_span="3"
+                        android:layout_marginLeft="10dp">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="Přerozděleno"
+                            android:id="@+id/splittedAmountLabel"/>
+
+                    <ProgressBar
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="12dp"
+                            android:progressDrawable="@drawable/greenprogressbar"
+                            android:background="@drawable/gray_rect_1"
+                            android:id="@+id/progressBar"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginRight="12dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:max="100"
+                            android:progress="40"
+                            android:indeterminate="false"
+                            android:layout_toRightOf="@id/splittedAmountLabel"/>
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="4045 Kč z 7000 Kč"
+                            android:id="@+id/splittedAmountLabelView"
+                            android:textColor="@color/gray_input_text"
+                            android:layout_below="@id/progressBar"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignLeft="@id/progressBar"
+                            android:gravity="center_horizontal"/>
+                </RelativeLayout>
+            </TableRow>
+
+            <TableRow>
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_span="3"
+                        android:layout_height="2dp"
+                        android:layout_margin="20dp"
+                        android:layerType="software"
+                        android:background="@drawable/dashed_line_1"
+                        />
+            </TableRow>
+
+            <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_span="3"
+                        android:text="Vytvořit sbírku"
+                        android:id="@+id/btnSend"
+                        style="@style/RedButton"
+                        android:padding="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:onClick="onCreteCollection"
+                        android:layout_gravity="center_horizontal"
+                        />
             </TableRow>
 
 
