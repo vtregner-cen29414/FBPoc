@@ -73,26 +73,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="abb190a0-38a9-4be4-b69c-02871f6c8ad1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/fonts/Gotham-Bold.otf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/fonts/Gotham-Light.otf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/fonts/Gotham-Medium.otf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable/im_backgroundtile.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/utils/FontsOverride.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/layout/actionbar.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable/backgroundtile.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/values/themes.xml" />
-      <change type="DELETED" beforePath="C:\Java\android\FBPoc\res\drawable\logof24.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/AccountsAdapter.java" afterPath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/AccountsAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/CollectionDetailActivity.java" afterPath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/CollectionDetailActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/HomeActivity.java" afterPath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/HomeActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/LoginActivity.java" afterPath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/LoginActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/account_selector.xml" afterPath="$PROJECT_DIR$/res/layout/account_selector.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/collection_detail.xml" afterPath="$PROJECT_DIR$/res/layout/collection_detail.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/collection_row.xml" afterPath="$PROJECT_DIR$/res/layout/collection_row.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/home.xml" afterPath="$PROJECT_DIR$/res/layout/home.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/participants_row.xml" afterPath="$PROJECT_DIR$/res/layout/participants_row.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/payment_confirmation.xml" afterPath="$PROJECT_DIR$/res/layout/payment_confirmation.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="FBPoc.iws" />
@@ -176,8 +156,8 @@
       <file leaf-file-name="LoginActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/LoginActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.37023592" vertical-offset="306" max-vertical-offset="3825">
-              <caret line="59" column="60" selection-start-line="59" selection-start-column="60" selection-end-line="59" selection-end-column="60" />
+            <state vertical-scroll-proportion="0.5245009" vertical-offset="306" max-vertical-offset="3825">
+              <caret line="64" column="87" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -737,7 +717,7 @@
       <workItem from="1400566750782" duration="16409000" />
       <workItem from="1400587853640" duration="5537000" />
       <workItem from="1400650413196" duration="705000" />
-      <workItem from="1400659716305" duration="16227000" />
+      <workItem from="1400659716305" duration="16237000" />
     </task>
     <task id="LOCAL-00001" summary="VTR: FriendPicker">
       <created>1397823692422</created>
@@ -795,11 +775,15 @@
       <created>1400665845402</created>
       <updated>1400665845402</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="VTR">
+      <created>1400679811223</created>
+      <updated>1400679811223</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="246805000" />
+    <option name="totallyTimeSpent" value="246815000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="54" y="-8" width="1874" height="1216" extended-state="6" />
@@ -891,11 +875,11 @@
     <MESSAGE value="VTR: Chat API" />
     <MESSAGE value="VTR: Home screen" />
     <MESSAGE value="VTR: Home screen - scrolling" />
-    <MESSAGE value="VTR" />
     <MESSAGE value="VTR: new payment" />
     <MESSAGE value="VTR: new payment - FB message" />
     <MESSAGE value="VTR: vertical diverdes in account table" />
-    <option name="LAST_COMMIT_MESSAGE" value="VTR: vertical diverdes in account table" />
+    <MESSAGE value="VTR" />
+    <option name="LAST_COMMIT_MESSAGE" value="VTR" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1352,8 +1336,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/LoginActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37023592" vertical-offset="306" max-vertical-offset="3825">
-          <caret line="59" column="60" selection-start-line="59" selection-start-column="60" selection-end-line="59" selection-end-column="60" />
+        <state vertical-scroll-proportion="0.5245009" vertical-offset="306" max-vertical-offset="3825">
+          <caret line="64" column="87" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
           <folding />
         </state>
       </provider>
