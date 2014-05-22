@@ -1,13 +1,16 @@
 package cz.csas.startup.FBPoc.utils;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import cz.csas.startup.FBPoc.LoginActivity;
 import cz.csas.startup.FBPoc.R;
 import cz.csas.startup.FBPoc.service.AsyncTaskResult;
 
@@ -183,6 +186,12 @@ public class Utils {
                 } catch (Exception e) { /* Do something... */ }
             }
         }
+    }
+
+    public static void redirectToLogin(Activity context) {
+        Intent intent = new Intent(context, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
     }
 
 

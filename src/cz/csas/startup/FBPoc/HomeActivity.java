@@ -16,6 +16,7 @@ import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.ProfilePictureView;
 import cz.csas.startup.FBPoc.model.Account;
+import cz.csas.startup.FBPoc.utils.Utils;
 
 import java.util.List;
 
@@ -40,6 +41,12 @@ public class HomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
+
+        Friends24Application application = (Friends24Application) getApplication();
+        if (application.getAccounts() == null || application.getAuthHeader() == null) {
+            Utils.redirectToLogin(this);
+            return;
+        }
 
         final ActionBar actionBar = getActionBar();
         actionBar.setCustomView(R.layout.actionbar);
@@ -66,7 +73,7 @@ public class HomeActivity extends Activity {
         uiHelper.onCreate(savedInstanceState);
 
         //adapter = new AccountsAdapter(this, R.layout.account_row);
-        Friends24Application application = (Friends24Application) getApplication();
+
         if (application.getAccounts() != null) {
             appendAccountsView(application.getAccounts());
         }
