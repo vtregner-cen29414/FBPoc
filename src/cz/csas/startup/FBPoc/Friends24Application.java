@@ -5,6 +5,7 @@ import com.facebook.model.GraphUser;
 import cz.csas.startup.FBPoc.model.Account;
 import cz.csas.startup.FBPoc.model.Collection;
 import cz.csas.startup.FBPoc.model.Payment;
+import cz.csas.startup.FBPoc.utils.FontsOverride;
 
 import java.util.List;
 import java.util.Map;
@@ -84,5 +85,12 @@ public class Friends24Application extends Application {
 
     public void setCollections(Map<Account, List<Collection>> collections) {
         this.collections = collections;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        FontsOverride.setDefaultFont(this, "MONOSPACE", "fonts/Gotham-Light.otf");
+        FontsOverride.setDefaultFont(this, "DEFAULT", "fonts/Gotham-Light.otf");
     }
 }

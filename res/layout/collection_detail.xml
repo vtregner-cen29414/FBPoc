@@ -254,6 +254,16 @@
                     android:onClick="onNotify"
                     android:clickable="true"/>
 
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Sbírka skončila"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:id="@+id/collectionExpiredNotification"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/button_red"/>
 
 
         </LinearLayout>

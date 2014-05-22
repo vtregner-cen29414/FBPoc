@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ScaleDrawable;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import com.facebook.*;
@@ -44,8 +46,9 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-
-        FontsOverride.setDefaultFont(this, "MONOSPACE", "fonts/Gotham-Medium.otf");
+        final Typeface mFont = Typeface.createFromAsset(getAssets(), "fonts/Gotham-Light.otf");
+        final ViewGroup mContainer = (ViewGroup) findViewById(android.R.id.content).getRootView();
+        Utils.setAppFont(mContainer, mFont, false);
 
         final TextView username = (TextView) findViewById(R.id.loginUsername);
         final TextView password = (TextView) findViewById(R.id.loginPassword);

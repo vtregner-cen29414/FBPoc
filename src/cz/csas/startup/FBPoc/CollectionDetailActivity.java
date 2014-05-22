@@ -29,6 +29,7 @@ import org.apache.http.client.methods.HttpGet;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by cen29414 on 19.5.2014.
@@ -104,6 +105,16 @@ public class CollectionDetailActivity extends Activity {
 
         if (collection.isHasImage()) {
             new GetCollectionImageTask(this, collection.getId()).execute();
+        }
+
+        View btnNotify = findViewById(R.id.btnNotify);
+        TextView collectionExpiredView = (TextView) findViewById(R.id.collectionExpiredNotification);
+        boolean expired = collection.getDueDate().before(new Date());
+        btnNotify.setVisibility(expired ? View.GONE : View.VISIBLE);
+        collectionExpiredView.setVisibility(expired ? View.VISIBLE : View.GONE);
+        if (expired) {
+            sfd = new SimpleDateFormat("dd.MM.");
+            collectionExpiredView.setText(collectionExpiredView.getText() + " " + sfd.format(collection.getDueDate()));
         }
 
     }
