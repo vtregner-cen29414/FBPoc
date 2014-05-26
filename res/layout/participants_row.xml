@@ -21,7 +21,7 @@
 
 
 
-        <com.facebook.widget.ProfilePictureView
+        <cz.csas.startup.FBPoc.widget.RoundedProfilePictureView
                 android:id="@+id/participantPic"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"

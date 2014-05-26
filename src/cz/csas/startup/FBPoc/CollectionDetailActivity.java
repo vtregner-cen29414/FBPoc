@@ -20,11 +20,11 @@ import android.widget.TextView;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
-import com.facebook.widget.ProfilePictureView;
 import cz.csas.startup.FBPoc.model.*;
 import cz.csas.startup.FBPoc.service.AsyncTask;
 import cz.csas.startup.FBPoc.service.AsyncTaskResult;
 import cz.csas.startup.FBPoc.utils.Utils;
+import cz.csas.startup.FBPoc.widget.RoundedProfilePictureView;
 import org.apache.http.client.methods.HttpGet;
 
 import java.math.BigDecimal;
@@ -161,7 +161,7 @@ public class CollectionDetailActivity extends Activity {
             for (FacebookCollectionParticipant participant : collection.getFbParticipants()) {
                 View view = inflater.inflate(R.layout.participants_row, null);
 
-                ProfilePictureView profilePictureView = (ProfilePictureView) view.findViewById(R.id.participantPic);
+                RoundedProfilePictureView profilePictureView = (RoundedProfilePictureView) view.findViewById(R.id.participantPic);
                 profilePictureView.setProfileId(participant.getFbUserId());
                 profilePictureView.setVisibility(View.VISIBLE);
 
@@ -179,7 +179,7 @@ public class CollectionDetailActivity extends Activity {
             for (EmailCollectionParticipant participant : collection.getEmailParticipants()) {
                 View view = inflater.inflate(R.layout.participants_row, null);
 
-                ProfilePictureView profilePictureView = (ProfilePictureView) view.findViewById(R.id.participantPic);
+                RoundedProfilePictureView profilePictureView = (RoundedProfilePictureView) view.findViewById(R.id.participantPic);
                 profilePictureView.setVisibility(View.GONE);
 
                 TextView participantName = (TextView) view.findViewById(R.id.participantName);

@@ -12,6 +12,6 @@
             android:clickable="false"
             android:focusable="false"
             android:longClickable="false"
-            android:src="@drawable/logof24" />
+            android:src="@drawable/ic_logo" />
 
 </LinearLayout>

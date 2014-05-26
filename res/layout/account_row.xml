@@ -6,19 +6,26 @@
               >
 
     <View   android:id="@+id/rowMarkColor"
-            android:layout_width="4dp"
+            android:layout_width="5dp"
             android:layout_height="match_parent"
             android:background="@color/cell_odd" />
 
-    <ImageView
-            android:layout_width="34dp"
-            android:layout_height="30dp"
-            android:background="@drawable/account"/>
+    <!--<ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="17dp"
+            android:background="@drawable/im_account_small"/>-->
 
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="14dp"
+            android:layout_marginLeft="17dp"
+            >
 
         <TextView
                 android:layout_width="wrap_content"
@@ -27,14 +34,16 @@
                 style="@android:style/TextAppearance.Medium"
                 android:id="@+id/accountType"
                 android:clickable="true"
-                android:textColor="@color/cell_text"/>
+                android:textColor="@color/cell_text"
+                android:drawableLeft="@drawable/im_account_small"
+                android:drawablePadding="6dp"/>
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="123123/0800"
                 android:id="@+id/accountNumber"
-                android:paddingBottom="5dp"
+                android:layout_marginLeft="23dp"
                 android:textColor="#8e8e8e"/>
     </LinearLayout>
 
@@ -52,6 +61,8 @@
             android:textStyle="bold"
             android:gravity="right"
             style="@android:style/TextAppearance.Medium"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="14dp"
             android:paddingRight="15dp"
             android:paddingLeft="15dp"/>
 </TableRow>

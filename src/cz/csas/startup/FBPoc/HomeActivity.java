@@ -14,9 +14,9 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
-import com.facebook.widget.ProfilePictureView;
 import cz.csas.startup.FBPoc.model.Account;
 import cz.csas.startup.FBPoc.utils.Utils;
+import cz.csas.startup.FBPoc.widget.RoundedProfilePictureView;
 
 import java.util.List;
 
@@ -32,7 +32,8 @@ public class HomeActivity extends Activity {
     private static final String FRIENDS_KEY = "friends";
 
     UiLifecycleHelper uiHelper;
-    private ProfilePictureView profilePictureView;
+    private RoundedProfilePictureView profilePictureView;
+    //private ImageView profilePictureView;
     private TextView userNameView;
     //AccountsAdapter adapter;
     private boolean isFetching=false;
@@ -56,8 +57,10 @@ public class HomeActivity extends Activity {
         actionBar.setDisplayShowHomeEnabled(false);
 
         // Find the user's profile picture custom view
-        profilePictureView = (ProfilePictureView) findViewById(R.id.currentUser_profile_pic);
+        profilePictureView = (RoundedProfilePictureView) findViewById(R.id.currentUser_profile_pic);
         profilePictureView.setCropped(true);
+        profilePictureView.setBorderColor(getResources().getColor(R.color.profileBorderColor));
+        profilePictureView.setBorderWidth(5f);
 
 
 // Find the user's name view
@@ -84,7 +87,9 @@ public class HomeActivity extends Activity {
         if (Session.getActiveSession() != null && Session.getActiveSession().isOpened()) {
             GraphUser fbUser = ((Friends24Application) getApplication()).getFbUser();
             profilePictureView.setProfileId(fbUser.getId());
-            userNameView.setText(fbUser.getName());
+            //Bitmap bitmap = Utils.getUserPic(fbUser.getId());
+            //profilePictureView.setImageDrawable(new BitmapDrawable(getResources(), bitmap));
+            userNameView.setText(fbUser.getName().toUpperCase());
         }
         else {
             Log.e(TAG, "FB session not opened!");

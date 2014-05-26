@@ -5,7 +5,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -14,7 +17,9 @@ import cz.csas.startup.FBPoc.LoginActivity;
 import cz.csas.startup.FBPoc.R;
 import cz.csas.startup.FBPoc.service.AsyncTaskResult;
 
+import java.io.InputStream;
 import java.lang.reflect.Method;
+import java.net.URL;
 
 /**
  * Created with IntelliJ IDEA.
@@ -192,6 +197,23 @@ public class Utils {
         Intent intent = new Intent(context, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(intent);
+    }
+
+    /**
+     * Function loads the users facebook profile pic
+     *
+     * @param userID
+     */
+    public static Bitmap getUserPic(String userID) {
+        String imageURL;
+        Bitmap bitmap = null;
+        imageURL = "http://graph.facebook.com/"+userID+"/picture?type=small";
+        try {
+            bitmap = BitmapFactory.decodeStream((InputStream) new URL(imageURL).getContent());
+        } catch (Exception e) {
+            Log.d("TAG", "Loading Picture FAILED" + e);
+        }
+        return bitmap;
     }
 
 

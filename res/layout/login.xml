@@ -11,11 +11,13 @@
             android:layout_height="wrap_content"
             >
 
+
         <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:cropToPadding="false"
-                android:src="@drawable/account"
+                android:src="@drawable/im_account"
+                android:layout_marginTop="55dp"
                 android:baselineAlignBottom="false"
                 android:layout_gravity="center_horizontal"/>
 
@@ -62,11 +64,10 @@
 
         <Button
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="43dp"
                 style="@style/RedButton"
                 android:text="@string/login"
                 android:id="@+id/btnLogin"
-                android:layout_gravity="center_horizontal"
                 android:textColor="@color/for_white"
                 android:layout_marginTop="24dp"
                 android:layout_marginLeft="48dp"
