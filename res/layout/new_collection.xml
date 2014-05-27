@@ -25,9 +25,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center_horizontal"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="24dp"
                 android:background="@color/for_white"
                 android:measureWithLargestChild="false"
                 android:stretchColumns="1"
@@ -41,7 +41,7 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textSize="18sp"
                         android:text="@string/newCollectionUpper"
                         android:layout_gravity="center"
                         android:gravity="center"
@@ -53,13 +53,14 @@
             </TableRow>
 
 
-            <TableRow>
+            <TableRow
+                    android:layout_marginTop="18dp">
 
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="16sp"
                         android:text="@string/collectionName"
                         />
 
@@ -67,10 +68,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/collectionName"
-                        android:hint="Název sbírky"
+                        android:hint="@string/collectionNameFull"
                         style="@style/AppEditText.GrayBorder"
                         android:layout_span="2"
-                        android:layout_column="1"/>
+                        android:layout_column="1"
+                        android:layout_marginRight="10dp"
+                        />
             </TableRow>
 
             <TableRow>
@@ -91,7 +94,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="16sp"
                         android:text="@string/amount"
                         android:layout_marginLeft="10dp"/>
 
@@ -100,16 +103,16 @@
                         android:layout_height="wrap_content"
                         style="@style/AppEditText.GrayBorder"
                         android:inputType="numberDecimal"
-                        android:ems="6"
                         android:id="@+id/amount"
                         android:layout_column="1"/>
 
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="16sp"
                         android:text="@string/CZK"
-                        />
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="5dp"/>
             </TableRow>
 
             <TableRow>
@@ -130,41 +133,87 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Popis"
+                        android:textSize="16sp"
+                        android:text="@string/description"
                         android:layout_marginLeft="10dp"/>
 
                 <RelativeLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_span="2">
+                        android:layout_span="2"
+                        android:layout_marginRight="10dp">
 
+                    <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            style="@style/AppEditText.GrayBorder"
+                            android:inputType="textMultiLine"
+                            android:id="@+id/collectionDescription"
+                            android:lines="3"
+                            android:layout_marginBottom="10dp"/>
                     <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             style="@style/AppEditText.GrayBorder"
-                            android:inputType="textMultiLine"
-                            android:ems="10"
-                            android:id="@+id/collectionDescription"
-                            android:lines="3"/>
+                            android:id="@+id/collectionLinkEdit"
+                            android:drawableRight="@drawable/im_web"
+                            android:drawablePadding="4dp"
+                            android:visibility="gone"
+                            android:layout_below="@id/collectionDescription"
+                            android:layout_marginBottom="10dp"
+                            android:inputType="textUri"/>
+                    <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/collectionImageWrapper"
+                            android:layout_below="@id/collectionLinkEdit"
+                            android:visibility="gone">
+
+                        <ImageView
+                                android:layout_width="185dp"
+                                android:layout_height="185dp"
+                                android:id="@+id/collectionImage"
+                                android:scaleType="centerCrop"/>
+                        <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/im_delete"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginTop="5dp"
+                                android:onClick="onImageDelete"
+                                android:clickable="true"
+                                android:scaleType="center"
+                                android:layout_alignRight="@id/collectionImage"/>
+                        </RelativeLayout>
 
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Přidat fotku"
+                            android:text="@string/addPhoto"
+                            android:textSize="12sp"
                             android:clickable="true"
+                            android:onClick="addPhoto"
                             android:id="@+id/addPhoto"
-                            android:layout_below="@id/collectionDescription"/>
+                            android:layout_below="@id/collectionImageWrapper"
+                            android:textColor="@color/back_blue"
+                            android:drawableLeft="@drawable/im_camera"
+                            android:drawablePadding="4dp"
+                            android:layout_marginTop="5dp"/>
 
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Vložit odkaz"
+                            android:text="@string/addLink"
+                            android:textSize="12sp"
                             android:clickable="true"
                             android:id="@+id/addLink"
-                            android:layout_below="@+id/collectionDescription"
+                            android:onClick="addLink"
+                            android:layout_below="@+id/collectionImageWrapper"
                             android:layout_alignParentRight="true"
-                            />
+                            android:textColor="@color/back_blue"
+                            android:drawableLeft="@drawable/im_web"
+                            android:drawablePadding="4dp"
+                            android:layout_marginTop="5dp"/>
 
                 </RelativeLayout>
             </TableRow>
@@ -187,8 +236,8 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Ukončení"
+                        android:textSize="16sp"
+                        android:text="@string/collectionEndDate"
                         android:layout_marginLeft="10dp"/>
 
                 <EditText
@@ -196,7 +245,6 @@
                         android:layout_height="wrap_content"
                         style="@style/AppEditText.GrayBorder"
                         android:inputType="date"
-                        android:ems="10"
                         android:id="@+id/collectionDueDate"
                         android:layout_column="1"
                         />
@@ -204,8 +252,11 @@
                 <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/imageView"
-                        android:src="@android:drawable/ic_menu_today"/>
+                        android:id="@+id/calendatPicker"
+                        android:src="@drawable/im_calendar"
+                        android:layout_marginRight="10dp"
+                        android:layout_gravity="center"
+                        />
 
             </TableRow>
 
@@ -227,21 +278,22 @@
                 <RelativeLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp">
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp">
 
                     <TextView
                             android:id="@+id/fbParticipantLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="Účastník"
+                            android:textSize="16sp"
+                            android:text="@string/participant"
                             />
 
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:text="z Facebooku"
+                            android:textSize="12sp"
+                            android:text="@string/fromFacebook"
                             android:layout_below="@id/fbParticipantLabel"
                             android:textColor="@color/gray_input_text"/>
                 </RelativeLayout>
@@ -250,7 +302,8 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:layout_span="2"
-                        android:gravity="center_vertical">
+                        android:gravity="center_vertical"
+                        android:layout_marginRight="10dp">
 
                     <LinearLayout
                             android:id="@+id/fbParticipants"
@@ -262,11 +315,15 @@
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Přidat kamaráda"
+                            android:text="@string/addParticipant"
+                            android:textSize="12sp"
                             android:clickable="true"
                             android:id="@+id/addFbParticipantLink"
                             android:layout_below="@id/fbParticipants"
-                            android:layout_centerVertical="true"/>
+                            android:layout_centerVertical="true"
+                            android:textColor="@color/back_blue"
+                            android:drawableLeft="@drawable/im_addparticipant"
+                            android:drawablePadding="4dp"/>
                 </RelativeLayout>
             </TableRow>
 
@@ -294,15 +351,15 @@
                             android:id="@+id/emailParticipantLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="Účastník"
+                            android:textSize="16sp"
+                            android:text="@string/participant"
                             />
 
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:text="skrze email"
+                            android:textSize="12sp"
+                            android:text="@string/fromEmail"
                             android:layout_below="@id/emailParticipantLabel"
                             android:textColor="@color/gray_input_text"/>
                 </RelativeLayout>
@@ -311,7 +368,8 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:layout_span="2"
-                        android:gravity="center_vertical">
+                        android:gravity="center_vertical"
+                        android:layout_marginRight="10dp">
 
                     <LinearLayout
                             android:id="@+id/emailParticipants"
@@ -323,12 +381,15 @@
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Přidat kamaráda"
+                            android:text="@string/addParticipant"
+                            android:textSize="12sp"
                             android:clickable="true"
                             android:id="@+id/addEmailParticipantLink"
                             android:layout_below="@id/emailParticipants"
                             android:layout_centerVertical="true"
-                            />
+                            android:textColor="@color/back_blue"
+                            android:drawableLeft="@drawable/im_addparticipant"
+                            android:drawablePadding="4dp"/>
                 </RelativeLayout>
             </TableRow>
 
@@ -356,7 +417,7 @@
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textSize="16sp"
                             android:text="Přerozděleno"
                             android:id="@+id/splittedAmountLabel"/>
 
@@ -368,7 +429,7 @@
                             android:background="@drawable/gray_rect_1"
                             android:id="@+id/progressBar"
                             android:layout_marginLeft="12dp"
-                            android:layout_marginRight="12dp"
+                            android:layout_marginRight="10dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
                             android:max="100"

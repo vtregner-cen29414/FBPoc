@@ -52,4 +52,13 @@
     <string name="collectionLinkInfo">Více info</string>
     <string name="notify">Připomenout</string>
     <string name="collectionName">Název</string>
+    <string name="collectionNameFull">Název sbírky</string>
+    <string name="description">Popis</string>
+    <string name="addPhoto"><![CDATA[<u>Přidat fotku</u>]]></string>
+    <string name="addLink"><![CDATA[<u>Vložit odkaz</u>]]></string>
+    <string name="collectionEndDate">Ukončení</string>
+    <string name="participant">Účastník</string>
+    <string name="fromFacebook">z Facebooku</string>
+    <string name="addParticipant"><![CDATA[<u>Přidat kamaráda</u>]]></string>
+    <string name="fromEmail">skrze email</string>
 </resources>

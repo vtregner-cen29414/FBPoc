@@ -88,8 +88,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
                 android:background="@color/for_white"
                 android:paddingTop="15dp">
 
@@ -100,23 +100,6 @@
                     android:text="@string/my_accounts"
                     android:layout_marginBottom="15dp"/>
 
-            <!--<LinearLayout
-                    android:id="@+id/accountList"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:background="@drawable/gray_rect_1"
-                    android:showDividers="middle"
-                    android:divider="@drawable/horizontal_divider_1"
-                    >
-
-                <ProgressBar
-                        android:id="@+id/progressBar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                </LinearLayout>-->
 
             <ProgressBar
                     android:id="@+id/progressBar"
