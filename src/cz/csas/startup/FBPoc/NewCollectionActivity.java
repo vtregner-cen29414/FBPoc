@@ -15,11 +15,10 @@ import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.text.Html;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.TextView;
+import android.view.ViewGroup;
+import android.widget.*;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
@@ -42,6 +41,7 @@ public class NewCollectionActivity extends Activity {
     private UiLifecycleHelper uiHelper;
     private Spinner accountSpinner;
     private Uri outputPhotoFileUri;
+    private int numOfEmailParticipants = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -205,5 +205,34 @@ public class NewCollectionActivity extends Activity {
         TextView addPhotoView = (TextView) findViewById(R.id.addPhoto);
         addPhotoView.setVisibility(View.VISIBLE);
         outputPhotoFileUri = null;
+    }
+
+    public void onAddEmailParticipant(View view) {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        ViewGroup row = (ViewGroup) inflater.inflate(R.layout.email_participants_row, null);
+        TextView index = (TextView) row.findViewById(R.id.pIndex);
+        View deleteIcon = row.findViewById(R.id.deleteEmailParticipant);
+        deleteIcon.setTag(row);
+        index.setText(++numOfEmailParticipants+".");
+
+        LinearLayout participants = (LinearLayout) findViewById(R.id.emailParticipants);
+        participants.addView(row);
+    }
+
+    public void onPEmailDelete(View view) {
+        Log.d(TAG, view.toString());
+        ViewGroup rowToDelete  = (ViewGroup) view.getTag();
+        LinearLayout participants = (LinearLayout) findViewById(R.id.emailParticipants);
+        participants.removeView(rowToDelete);
+        numOfEmailParticipants--;
+        if (participants.getChildCount() > 0) {
+            for (int i = 0; i < participants.getChildCount(); i++) {
+                ViewGroup row = (ViewGroup) participants.getChildAt(i);
+                TextView index = (TextView) row.findViewById(R.id.pIndex);
+                index.setText(String.valueOf(i+1)+".");
+            }
+        }
+
+
     }
 }

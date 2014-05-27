@@ -364,33 +364,31 @@
                             android:textColor="@color/gray_input_text"/>
                 </RelativeLayout>
 
-                <RelativeLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_span="2"
-                        android:gravity="center_vertical"
-                        android:layout_marginRight="10dp">
+                        android:layout_marginRight="10dp"
+                        android:text="@string/addParticipant"
+                        android:textSize="12sp"
+                        android:clickable="true"
+                        android:onClick="onAddEmailParticipant"
+                        android:id="@+id/addEmailParticipantLink"
+                        android:textColor="@color/back_blue"
+                        android:drawableLeft="@drawable/im_addparticipant"
+                        android:drawablePadding="4dp"/>
+            </TableRow>
 
-                    <LinearLayout
-                            android:id="@+id/emailParticipants"
-                            android:orientation="horizontal"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content">
-                    </LinearLayout>
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/addParticipant"
-                            android:textSize="12sp"
-                            android:clickable="true"
-                            android:id="@+id/addEmailParticipantLink"
-                            android:layout_below="@id/emailParticipants"
-                            android:layout_centerVertical="true"
-                            android:textColor="@color/back_blue"
-                            android:drawableLeft="@drawable/im_addparticipant"
-                            android:drawablePadding="4dp"/>
-                </RelativeLayout>
+            <TableRow>
+                <LinearLayout
+                        android:id="@+id/emailParticipants"
+                        android:orientation="vertical"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_span="3">
+                </LinearLayout>
             </TableRow>
 
             <TableRow>
