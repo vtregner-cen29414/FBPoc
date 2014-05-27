@@ -235,4 +235,14 @@ public class NewCollectionActivity extends Activity {
 
 
     }
+
+    public void onAddFbParticipant(View view) {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        ViewGroup row = (ViewGroup) inflater.inflate(R.layout.fb_participants_row, null);
+        View deleteIcon = row.findViewById(R.id.deleteFbParticipant);
+        deleteIcon.setTag(row);
+
+        LinearLayout participants = (LinearLayout) findViewById(R.id.fbParticipants);
+        participants.addView(row);
+    }
 }

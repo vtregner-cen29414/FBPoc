@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:facebook="http://schemas.android.com/apk/res-auto"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:paddingBottom="10dp"
+              android:gravity="center_vertical">
+
+
+    <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <cz.csas.startup.FBPoc.widget.RoundedProfilePictureView
+                android:id="@+id/participantPic"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="5dp"
+                facebook:preset_size="small" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/participantName"
+                android:textSize="12sp"
+                android:textColor="@color/gray_input_text"
+                android:text="Vasek"
+                />
+
+    </RelativeLayout>
+
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/AppEditText.GrayBorder"
+            android:inputType="numberDecimal"
+            android:ems="4"
+            android:layout_weight="0"
+            android:id="@+id/amount"
+            android:layout_marginRight="5dp"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:textSize="16sp"
+            android:text="@string/CZK"
+            android:layout_marginRight="10dp"
+            />
+
+    <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/deleteFbParticipant"
+            android:layout_weight="0"
+            android:src="@drawable/im_delete"
+            android:layout_marginRight="5dp"
+            android:onClick="onPFBDelete"
+            android:clickable="true"
+            android:scaleType="center"
+            />
+</LinearLayout>
