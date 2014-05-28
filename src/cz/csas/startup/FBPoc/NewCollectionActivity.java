@@ -382,6 +382,7 @@ public class NewCollectionActivity extends FbAwareActivity {
 
         if (collectionNameView.length() < 1) {
             collectionNameView.setError("Povinné pole");
+            valid = false;
         }
         else {
             collectionNameView.setError(null);
@@ -399,6 +400,7 @@ public class NewCollectionActivity extends FbAwareActivity {
                 collectionLinkView.setError(null);
             } catch (MalformedURLException e) {
                 collectionLinkView.setError("Není platné URL");
+                valid = false;
             }
         }
         else {
@@ -408,6 +410,7 @@ public class NewCollectionActivity extends FbAwareActivity {
 
         if (collectionDueDateView.length() < 1) {
             collectionDueDateView.setError("Povinné pole");
+            valid = false;
         }
         else {
             collectionDueDateView.setError(null);
@@ -418,6 +421,45 @@ public class NewCollectionActivity extends FbAwareActivity {
                 collectionDueDateView.setError(null);
             } catch (ParseException e) {
                 collectionDueDateView.setError("Zadejte platné datum");
+                valid = false;
+            }
+        }
+
+        ViewGroup fbParticipants = (ViewGroup) findViewById(R.id.fbParticipants);
+        if (fbParticipants.getChildCount() > 0) {
+            for (int i=0; i<fbParticipants.getChildCount(); i++) {
+                ViewGroup row = (ViewGroup) fbParticipants.getChildAt(i);
+                EditText participantAmountView = (EditText) row.findViewById(R.id.amount);
+                FacebookCollectionParticipant participant = (FacebookCollectionParticipant) participantAmountView.getTag();
+                GraphUser fbGraphUser = (GraphUser) row.getTag();
+                participant.setFbUserId(fbGraphUser.getId());
+                participant.setFbUserName(fbGraphUser.getName());
+            }
+        }
+
+        ViewGroup emailParticipants = (ViewGroup) findViewById(R.id.emailParticipants);
+        if (emailParticipants.getChildCount() > 0) {
+            for (int i=0; i<emailParticipants.getChildCount(); i++) {
+                ViewGroup row = (ViewGroup) emailParticipants.getChildAt(i);
+                EditText participantAmountView = (EditText) row.findViewById(R.id.amount);
+                EmailCollectionParticipant participant = (EmailCollectionParticipant) participantAmountView.getTag();
+                TextView emailView = (TextView) row.findViewById(R.id.pEmail);
+                if (emailView.length() > 0) {
+                    String email = emailView.getText().toString();
+                    if (android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                        participant.setEmail(email);
+                        emailView.setError(null);
+                    }
+                    else {
+                        emailView.setError("Zadejte validní email adresu");
+                        valid = false;
+                    }
+
+                }
+                else {
+                    emailView.setError("Povinné pole");
+                    valid = false;
+                }
             }
         }
 
