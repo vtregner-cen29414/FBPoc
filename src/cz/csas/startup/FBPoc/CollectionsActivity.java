@@ -86,6 +86,8 @@ public class CollectionsActivity extends ListActivity {
     }
 
     public void onNewCollection(View view) {
+        final Friends24Application application = (Friends24Application) getApplication();
+        application.setSelectedFrieds(null);
         Intent intent = new Intent(this, NewCollectionActivity.class);
         Spinner accounts = (Spinner) findViewById(R.id.accountSelector);
         intent.putExtra("account", accounts.getSelectedItemPosition());

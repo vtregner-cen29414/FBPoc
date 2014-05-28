@@ -15,6 +15,7 @@ import java.util.Map;
  */
 public class Friends24Application extends Application {
     private List<GraphUser> selectedFrieds;
+    private List<GraphUser> newlySelectedFrieds;
     private List<Account> accounts;
     private GraphUser fbUser;
     private boolean appLogged;
@@ -28,6 +29,14 @@ public class Friends24Application extends Application {
 
     public void setSelectedFrieds(List<GraphUser> selectedFrieds) {
         this.selectedFrieds = selectedFrieds;
+    }
+
+    public List<GraphUser> getNewlySelectedFrieds() {
+        return newlySelectedFrieds;
+    }
+
+    public void setNewlySelectedFrieds(List<GraphUser> newlySelectedFrieds) {
+        this.newlySelectedFrieds = newlySelectedFrieds;
     }
 
     public List<Account> getAccounts() {

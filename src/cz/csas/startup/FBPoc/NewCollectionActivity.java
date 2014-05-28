@@ -1,6 +1,8 @@
 package cz.csas.startup.FBPoc;
 
-import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,35 +15,44 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
 import android.provider.MediaStore;
+import android.text.Editable;
 import android.text.Html;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.text.TextWatcher;
+import android.view.*;
 import android.widget.*;
-import com.facebook.Session;
-import com.facebook.SessionState;
-import com.facebook.UiLifecycleHelper;
-import org.w3c.dom.Text;
+import com.facebook.model.GraphUser;
+import cz.csas.startup.FBPoc.model.Collection;
+import cz.csas.startup.FBPoc.model.CollectionParticipant;
+import cz.csas.startup.FBPoc.model.EmailCollectionParticipant;
+import cz.csas.startup.FBPoc.model.FacebookCollectionParticipant;
+import cz.csas.startup.FBPoc.utils.Utils;
+import cz.csas.startup.FBPoc.widget.RoundedProfilePictureView;
 
 import java.io.File;
-import java.io.IOException;
+import java.math.BigDecimal;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
  * Created by cen29414 on 22.5.2014.
  */
-public class NewCollectionActivity extends Activity {
+public class NewCollectionActivity extends FbAwareActivity {
 
     private static final String TAG = "Friends24";
     private static final int PICK_FRIENDS_ACTIVITY = 1;
     public static final int SELECT_PICTURE_REQUEST_CODE = 500;
+    public static final String COLLECTION = "COLLECTION";
 
-    private UiLifecycleHelper uiHelper;
     private Spinner accountSpinner;
     private Uri outputPhotoFileUri;
     private int numOfEmailParticipants = 0;
+
+    private Collection collection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,20 +77,38 @@ public class NewCollectionActivity extends Activity {
         addFbParticipantView.setText(Html.fromHtml(getString(R.string.addParticipant)));
         addEmailParticipantView.setText(Html.fromHtml(getString(R.string.addParticipant)));
 
-        uiHelper = new UiLifecycleHelper(this, new Session.StatusCallback() {
+        if (savedInstanceState != null) {
+            collection = savedInstanceState.getParcelable(COLLECTION);
+        }
+        else collection = new Collection();
+
+        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setMax(0);
+        refreshCurrentProgress();
+
+        EditText targetAmount = (EditText) findViewById(R.id.amount);
+        targetAmount.addTextChangedListener(new TextWatcher() {
             @Override
-            public void call(Session session, SessionState state, Exception exception) {
-                onSessionStateChange(session, state, exception);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() > 0) collection.setTargetAmount(new BigDecimal(s.toString()));
+                else collection.setTargetAmount(null);
+
+                refreshCurrentProgress();
             }
         });
 
-        uiHelper.onCreate(savedInstanceState);
-    }
+        ensureOpenFacebookSession();
 
-    private void onSessionStateChange(Session session, SessionState state, Exception exception) {
-        if (session.isClosed()) {
-            Log.i(TAG, "FB session closed, redirect to login?");
-        }
     }
 
     public void addLink(View view) {
@@ -151,7 +180,16 @@ public class NewCollectionActivity extends Activity {
 
                 setCollectionImage(isCamera, selectedImageUri);
             }
+            else if (requestCode == PICK_FRIENDS_ACTIVITY) {
+                appendNewFbRow(getFriendsApplication().getNewlySelectedFrieds());
+            }
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(COLLECTION, collection);
     }
 
     private void setCollectionImage(boolean isCamera, Uri selectedImageUri) {
@@ -212,18 +250,27 @@ public class NewCollectionActivity extends Activity {
         ViewGroup row = (ViewGroup) inflater.inflate(R.layout.email_participants_row, null);
         TextView index = (TextView) row.findViewById(R.id.pIndex);
         View deleteIcon = row.findViewById(R.id.deleteEmailParticipant);
+        EditText amountView = (EditText) row.findViewById(R.id.amount);
+        addTextChangeLister(amountView);
+        if (collection.getEmailParticipants() == null) collection.setEmailParticipants(new ArrayList<EmailCollectionParticipant>());
+        EmailCollectionParticipant participant = new EmailCollectionParticipant();
+        collection.getEmailParticipants().add(participant);
+        amountView.setTag(participant);
         deleteIcon.setTag(row);
         index.setText(++numOfEmailParticipants+".");
-
         LinearLayout participants = (LinearLayout) findViewById(R.id.emailParticipants);
         participants.addView(row);
+        amountView.requestFocus();
     }
 
     public void onPEmailDelete(View view) {
-        Log.d(TAG, view.toString());
         ViewGroup rowToDelete  = (ViewGroup) view.getTag();
         LinearLayout participants = (LinearLayout) findViewById(R.id.emailParticipants);
+        EditText amountView = (EditText) rowToDelete.findViewById(R.id.amount);
+
+        collection.getEmailParticipants().remove((EmailCollectionParticipant)amountView.getTag());
         participants.removeView(rowToDelete);
+
         numOfEmailParticipants--;
         if (participants.getChildCount() > 0) {
             for (int i = 0; i < participants.getChildCount(); i++) {
@@ -232,17 +279,340 @@ public class NewCollectionActivity extends Activity {
                 index.setText(String.valueOf(i+1)+".");
             }
         }
-
-
+        refreshCurrentProgress();
     }
 
     public void onAddFbParticipant(View view) {
-        LayoutInflater inflater = LayoutInflater.from(this);
-        ViewGroup row = (ViewGroup) inflater.inflate(R.layout.fb_participants_row, null);
-        View deleteIcon = row.findViewById(R.id.deleteFbParticipant);
-        deleteIcon.setTag(row);
-
-        LinearLayout participants = (LinearLayout) findViewById(R.id.fbParticipants);
-        participants.addView(row);
+        Intent intent = new Intent();
+        intent.setData(PickerActivity.FRIEND_PICKER);
+        intent.setClass(this, PickerActivity.class);
+        intent.putExtra(PickerActivity.MULTI_SELECTION, true);
+        intent.putExtra(PickerActivity.TITLE, getString(R.string.pickParticipant));
+        startActivityForResult(intent, PICK_FRIENDS_ACTIVITY);
     }
+
+    private void appendNewFbRow(List<GraphUser> participants) {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        LinearLayout participantsView = (LinearLayout) findViewById(R.id.fbParticipants);
+        for (GraphUser participant : participants) {
+            ViewGroup row = (ViewGroup) inflater.inflate(R.layout.fb_participants_row, null);
+            View deleteIcon = row.findViewById(R.id.deleteFbParticipant);
+            deleteIcon.setTag(row);
+            RoundedProfilePictureView pic = (RoundedProfilePictureView) row.findViewById(R.id.participantPic);
+            pic.setProfileId(participant.getId());
+            TextView name = (TextView) row.findViewById(R.id.participantName);
+            name.setText(participant.getFirstName());
+            row.setTag(participant);
+
+            EditText amountView = (EditText) row.findViewById(R.id.amount);
+            addTextChangeLister(amountView);
+            if (collection.getFbParticipants() == null) collection.setFbParticipants(new ArrayList<FacebookCollectionParticipant>());
+            FacebookCollectionParticipant fbParticipant = new FacebookCollectionParticipant();
+            collection.getFbParticipants().add(fbParticipant);
+            amountView.setTag(fbParticipant);
+
+            participantsView.addView(row);
+            amountView.requestFocus();
+        }
+
+    }
+
+    public void onPFBDelete(View view) {
+        ViewGroup rowToDelete  = (ViewGroup) view.getTag();
+        LinearLayout participants = (LinearLayout) findViewById(R.id.fbParticipants);
+        View amountView = rowToDelete.findViewById(R.id.amount);
+        collection.getFbParticipants().remove((FacebookCollectionParticipant)amountView.getTag());
+        participants.removeView(rowToDelete);
+        getFriendsApplication().getSelectedFrieds().remove((GraphUser)rowToDelete.getTag());
+        refreshCurrentProgress();
+    }
+
+    protected void addTextChangeLister(final EditText amountView) {
+        amountView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                CollectionParticipant participant = (CollectionParticipant) amountView.getTag();
+                if (s.toString() != null && s.toString().length() > 0) {
+                    participant.setAmount(new BigDecimal(s.toString()));
+                }
+                else participant.setAmount(null);
+
+                refreshCurrentProgress();
+            }
+        });
+    }
+
+    private void refreshCurrentProgress() {
+        BigDecimal sum = BigDecimal.ZERO;
+        if (collection.getEmailParticipants() != null) {
+            for (CollectionParticipant collectionParticipant : collection.getEmailParticipants()) {
+                if (collectionParticipant.getAmount() != null) sum = sum.add(collectionParticipant.getAmount());
+            }
+        }
+        if (collection.getFbParticipants() != null) {
+            for (CollectionParticipant collectionParticipant : collection.getFbParticipants()) {
+                if (collectionParticipant.getAmount() != null) sum = sum.add(collectionParticipant.getAmount());
+            }
+        }
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setMax(collection.getTargetAmount() != null ? collection.getTargetAmount().intValue() : 0);
+        progressBar.setProgress(sum.intValue());
+        TextView current = (TextView) findViewById(R.id.splittedAmountLabelView);
+        String targetAmount = collection.getTargetAmount() != null ? collection.getTargetAmount().toString() : "";
+        current.setText(sum.toString() + " " + getString(R.string.from) + " " + targetAmount);
+    }
+
+    private boolean validateFields() {
+        boolean valid = true;
+        EditText collectionNameView = (EditText) findViewById(R.id.collectionName);
+        EditText amountView = (EditText) findViewById(R.id.amount);
+        EditText collectionDescriptionView = (EditText) findViewById(R.id.collectionDescription);
+        EditText collectionLinkView = (EditText) findViewById(R.id.collectionLinkEdit);
+        EditText collectionDueDateView = (EditText) findViewById(R.id.collectionDueDate);
+
+        if (collectionNameView.length() < 1) {
+            collectionNameView.setError("Povinné pole");
+        }
+        else {
+            collectionNameView.setError(null);
+            collection.setName(collectionNameView.getText().toString());
+        }
+
+        collection.setTargetAmount(amountView.length() > 0 ? new BigDecimal(amountView.getText().toString()) : null);
+        collection.setDescription(collectionDescriptionView.length() > 0 ? collectionDescriptionView.getText().toString() : null);
+
+        if (collectionLinkView.length() > 0) {
+            try {
+                String s = collectionLinkView.getText().toString();
+                if (!s.toLowerCase().startsWith("http://")) s = "http://" + s;
+                new URL(s);
+                collectionLinkView.setError(null);
+            } catch (MalformedURLException e) {
+                collectionLinkView.setError("Není platné URL");
+            }
+        }
+        else {
+            collectionLinkView.setError(null);
+            collection.setLink(null);
+        }
+
+        if (collectionDueDateView.length() < 1) {
+            collectionDueDateView.setError("Povinné pole");
+        }
+        else {
+            collectionDueDateView.setError(null);
+            SimpleDateFormat sfd = new SimpleDateFormat("dd.MM.yyyy");
+            sfd.setLenient(false);
+            try {
+                collection.setDueDate(sfd.parse(collectionDueDateView.getText().toString()));
+                collectionDueDateView.setError(null);
+            } catch (ParseException e) {
+                collectionDueDateView.setError("Zadejte platné datum");
+            }
+        }
+
+        return valid;
+    }
+
+
+    public void onCalendarPick(View view) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getFragmentManager(), "datePicker");
+    }
+
+    public void onCreteCollection(View view) {
+        validateFields();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.new_collection_actions, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.action_split_whole_amount:
+                splitWholeAmount();
+                return true;
+            case R.id.action_split_remaining_amount:
+                splitRemainingAmount();
+                return true;
+            case R.id.action_sum_amount:
+                sumTargetAmount();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void splitWholeAmount() {
+        if (collection.getTargetAmount() != null) {
+            int numOfParticipants = 0;
+            ViewGroup fbView = (ViewGroup) findViewById(R.id.fbParticipants);
+            numOfParticipants+=fbView.getChildCount();
+            ViewGroup emailView = (ViewGroup) findViewById(R.id.emailParticipants);
+            numOfParticipants+=emailView.getChildCount();
+            if (numOfParticipants > 0) {
+                BigDecimal amount = collection.getTargetAmount().divide(new BigDecimal(numOfParticipants), 0, BigDecimal.ROUND_HALF_DOWN);
+                setAmountToParticipants(false, numOfParticipants, amount);
+                refreshCurrentProgress();
+            }
+        }
+        else {
+            Utils.showMessage(this, R.string.targetAmmountNotSet, R.string.warning);
+        }
+
+    }
+
+    private void setAmountToParticipants(boolean onlyEmpty, int numOfParticipants, BigDecimal amount) {
+        ViewGroup last = null;
+        ViewGroup fbView = (ViewGroup) findViewById(R.id.fbParticipants);
+        ViewGroup emailView = (ViewGroup) findViewById(R.id.emailParticipants);
+        BigDecimal currentSum = BigDecimal.ZERO;
+        if (fbView.getChildCount() > 0) {
+            for (int i=0;i<fbView.getChildCount();i++) {
+                ViewGroup row = (ViewGroup) fbView.getChildAt(i);
+                if (setAmountToParticipant(onlyEmpty,amount, row)) last = row;
+                EditText amountView = (EditText) row.findViewById(R.id.amount);
+                if (amountView.length() > 0) currentSum = currentSum.add(((CollectionParticipant) amountView.getTag()).getAmount());
+            }
+        }
+        if (emailView.getChildCount() > 0) {
+            for (int i=0;i<emailView.getChildCount();i++) {
+                ViewGroup row = (ViewGroup) emailView.getChildAt(i);
+                if (setAmountToParticipant(onlyEmpty,amount, row)) last = row;
+                EditText amountView = (EditText) row.findViewById(R.id.amount);
+                if (amountView.length() > 0) currentSum = currentSum.add(((CollectionParticipant) amountView.getTag()).getAmount());
+            }
+        }
+        if (last != null) {
+            BigDecimal remaining = collection.getTargetAmount().subtract(currentSum);
+            setAmountToParticipant(false, amount.add(remaining), last);
+        }
+    }
+
+
+    private boolean setAmountToParticipant(boolean onlyEmpty, BigDecimal amount, ViewGroup row) {
+        EditText amountView = (EditText) row.findViewById(R.id.amount);
+        boolean added;
+        if (!onlyEmpty || amountView.length() == 0) {
+            amountView.setText(amount.toString());
+            ((CollectionParticipant) amountView.getTag()).setAmount(amount);
+            added = true;
+        }
+        else added = false;
+        return added;
+    }
+
+    private void splitRemainingAmount() {
+        if (collection.getTargetAmount() != null) {
+            int numOfParticipants = 0;
+            ViewGroup fbView = (ViewGroup) findViewById(R.id.fbParticipants);
+            numOfParticipants+=fbView.getChildCount();
+            ViewGroup emailView = (ViewGroup) findViewById(R.id.emailParticipants);
+            numOfParticipants+=emailView.getChildCount();
+            BigDecimal currentSum = BigDecimal.ZERO;
+            int emptyParticipants = 0;
+            if (numOfParticipants > 0) {
+                if (fbView.getChildCount() > 0) {
+                    for (int i = 0; i < fbView.getChildCount(); i++) {
+                        ViewGroup row = (ViewGroup) fbView.getChildAt(i);
+                        EditText amountView = (EditText) row.findViewById(R.id.amount);
+                        BigDecimal amount = ((CollectionParticipant) amountView.getTag()).getAmount();
+                        if (amount != null) currentSum = currentSum.add(amount);
+                        else emptyParticipants++;
+                    }
+                }
+                if (emailView.getChildCount() > 0) {
+                    for (int i = 0; i < emailView.getChildCount(); i++) {
+                        ViewGroup row = (ViewGroup) emailView.getChildAt(i);
+                        EditText amountView = (EditText) row.findViewById(R.id.amount);
+                        BigDecimal amount = ((CollectionParticipant) amountView.getTag()).getAmount();
+                        if (amount != null) currentSum = currentSum.add(amount);
+                        else emptyParticipants++;
+                    }
+                }
+
+                BigDecimal remaining = collection.getTargetAmount().subtract(currentSum);
+                if (remaining.compareTo(BigDecimal.ZERO) > 0) {
+                    if (emptyParticipants > 0) {
+                        BigDecimal amount = remaining.divide(new BigDecimal(emptyParticipants), 0, BigDecimal.ROUND_HALF_DOWN);
+                        if (remaining.compareTo(BigDecimal.ZERO) > 0) {
+                            setAmountToParticipants(true, numOfParticipants, amount);
+                        }
+                    } else {
+                        Utils.showMessage(this, R.string.noEmptyParticipants, R.string.warning);
+                    }
+                }
+            }
+        }
+    }
+
+    private void sumTargetAmount() {
+        ViewGroup fbView = (ViewGroup) findViewById(R.id.fbParticipants);
+        ViewGroup emailView = (ViewGroup) findViewById(R.id.emailParticipants);
+        BigDecimal currentSum = BigDecimal.ZERO;
+        if (fbView.getChildCount() > 0) {
+            for (int i = 0; i < fbView.getChildCount(); i++) {
+                ViewGroup row = (ViewGroup) fbView.getChildAt(i);
+                EditText amountView = (EditText) row.findViewById(R.id.amount);
+                BigDecimal amount = ((CollectionParticipant) amountView.getTag()).getAmount();
+                if (amount != null) currentSum = currentSum.add(amount);
+            }
+        }
+        if (emailView.getChildCount() > 0) {
+            for (int i = 0; i < emailView.getChildCount(); i++) {
+                ViewGroup row = (ViewGroup) emailView.getChildAt(i);
+                EditText amountView = (EditText) row.findViewById(R.id.amount);
+                BigDecimal amount = ((CollectionParticipant) amountView.getTag()).getAmount();
+                if (amount != null) currentSum = currentSum.add(amount);
+            }
+        }
+
+        if (currentSum.compareTo(BigDecimal.ZERO) > 0) {
+            EditText targetAmount = (EditText) findViewById(R.id.amount);
+            targetAmount.setText(currentSum.toString());
+            collection.setTargetAmount(currentSum);
+            refreshCurrentProgress();
+        }
+
+    }
+
+
+
+    public class DatePickerFragment extends DialogFragment  implements DatePickerDialog.OnDateSetListener {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the current date as the default date in the picker
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            // Create a new instance of DatePickerDialog and return it
+            return new DatePickerDialog(NewCollectionActivity.this, this, year, month, day);
+        }
+
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            EditText collectionDueDateView = (EditText) findViewById(R.id.collectionDueDate);
+            collectionDueDateView.setText(day+"."+(month+1)+"."+year);
+        }
+    }
+
 }

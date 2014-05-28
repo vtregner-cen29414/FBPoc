@@ -62,4 +62,9 @@
     <string name="addParticipant"><![CDATA[<u>Přidat kamaráda</u>]]></string>
     <string name="fromEmail">skrze email</string>
     <string name="createCollection">Vytvořit sbírku</string>
+    <string name="pickParticipant">Zvolte účastníka</string>
+    <string name="from">z</string>
+    <string name="targetAmmountNotSet">Zadejte nejprve celkovou částku sbírky.</string>
+    <string name="warning">Upozornění</string>
+    <string name="noEmptyParticipants">Všichni účastníci již mají částky zadané.</string>
 </resources>

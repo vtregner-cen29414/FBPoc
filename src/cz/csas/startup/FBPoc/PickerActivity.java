@@ -2,21 +2,25 @@ package cz.csas.startup.FBPoc;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import com.facebook.FacebookException;
+import com.facebook.model.GraphUser;
 import com.facebook.widget.FriendPickerFragment;
 import com.facebook.widget.PickerFragment;
+
+import java.util.ArrayList;
 
 /**
  * Created by cen29414 on 18.4.2014.
  */
 public class PickerActivity extends FragmentActivity {
     public static final Uri FRIEND_PICKER = Uri.parse("picker://friend");
+    public static final String MULTI_SELECTION = "multiSelection";
+    public static final String TITLE = "TITLE";
 
     private FriendPickerFragment friendPickerFragment;
 
@@ -33,9 +37,9 @@ public class PickerActivity extends FragmentActivity {
         if (FRIEND_PICKER.equals(intentUri)) {
             if (savedInstanceState == null) {
                 friendPickerFragment = new FriendPickerFragment(args);
-                friendPickerFragment.setMultiSelect(false);
+                friendPickerFragment.setMultiSelect(args.getBoolean(MULTI_SELECTION, false));
                 friendPickerFragment.setDoneButtonText(getResources().getString(R.string.OK));
-                friendPickerFragment.setTitleText(getResources().getString(R.string.choose_friend));
+                friendPickerFragment.setTitleText(args.getString(TITLE, getResources().getString(R.string.choose_friend)));
             } else {
                 friendPickerFragment =
                         (FriendPickerFragment) manager.findFragmentById(R.id.picker_fragment);
@@ -53,7 +57,12 @@ public class PickerActivity extends FragmentActivity {
                     new PickerFragment.OnDoneButtonClickedListener() {
                         @Override
                         public void onDoneButtonClicked(PickerFragment<?> fragment) {
-                            ((Friends24Application) getApplication()).setSelectedFrieds(friendPickerFragment.getSelection());
+                            Friends24Application application = (Friends24Application) getApplication();
+                            if (application.getSelectedFrieds() == null) {
+                                application.setSelectedFrieds(new ArrayList<GraphUser>());
+                            }
+                            application.getSelectedFrieds().addAll(friendPickerFragment.getSelection());
+                            application.setNewlySelectedFrieds(friendPickerFragment.getSelection());
                             finishActivity();
                         }
                     });

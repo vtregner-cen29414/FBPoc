@@ -256,6 +256,7 @@
                         android:src="@drawable/im_calendar"
                         android:layout_marginRight="10dp"
                         android:layout_gravity="center"
+                        android:onClick="onCalendarPick"
                         />
 
             </TableRow>
@@ -298,30 +299,36 @@
                             android:textColor="@color/gray_input_text"/>
                 </RelativeLayout>
 
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/addParticipant"
-                        android:layout_span="2"
-                        android:layout_marginRight="10dp"
-                        android:textSize="12sp"
-                        android:clickable="true"
-                        android:onClick="onAddFbParticipant"
-                        android:id="@+id/addFbParticipantLink"
-                        android:textColor="@color/back_blue"
-                        android:drawableLeft="@drawable/im_addparticipant"
-                        android:drawablePadding="4dp"/>
-            </TableRow>
-
-            <TableRow>
-                <LinearLayout
-                        android:id="@+id/fbParticipants"
-                        android:orientation="vertical"
+                <RelativeLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_span="3">
-                </LinearLayout>
+                        android:layout_span="2"
+                        android:layout_marginRight="10dp">
+
+                    <LinearLayout
+                            android:id="@+id/fbParticipants"
+                            android:orientation="vertical"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content">
+                    </LinearLayout>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/addParticipant"
+                            android:layout_below="@id/fbParticipants"
+                            android:layout_marginRight="10dp"
+                            android:textSize="12sp"
+                            android:clickable="true"
+                            android:onClick="onAddFbParticipant"
+                            android:id="@+id/addFbParticipantLink"
+                            android:textColor="@color/back_blue"
+                            android:drawableLeft="@drawable/im_addparticipant"
+                            android:drawablePadding="4dp"/>
+
+                 </RelativeLayout>
+
+
             </TableRow>
 
             <TableRow>

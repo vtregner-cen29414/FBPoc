@@ -10,14 +10,23 @@
 
     <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_weight="0"
+           >
+
+        <!--<ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/participantPic"
+                android:src="@drawable/pick_friend"
+                />-->
 
         <cz.csas.startup.FBPoc.widget.RoundedProfilePictureView
                 android:id="@+id/participantPic"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="center_horizontal"
                 android:layout_marginBottom="5dp"
                 facebook:preset_size="small" />
 
@@ -27,6 +36,9 @@
                 android:id="@+id/participantName"
                 android:textSize="12sp"
                 android:textColor="@color/gray_input_text"
+                android:layout_below="@id/participantPic"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
                 android:text="Vasek"
                 />
 
@@ -38,8 +50,9 @@
             style="@style/AppEditText.GrayBorder"
             android:inputType="numberDecimal"
             android:ems="4"
-            android:layout_weight="0"
+            android:layout_weight="1"
             android:id="@+id/amount"
+            android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"/>
 
     <TextView
