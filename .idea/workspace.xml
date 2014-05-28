@@ -71,8 +71,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="abb190a0-38a9-4be4-b69c-02871f6c8ad1" name="Default" comment="VTR - new collection">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/HomeActivity.java" afterPath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/HomeActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/NewCollectionActivity.java" afterPath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/NewCollectionActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/NewPaymentActivity.java" afterPath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/NewPaymentActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="FBPoc.iws" />
@@ -96,21 +95,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="new_collection.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/layout/new_collection.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.98" vertical-offset="7444" max-vertical-offset="8432">
-              <caret line="479" column="50" selection-start-line="479" selection-start-column="50" selection-end-line="479" selection-end-column="50" />
-              <folding>
-                <element signature="e#3967#3983#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="NewCollectionActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/NewCollectionActivity.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -158,11 +142,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HomeActivity.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="HomeActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/HomeActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2620424" vertical-offset="306" max-vertical-offset="1904">
-              <caret line="48" column="79" selection-start-line="48" selection-start-column="44" selection-end-line="48" selection-end-column="44" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="1904">
+              <caret line="42" column="45" selection-start-line="42" selection-start-column="40" selection-end-line="42" selection-end-column="40" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PickerActivity.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/PickerActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="37" max-vertical-offset="1751">
+              <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NewPaymentActivity.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/NewPaymentActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.18593448" vertical-offset="521" max-vertical-offset="4267">
+              <caret line="77" column="121" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -186,16 +190,6 @@
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="new_collection_actions.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/menu/new_collection_actions.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="306">
-              <caret line="12" column="77" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -239,7 +233,6 @@
       <list>
         <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/model/FacebookCollectionParticipant.java" />
         <option value="$PROJECT_DIR$/res/drawable/greenprogressbar.xml" />
-        <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/NewPaymentActivity.java" />
         <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/PaymentsActivity.java" />
         <option value="$PROJECT_DIR$/../facebook-android-sdk-3.8.0/facebook/src/com/facebook/widget/ProfilePictureView.java" />
         <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/model/Collection.java" />
@@ -288,6 +281,7 @@
         <option value="$PROJECT_DIR$/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/NewCollectionActivity.java" />
         <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/HomeActivity.java" />
+        <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/NewPaymentActivity.java" />
       </list>
     </option>
   </component>
@@ -754,7 +748,7 @@
       <workItem from="1401168022119" duration="239000" />
       <workItem from="1401168372879" duration="918000" />
       <workItem from="1401169318630" duration="23701000" />
-      <workItem from="1401258625499" duration="22425000" />
+      <workItem from="1401258625499" duration="22661000" />
     </task>
     <task id="LOCAL-00001" summary="VTR: FriendPicker">
       <created>1397823692422</created>
@@ -844,11 +838,15 @@
       <created>1401283289753</created>
       <updated>1401283289753</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="VTR - new collection">
+      <created>1401284823789</created>
+      <updated>1401284823789</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="328632000" />
+    <option name="totallyTimeSpent" value="328868000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="54" y="-8" width="1874" height="1216" extended-state="6" />
@@ -1257,18 +1255,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/PickerActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="1802">
-          <caret line="41" column="65" selection-start-line="41" selection-start-column="65" selection-end-line="41" selection-end-column="65" />
-          <folding>
-            <element signature="e#1611#1659#0" expanded="true" />
-            <element signature="e#2356#3126#0" expanded="true" />
-            <element signature="e#3103#3104#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/Friends24Application.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1275">
@@ -1323,14 +1309,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="884">
           <caret line="32" column="74" selection-start-line="32" selection-start-column="74" selection-end-line="32" selection-end-column="74" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/NewPaymentActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2255" max-vertical-offset="4250">
-          <caret line="191" column="20" selection-start-line="191" selection-start-column="20" selection-end-line="191" selection-end-column="20" />
           <folding />
         </state>
       </provider>
@@ -1436,8 +1414,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/HomeActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2620424" vertical-offset="306" max-vertical-offset="1904">
-          <caret line="48" column="79" selection-start-line="48" selection-start-column="44" selection-end-line="48" selection-end-column="44" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="1904">
+          <caret line="42" column="45" selection-start-line="42" selection-start-column="40" selection-end-line="42" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/PickerActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="37" max-vertical-offset="1751">
+          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/NewPaymentActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.18593448" vertical-offset="521" max-vertical-offset="4267">
+          <caret line="77" column="121" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
           <folding />
         </state>
       </provider>

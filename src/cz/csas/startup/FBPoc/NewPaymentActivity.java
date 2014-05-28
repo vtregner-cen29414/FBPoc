@@ -1,7 +1,6 @@
 package cz.csas.startup.FBPoc;
 
 import android.app.Activity;
-import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,11 +12,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
-import com.facebook.android.Util;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.ProfilePictureView;
 import cz.csas.startup.FBPoc.model.Account;
@@ -92,6 +89,7 @@ public class NewPaymentActivity extends Activity {
             Intent intent = new Intent();
             intent.setData(PickerActivity.FRIEND_PICKER);
             intent.setClass(this, PickerActivity.class);
+            intent.putExtra(PickerActivity.MULTI_SELECTION, false);
             startActivityForResult(intent, PICK_FRIENDS_ACTIVITY);
         }
         else {
