@@ -23,7 +23,7 @@ import cz.csas.startup.FBPoc.model.Payment;
 import cz.csas.startup.FBPoc.service.AsyncTask;
 import cz.csas.startup.FBPoc.service.AsyncTaskResult;
 import cz.csas.startup.FBPoc.service.OnTaskCompleteListener;
-import cz.csas.startup.FBPoc.service.SendFBMessageTask;
+import cz.csas.startup.FBPoc.service.SendFBMessagePaymentTask;
 import cz.csas.startup.FBPoc.utils.Utils;
 import org.apache.http.client.methods.HttpPost;
 import org.jivesoftware.smack.SmackAndroid;
@@ -251,7 +251,7 @@ public class NewPaymentActivity extends Activity {
         protected void onPostExecute(final AsyncTaskResult<Payment> result) {
             super.onPostExecute(result);
             if (result.getStatus().equals(AsyncTaskResult.Status.OK)) {
-                SendFBMessageTask sendFBMessageTask = new SendFBMessageTask(getContext(), progressDialog, new OnTaskCompleteListener<Void>() {
+                SendFBMessagePaymentTask sendFBMessageTask = new SendFBMessagePaymentTask(getContext(), progressDialog, new OnTaskCompleteListener<Void>() {
                     @Override
                     public void onTaskComplete(Void aVoid) {
                         Intent intent = new Intent(getContext(), PaymentConfirmationActivity.class);

@@ -133,10 +133,10 @@ public class CollectionsActivity extends ListActivity {
 
                 if (jcollection.has("link")) collection.setLink(jcollection.getString("link"));
 
-                if (jcollection.has("fbParticipants")) {
+                if (jcollection.has("collectionFBParticipants")) {
                     List<FacebookCollectionParticipant> participants = new ArrayList<FacebookCollectionParticipant>();
                     collection.setFbParticipants(participants);
-                    JSONArray jparticipants = jcollection.getJSONArray("fbParticipants");
+                    JSONArray jparticipants = jcollection.getJSONArray("collectionFBParticipants");
                     for (int j=0; j< jparticipants.length(); j++) {
                         JSONObject jparticipant = jparticipants.getJSONObject(j);
                         FacebookCollectionParticipant participant = new FacebookCollectionParticipant();
@@ -148,10 +148,10 @@ public class CollectionsActivity extends ListActivity {
                     }
                 }
 
-                if (jcollection.has("emailParticipants")) {
+                if (jcollection.has("collectionEmailParticipants")) {
                     List<EmailCollectionParticipant> participants = new ArrayList<EmailCollectionParticipant>();
                     collection.setEmailParticipants(participants);
-                    JSONArray jparticipants = jcollection.getJSONArray("emailParticipants");
+                    JSONArray jparticipants = jcollection.getJSONArray("collectionEmailParticipants");
                     for (int j=0; j< jparticipants.length(); j++) {
                         JSONObject jparticipant = jparticipants.getJSONObject(j);
                         EmailCollectionParticipant participant = new EmailCollectionParticipant();

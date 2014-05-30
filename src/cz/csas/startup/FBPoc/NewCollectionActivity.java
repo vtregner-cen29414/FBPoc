@@ -6,6 +6,7 @@ import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -29,6 +30,8 @@ import cz.csas.startup.FBPoc.model.*;
 import cz.csas.startup.FBPoc.model.Collection;
 import cz.csas.startup.FBPoc.service.AsyncTask;
 import cz.csas.startup.FBPoc.service.AsyncTaskResult;
+import cz.csas.startup.FBPoc.service.OnTaskCompleteListener;
+import cz.csas.startup.FBPoc.service.SendFBMessageCollectionTask;
 import cz.csas.startup.FBPoc.utils.Utils;
 import cz.csas.startup.FBPoc.widget.RoundedProfilePictureView;
 import org.apache.http.client.methods.HttpPost;
@@ -728,11 +731,29 @@ public class NewCollectionActivity extends FbAwareActivity {
         }
 
         @Override
-        protected void onPostExecute(AsyncTaskResult<Collection> result) {
+        protected void onPostExecute(final AsyncTaskResult<Collection> result) {
             super.onPostExecute(result);
-            progressDialog.dismiss();
             if (result.getStatus() == AsyncTaskResult.Status.OK) {
-                Toast.makeText(getContext(), "Created " + result.getResult().getId(), Toast.LENGTH_LONG).show();
+
+                SendFBMessageCollectionTask messageCollectionTask = new SendFBMessageCollectionTask(getContext(), progressDialog, new OnTaskCompleteListener<Void>() {
+                    @Override
+                    public void onTaskComplete(Void aVoid) {
+                        Toast.makeText(getContext(), "Created " + result.getResult().getId(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onTaskError(Throwable throwable) {
+                        Utils.showMessage(getContext(), R.string.sendFBMessageError, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // TODO handle this use case
+                                finish();
+                            }
+                        });
+
+                    }
+                });
+                messageCollectionTask.execute(result.getResult());
             }
             else {
                 Utils.showErrorDialog(getContext(), result);

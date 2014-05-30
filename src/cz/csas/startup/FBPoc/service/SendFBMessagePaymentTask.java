@@ -14,7 +14,7 @@ import cz.csas.startup.FBPoc.model.Payment;
 import org.jivesoftware.smack.*;
 import org.jivesoftware.smack.packet.Message;
 
-public class SendFBMessageTask extends AsyncTask<Payment, Void, Void> {
+public class SendFBMessagePaymentTask extends AsyncTask<Payment, Void, Void> {
     private static final String TAG = "Friends24";
 
     private Exception ex;
@@ -23,7 +23,7 @@ public class SendFBMessageTask extends AsyncTask<Payment, Void, Void> {
     OnTaskCompleteListener<Void> listener;
 
 
-    public SendFBMessageTask(Context context, ProgressDialog progressDialog, OnTaskCompleteListener<Void> listener) {
+    public SendFBMessagePaymentTask(Context context, ProgressDialog progressDialog, OnTaskCompleteListener<Void> listener) {
         this.context = context;
         this.progressDialog = progressDialog;
         this.listener = listener;

@@ -73,4 +73,8 @@
     <string name="invalidDate">Zadejte platné datum</string>
     <string name="participantDuplicity">Duplicitní účastník</string>
     <string name="noParticipants">Sbírka neobsahuje žádné účastníky.</string>
+    <string name="friends24_server_payment_accept_url">http://startup.cloudapp.net:8080/Friends24Server/ui/incomePayment/</string>
+    <string name="friends24_server_collection_accept_url">http://startup.cloudapp.net:8080/Friends24Server/ui/incomeCollection/</string>
+    <string name="fbCollectionMessage1">Ahoj, pořádám sbírku</string>
+    <string name="fbCollectionMessage2">Na odkazu níže najdeš další podrobnosti, včetně platebních instrukcí.</string>
 </resources>
