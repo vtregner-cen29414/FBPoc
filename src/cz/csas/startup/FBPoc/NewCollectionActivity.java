@@ -117,7 +117,7 @@ public class NewCollectionActivity extends FbAwareActivity {
         });
 
         ensureOpenFacebookSession();
-
+        initSmack();
     }
 
     public void addLink(View view) {
@@ -734,30 +734,42 @@ public class NewCollectionActivity extends FbAwareActivity {
         protected void onPostExecute(final AsyncTaskResult<Collection> result) {
             super.onPostExecute(result);
             if (result.getStatus() == AsyncTaskResult.Status.OK) {
+                if (result.getResult().getFbParticipants() != null) {
+                    SendFBMessageCollectionTask messageCollectionTask = new SendFBMessageCollectionTask(getContext(), progressDialog, new OnTaskCompleteListener<Void>() {
+                        @Override
+                        public void onTaskComplete(Void aVoid) {
+                            onTaskCompleted(result);
+                        }
 
-                SendFBMessageCollectionTask messageCollectionTask = new SendFBMessageCollectionTask(getContext(), progressDialog, new OnTaskCompleteListener<Void>() {
-                    @Override
-                    public void onTaskComplete(Void aVoid) {
-                        Toast.makeText(getContext(), "Created " + result.getResult().getId(), Toast.LENGTH_LONG).show();
-                    }
+                        @Override
+                        public void onTaskError(Throwable throwable) {
+                            Utils.showMessage(getContext(), R.string.sendFBMessageError, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // TODO handle this use case
+                                    finish();
+                                }
+                            });
 
-                    @Override
-                    public void onTaskError(Throwable throwable) {
-                        Utils.showMessage(getContext(), R.string.sendFBMessageError, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // TODO handle this use case
-                                finish();
-                            }
-                        });
-
-                    }
-                });
-                messageCollectionTask.execute(result.getResult());
+                        }
+                    });
+                    messageCollectionTask.execute(result.getResult());
+                }
+                else {
+                    progressDialog.dismiss();
+                    onTaskCompleted(result);
+                }
             }
             else {
                 Utils.showErrorDialog(getContext(), result);
             }
+        }
+
+        private void onTaskCompleted(AsyncTaskResult<Collection> result) {
+            Intent intent = new Intent(getContext(), CollectionConfirmationActivity.class);
+            intent.putExtra("data", result.getResult());
+            startActivity(intent);
+            finish();
         }
     }
 

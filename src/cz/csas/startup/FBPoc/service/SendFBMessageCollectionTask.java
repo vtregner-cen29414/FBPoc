@@ -52,7 +52,7 @@ public class SendFBMessageCollectionTask extends AsyncTask<Collection, Void, Voi
             ChatManager chatmanager = xmpp.getChatManager();
 
             for (FacebookCollectionParticipant participant : collection.getFbParticipants()) {
-                sendMessage(chatmanager, collection, participant.getFbUserId());
+                //sendMessage(chatmanager, collection, participant.getFbUserId());
             }
 
         } catch (Exception e) {

@@ -25,6 +25,7 @@ import cz.csas.startup.FBPoc.service.AsyncTaskResult;
 import cz.csas.startup.FBPoc.service.OnTaskCompleteListener;
 import cz.csas.startup.FBPoc.service.SendFBMessagePaymentTask;
 import cz.csas.startup.FBPoc.utils.Utils;
+import cz.csas.startup.FBPoc.widget.RoundedProfilePictureView;
 import org.apache.http.client.methods.HttpPost;
 import org.jivesoftware.smack.SmackAndroid;
 import org.json.JSONException;
@@ -37,17 +38,15 @@ import java.util.List;
 /**
  * Created by cen29414 on 9.5.2014.
  */
-public class NewPaymentActivity extends Activity {
+public class NewPaymentActivity extends FbAwareActivity {
     private static final String TAG = "Friends24";
     private static final int PICK_FRIENDS_ACTIVITY = 1;
 
-    private UiLifecycleHelper uiHelper;
     private TextView recipientName;
-    private ProfilePictureView recipientPicture;
+    private RoundedProfilePictureView recipientPicture;
     private EditText amountView;
     private EditText messageForRecipientView;
     private Spinner accountSpinner;
-    SmackAndroid smackAndroid;
 
 
     @Override
@@ -58,7 +57,7 @@ public class NewPaymentActivity extends Activity {
         recipientName = (TextView) findViewById(R.id.recipent_name);
         recipientName.setText(Html.fromHtml(getString(R.string.selectRecipient)));
 
-        recipientPicture = (ProfilePictureView) findViewById(R.id.recipient_pic);
+        recipientPicture = (RoundedProfilePictureView) findViewById(R.id.recipient_pic);
         recipientPicture.setCropped(true);
 
         accountSpinner = (Spinner) findViewById(R.id.accountSelector);
@@ -69,18 +68,11 @@ public class NewPaymentActivity extends Activity {
         Intent intent = getIntent();
         accountSpinner.setSelection(intent.getIntExtra("account", 0));
 
-        uiHelper = new UiLifecycleHelper(this, new Session.StatusCallback() {
-            @Override
-            public void call(Session session, SessionState state, Exception exception) {
-                onSessionStateChange(session, state, exception);
-            }
-        });
 
-        uiHelper.onCreate(savedInstanceState);
 
         amountView = (EditText) findViewById(R.id.amount);
         messageForRecipientView = (EditText) findViewById(R.id.messageForRecipient);
-        smackAndroid = SmackAndroid.init(NewPaymentActivity.this);
+        initSmack();
 
     }
 
@@ -97,29 +89,7 @@ public class NewPaymentActivity extends Activity {
         }
     }
 
-    private void onSessionStateChange(Session session, SessionState state, Exception exception) {
-        if (session.isClosed()) {
-            Log.i(TAG, "FB session closed, redirect to login?");
-        }
-        /*if (state.isOpened() && !isFetching) {
-            Log.i(TAG, "Logged in...");
-            isFetching = true;
-            // Request user data and show the results
-            Request.newMeRequest(session, new Request.GraphUserCallback() {
-                @Override
-                public void onCompleted(GraphUser user, Response response) {
-                    isFetching = false;
-                    if (user != null) {
-                        profilePictureView.setProfileId(user.getId());
-                        userNameView.setText(user.getName());
-                    }
-                }
-            }).executeAsync();
 
-        } else if (state.isClosed()) {
-            Log.i(T*//*AG, "Logged out...");
-        }*/
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -130,48 +100,6 @@ public class NewPaymentActivity extends Activity {
             recipientPicture.setProfileId(selectedFrieds.get(0).getId());
             recipientName.setError(null);
         }
-        else uiHelper.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        // For scenarios where the main activity is launched and user
-        // session is not null, the session state change notification
-        // may not be triggered. Trigger it if it's open/closed.
-        Session session = Session.getActiveSession();
-        if (session != null &&
-                (session.isOpened() || session.isClosed()) ) {
-            onSessionStateChange(session, session.getState(), null);
-        }
-
-        uiHelper.onResume();
-
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        uiHelper.onStop();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        uiHelper.onPause();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        uiHelper.onDestroy();
-        smackAndroid.onDestroy();
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        uiHelper.onSaveInstanceState(outState);
     }
 
     public void onCretePayment(View view) {

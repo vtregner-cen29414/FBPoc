@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * Created by cen29414 on 9.5.2014.
  */
-public class CollectionsActivity extends ListActivity {
+public class CollectionsActivity extends FbAwareListActivity {
     private static final String TAG = "Friends24";
 
     CollectionsAdapter collectionsAdapter;

@@ -67,15 +67,27 @@
   </component>
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/res/layout/home.xml" mnemonic="9" />
-    <bookmark url="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/NewCollectionActivity.java" line="764" mnemonic="1" />
+    <bookmark url="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/NewCollectionActivity.java" line="776" mnemonic="1" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="abb190a0-38a9-4be4-b69c-02871f6c8ad1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/service/SendFBMessagePaymentTask.java" />
-      <change type="MOVED" beforePath="C:\startup\FBPoc\src\cz\csas\startup\FBPoc\service\SendFBMessageTask.java" afterPath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/service/SendFBMessageCollectionTask.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/CollectionConfirmationActivity.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/FbAwareListActivity.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/layout/collection_confirmation.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/layout/fb_participant.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UI/Friends24_v1.psd" afterPath="$PROJECT_DIR$/UI/Friends24_v1.psd" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/CollectionDetailActivity.java" afterPath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/CollectionDetailActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/CollectionsActivity.java" afterPath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/CollectionsActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/FbAwareActivity.java" afterPath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/FbAwareActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/NewCollectionActivity.java" afterPath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/NewCollectionActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/NewPaymentActivity.java" afterPath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/NewPaymentActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/PaymentConfirmationActivity.java" afterPath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/PaymentConfirmationActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/PaymentsActivity.java" afterPath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/PaymentsActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/service/SendFBMessageCollectionTask.java" afterPath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/service/SendFBMessageCollectionTask.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/new_collection.xml" afterPath="$PROJECT_DIR$/res/layout/new_collection.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/new_payment.xml" afterPath="$PROJECT_DIR$/res/layout/new_payment.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/payment_confirmation.xml" afterPath="$PROJECT_DIR$/res/layout/payment_confirmation.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/strings.xml" afterPath="$PROJECT_DIR$/res/values/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -100,147 +112,53 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="NewCollectionActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/NewCollectionActivity.java">
+      <file leaf-file-name="CollectionConfirmationActivity.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/CollectionConfirmationActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="9294" max-vertical-offset="12325">
-              <caret line="752" column="0" selection-start-line="752" selection-start-column="0" selection-end-line="752" selection-end-column="0" />
-              <folding>
-                <element signature="e#2936#2964#0" expanded="true" />
-                <element signature="e#3010#3037#0" expanded="true" />
-                <element signature="e#3283#3317#0" expanded="true" />
-                <element signature="e#3375#3409#0" expanded="true" />
-                <element signature="e#12458#12493#0" expanded="true" />
-                <element signature="e#16491#16515#0" expanded="true" />
-                <element signature="e#17265#17299#0" expanded="true" />
-                <element signature="e#18118#18148#0" expanded="true" />
-                <element signature="e#18410#18444#0" expanded="true" />
-                <element signature="e#18909#18940#0" expanded="true" />
-                <element signature="e#19151#19187#0" expanded="true" />
-                <element signature="e#20225#20261#0" expanded="true" />
-                <element signature="e#21368#21400#0" expanded="true" />
-                <element signature="e#21545#21579#0" expanded="true" />
-                <element signature="e#21803#21843#0" expanded="true" />
-                <element signature="e#22047#22087#0" expanded="true" />
-                <element signature="e#22335#22358#0" expanded="true" />
-                <element signature="e#24420#24448#0" expanded="true" />
-                <element signature="e#24450#24466#0" expanded="true" />
-                <element signature="e#28725#28753#0" expanded="true" />
-                <element signature="e#28755#28771#0" expanded="true" />
-                <element signature="e#31337#31338#0" expanded="true" />
-                <element signature="e#31377#31378#0" expanded="true" />
-                <element signature="e#31969#32012#0" expanded="true" />
-                <element signature="e#33129#33156#0" expanded="true" />
-                <element signature="e#33158#33479#0" expanded="true" />
-                <element signature="e#33452#33453#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SendFBMessagePaymentTask.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/service/SendFBMessagePaymentTask.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1717">
-              <caret line="16" column="28" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
-              <folding>
-                <element signature="e#2097#2304#0" expanded="true" />
-                <element signature="e#2289#2290#0" expanded="true" />
-                <element signature="e#2627#2687#0" expanded="true" />
-                <element signature="e#2975#3032#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SendFBMessageCollectionTask.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/service/SendFBMessageCollectionTask.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.44219652" vertical-offset="255" max-vertical-offset="1615">
-              <caret line="55" column="13" selection-start-line="55" selection-start-column="13" selection-end-line="55" selection-end-column="13" />
-              <folding>
-                <element signature="e#2880#2928#0" expanded="true" />
-                <element signature="e#3008#3056#0" expanded="true" />
-                <element signature="e#3094#3165#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Utils.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/utils/Utils.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1881" max-vertical-offset="3468">
-              <caret line="165" column="45" selection-start-line="165" selection-start-column="25" selection-end-line="165" selection-end-column="45" />
-              <folding>
-                <element signature="e#1043#1068#0" expanded="true" />
-                <element signature="e#1199#1223#0" expanded="true" />
-                <element signature="e#1349#1379#0" expanded="true" />
-                <element signature="e#1563#1590#0" expanded="true" />
-                <element signature="e#1953#1978#0" expanded="true" />
-                <element signature="e#2088#2112#0" expanded="true" />
-                <element signature="e#2217#2247#0" expanded="true" />
-                <element signature="e#2404#2431#0" expanded="true" />
-                <element signature="e#2672#2697#0" expanded="true" />
-                <element signature="e#2826#2850#0" expanded="true" />
-                <element signature="e#2974#3004#0" expanded="true" />
-                <element signature="e#3119#3146#0" expanded="true" />
-                <element signature="e#3366#3391#0" expanded="true" />
-                <element signature="e#3511#3535#0" expanded="true" />
-                <element signature="e#3650#3680#0" expanded="true" />
-                <element signature="e#3843#3870#0" expanded="true" />
-                <element signature="e#4054#4087#0" expanded="true" />
-                <element signature="e#4180#4191#0" expanded="true" />
-                <element signature="e#4688#4721#0" expanded="true" />
-                <element signature="e#4814#4825#0" expanded="true" />
-                <element signature="e#5229#5240#0" expanded="true" />
-                <element signature="e#5881#5892#0" expanded="true" />
-                <element signature="e#6379#6410#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Collection.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/model/Collection.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1989" max-vertical-offset="3281">
-              <caret line="143" column="50" selection-start-line="143" selection-start-column="50" selection-end-line="143" selection-end-column="50" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="1190">
+              <caret line="68" column="93" selection-start-line="68" selection-start-column="93" selection-end-line="68" selection-end-column="93" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NewPaymentActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/NewPaymentActivity.java">
+      <file leaf-file-name="payment_confirmation.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/layout/payment_confirmation.xml">
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="182" max-vertical-offset="4318">
-              <caret line="70" column="0" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
+            <state vertical-scroll-proportion="-4.76" vertical-offset="0" max-vertical-offset="2040">
+              <caret line="7" column="50" selection-start-line="7" selection-start-column="50" selection-end-line="7" selection-end-column="50" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="collection_confirmation.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/layout/collection_confirmation.xml">
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-5.44" vertical-offset="0" max-vertical-offset="2006">
+              <caret line="8" column="54" selection-start-line="8" selection-start-column="54" selection-end-line="8" selection-end-column="54" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="new_collection.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/layout/new_collection.xml">
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-5.36" vertical-offset="257" max-vertical-offset="8466">
+              <caret line="23" column="51" selection-start-line="23" selection-start-column="51" selection-end-line="23" selection-end-column="51" />
               <folding>
-                <element signature="e#10616#10643#0" expanded="true" />
-                <element signature="e#10645#10966#0" expanded="true" />
-                <element signature="e#10939#10940#0" expanded="true" />
+                <element signature="e#21474#21500#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CollectionsActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/CollectionsActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1716" max-vertical-offset="3009">
-              <caret line="135" column="61" selection-start-line="135" selection-start-column="61" selection-end-line="135" selection-end-column="61" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JSONObject.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../android-sdk/sources/android-19/org/json/JSONObject.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3513" max-vertical-offset="12529">
-              <caret line="253" column="22" selection-start-line="253" selection-start-column="22" selection-end-line="253" selection-end-column="22" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -248,22 +166,69 @@
       <file leaf-file-name="strings.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="437" max-vertical-offset="1462">
-              <caret line="78" column="109" selection-start-line="78" selection-start-column="109" selection-end-line="78" selection-end-column="109" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1513">
+              <caret line="36" column="54" selection-start-line="36" selection-start-column="54" selection-end-line="36" selection-end-column="54" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fb_participants_row.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/layout/fb_participants_row.xml">
+      <file leaf-file-name="color.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/values/color.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="646">
+              <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SendFBMessageCollectionTask.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/service/SendFBMessageCollectionTask.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="322" max-vertical-offset="1615">
+              <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NewCollectionActivity.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/NewCollectionActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="11402" max-vertical-offset="12444">
+              <caret line="719" column="0" selection-start-line="719" selection-start-column="0" selection-end-line="719" selection-end-column="0" />
+              <folding>
+                <element signature="e#19171#19207#0" expanded="true" />
+                <element signature="e#20245#20281#0" expanded="true" />
+                <element signature="e#32931#32932#0" expanded="true" />
+                <element signature="e#33010#33011#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fb_participant.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/layout/fb_participant.xml">
           <provider editor-type-id="android-designer">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-14.84" vertical-offset="224" max-vertical-offset="1411">
-              <caret line="35" column="48" selection-start-line="35" selection-start-column="33" selection-end-line="35" selection-end-column="48" />
+            <state vertical-scroll-proportion="-23.12" vertical-offset="0" max-vertical-offset="680">
+              <caret line="34" column="17" selection-start-line="34" selection-start-column="17" selection-end-line="34" selection-end-column="17" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CollectionDetailActivity.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/CollectionDetailActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.32755297" vertical-offset="340" max-vertical-offset="3519">
+              <caret line="69" column="43" selection-start-line="69" selection-start-column="43" selection-end-line="69" selection-end-column="43" />
+              <folding>
+                <element signature="e#3372#3410#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -282,15 +247,7 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/service/AsyncTask.java" />
-        <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/ImageDetailActivity.java" />
-        <option value="$PROJECT_DIR$/res/layout/imagedetail.xml" />
-        <option value="$PROJECT_DIR$/res/drawable/horizontal_divider_1.xml" />
-        <option value="$PROJECT_DIR$/res/layout/account_row2.xml" />
-        <option value="$PROJECT_DIR$/res/layout/payment_row.xml" />
         <option value="$PROJECT_DIR$/res/drawable/sbackgroundtile.xml" />
-        <option value="$PROJECT_DIR$/res/layout/payment_confirmation.xml" />
-        <option value="$PROJECT_DIR$/res/layout/new_payment.xml" />
         <option value="$PROJECT_DIR$/res/drawable/backgroundtile.xml" />
         <option value="$PROJECT_DIR$/res/layout/account_selector.xml" />
         <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/AccountsAdapter.java" />
@@ -308,7 +265,6 @@
         <option value="$PROJECT_DIR$/res/values/color.xml" />
         <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/widget/ProfilePictureView.java" />
         <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/widget/RoundedProfilePictureView.java" />
-        <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/CollectionDetailActivity.java" />
         <option value="$PROJECT_DIR$/res/layout/account_row.xml" />
         <option value="$PROJECT_DIR$/res/layout/home.xml" />
         <option value="$PROJECT_DIR$/res/values/style.xml" />
@@ -316,23 +272,32 @@
         <option value="$PROJECT_DIR$/res/layout/participants_row.xml" />
         <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/Friends24Application.java" />
         <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/PickerActivity.java" />
-        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/res/layout/fb_participants_row.xml" />
-        <option value="$PROJECT_DIR$/res/layout/new_collection.xml" />
-        <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/FbAwareActivity.java" />
         <option value="$PROJECT_DIR$/res/menu/new_collection_actions.xml" />
         <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/HomeActivity.java" />
-        <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/NewPaymentActivity.java" />
         <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/model/EmailCollectionParticipant.java" />
         <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/model/FacebookCollectionParticipant.java" />
-        <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/model/Collection.java" />
         <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/utils/Utils.java" />
         <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/service/SendFBMessageTask.java" />
         <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/service/SendFBMessagePaymentTask.java" />
-        <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/NewCollectionActivity.java" />
-        <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/CollectionsActivity.java" />
-        <option value="$PROJECT_DIR$/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/FbAwareActivity.java" />
         <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/service/SendFBMessageCollectionTask.java" />
+        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/model/Collection.java" />
+        <option value="$PROJECT_DIR$/res/layout/fb_participant.xml" />
+        <option value="$PROJECT_DIR$/res/layout/new_payment.xml" />
+        <option value="$PROJECT_DIR$/res/layout/payment_confirmation.xml" />
+        <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/PaymentsActivity.java" />
+        <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/NewPaymentActivity.java" />
+        <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/PaymentConfirmationActivity.java" />
+        <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/FbAwareListActivity.java" />
+        <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/CollectionsActivity.java" />
+        <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/CollectionConfirmationActivity.java" />
+        <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/NewCollectionActivity.java" />
+        <option value="$PROJECT_DIR$/res/layout/collection_confirmation.xml" />
+        <option value="$PROJECT_DIR$/res/layout/new_collection.xml" />
+        <option value="$PROJECT_DIR$/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/CollectionDetailActivity.java" />
       </list>
     </option>
   </component>
@@ -390,6 +355,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -444,6 +410,28 @@
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="service" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FBPoc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FBPoc" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FBPoc" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="model" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -462,9 +450,26 @@
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FBPoc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FBPoc" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -509,12 +514,13 @@
     <property name="LayoutCode.rearrangeEntriesXML" value="false" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc" />
+    <property name="SearchEverywhereHistoryKey" value="confirmation&#9;FILE&#9;file://C:/startup/FBPoc/res/layout/payment_confirmation.xml" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="cz.csas.startup.FBPoc" />
       <recent name="cz.csas.startup.FBPoc.service" />
       <recent name="cz.csas.startup.FBPoc.widget" />
-      <recent name="cz.csas.startup.FBPoc" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\startup\FBPoc\res\layout" />
@@ -841,7 +847,8 @@
       <workItem from="1401169318630" duration="23701000" />
       <workItem from="1401258625499" duration="22661000" />
       <workItem from="1401429618382" duration="591000" />
-      <workItem from="1401431251920" duration="10000000" />
+      <workItem from="1401431251920" duration="18093000" />
+      <workItem from="1401455773970" duration="2610000" />
     </task>
     <task id="LOCAL-00001" summary="VTR: FriendPicker">
       <created>1397823692422</created>
@@ -939,11 +946,15 @@
       <created>1401440095011</created>
       <updated>1401440095011</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="VTR - new collection">
+      <created>1401446476619</created>
+      <updated>1401446476619</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="339459000" />
+    <option name="totallyTimeSpent" value="350162000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1216" extended-state="6" />
@@ -951,47 +962,47 @@
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299539" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32910696" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32861635" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32861635" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32934684" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3201472" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.7751152" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2491731" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35942492" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32073733" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32910696" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32073733" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32106715" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.77603686" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2491731" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" x="92" y="92" width="1736" height="976" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32073733" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Regex" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" x="92" y="92" width="1736" height="976" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32861635" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32861635" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32934684" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25523704" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1009,8 +1020,8 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32534564" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.46820277" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Regex" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
@@ -1056,19 +1067,25 @@
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/CollectionDetailActivity.java</url>
-          <line>280</line>
-          <properties />
-          <option name="timeStamp" value="43" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/ImageDetailActivity.java</url>
           <line>15</line>
           <properties />
           <option name="timeStamp" value="44" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/NewCollectionActivity.java</url>
+          <line>385</line>
+          <properties />
+          <option name="timeStamp" value="61" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/NewCollectionActivity.java</url>
+          <line>734</line>
+          <properties />
+          <option name="timeStamp" value="62" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="61" />
+      <option name="time" value="63" />
     </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
@@ -1076,137 +1093,10 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../facebook-android-sdk-3.8.0/facebook/src/com/facebook/widget/ProfilePictureView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="8449">
-          <caret line="40" column="20" selection-start-line="40" selection-start-column="20" selection-end-line="40" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../android-sdk/sources/android-19/android/graphics/RectF.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="44" max-vertical-offset="9384">
-          <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../android-sdk/sources/android-19/android/graphics/Canvas.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="16245" max-vertical-offset="30090">
-          <caret line="1041" column="28" selection-start-line="1041" selection-start-column="28" selection-end-line="1041" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../android-sdk/sources/android-19/android/graphics/Rect.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="44" max-vertical-offset="9537">
-          <caret line="32" column="19" selection-start-line="32" selection-start-column="19" selection-end-line="32" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gen/cz/csas/startup/FBPoc/R.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1539855" vertical-offset="0" max-vertical-offset="552">
-          <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/payment_row_expanded.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1013">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/collection_row.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="663">
-          <caret line="19" column="26" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../android-sdk/platforms/android-19/data/res/values/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.16682374" vertical-offset="13202" max-vertical-offset="43180">
-          <caret line="787" column="17" selection-start-line="787" selection-start-column="17" selection-end-line="787" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/account_row.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.22972973" vertical-offset="0" max-vertical-offset="1241">
-          <caret line="14" column="40" selection-start-line="14" selection-start-column="40" selection-end-line="14" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/home.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-69.36" vertical-offset="0" max-vertical-offset="2261">
-          <caret line="102" column="0" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/values/style.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="646">
-          <caret line="32" column="12" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../android-sdk/platforms/android-19/data/res/values/attrs.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1840" max-vertical-offset="104805">
-          <caret line="129" column="20" selection-start-line="129" selection-start-column="20" selection-end-line="129" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/values/color.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.36" vertical-offset="0" max-vertical-offset="646">
-          <caret line="2" column="26" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../android-sdk/sources/android-19/android/app/ActivityThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="54114" max-vertical-offset="82127">
-          <caret line="3383" column="0" selection-start-line="3383" selection-start-column="0" selection-end-line="3383" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../android-sdk/sources/android-19/com/android/internal/os/ZygoteInit.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="12231" max-vertical-offset="12835">
           <caret line="791" column="0" selection-start-line="791" selection-start-column="0" selection-end-line="791" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/payment_confirmation.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.7117473" vertical-offset="721" max-vertical-offset="2040">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1236,14 +1126,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.68" vertical-offset="1279" max-vertical-offset="3774">
           <caret line="119" column="17" selection-start-line="119" selection-start-column="4" selection-end-line="147" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/CollectionDetailActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2150" max-vertical-offset="4760">
-          <caret line="161" column="59" selection-start-line="161" selection-start-column="59" selection-end-line="161" selection-end-column="59" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1289,39 +1171,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="884">
-          <caret line="32" column="74" selection-start-line="32" selection-start-column="74" selection-end-line="32" selection-end-column="74" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/new_collection.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.98" vertical-offset="7444" max-vertical-offset="8432">
-          <caret line="479" column="50" selection-start-line="479" selection-start-column="50" selection-end-line="479" selection-end-column="50" />
-          <folding>
-            <element signature="e#3967#3983#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../android-sdk/sources/android-19/android/app/Activity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="15430" max-vertical-offset="89199">
           <caret line="1033" column="19" selection-start-line="1033" selection-start-column="19" selection-end-line="1033" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/HomeActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="629" max-vertical-offset="2142">
-          <caret line="37" column="43" selection-start-line="37" selection-start-column="43" selection-end-line="37" selection-end-column="43" />
           <folding />
         </state>
       </provider>
@@ -1346,7 +1199,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="3370" max-vertical-offset="13277">
           <caret line="235" column="11" selection-start-line="235" selection-start-column="11" selection-end-line="235" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1354,7 +1206,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1683" max-vertical-offset="3978">
           <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1381,15 +1232,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="84" max-vertical-offset="1122">
           <caret line="80" column="9" selection-start-line="69" selection-start-column="8" selection-end-line="80" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/PaymentsActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1014" max-vertical-offset="2380">
-          <caret line="110" column="16" selection-start-line="110" selection-start-column="16" selection-end-line="110" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1419,7 +1261,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2357" max-vertical-offset="9843">
           <caret line="183" column="21" selection-start-line="183" selection-start-column="21" selection-end-line="183" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1427,15 +1268,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="3513" max-vertical-offset="12529">
           <caret line="253" column="22" selection-start-line="253" selection-start-column="22" selection-end-line="253" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/model/Collection.java">
+    <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/utils/Utils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1989" max-vertical-offset="3281">
-          <caret line="143" column="50" selection-start-line="143" selection-start-column="50" selection-end-line="143" selection-end-column="50" />
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1881" max-vertical-offset="3468">
+          <caret line="165" column="45" selection-start-line="165" selection-start-column="25" selection-end-line="165" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/service/SendFBMessagePaymentTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1717">
+          <caret line="16" column="28" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -1444,129 +1290,245 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.84" vertical-offset="224" max-vertical-offset="1411">
-          <caret line="35" column="48" selection-start-line="35" selection-start-column="33" selection-end-line="35" selection-end-column="48" />
+        <state vertical-scroll-proportion="-16.32" vertical-offset="0" max-vertical-offset="1411">
+          <caret line="24" column="63" selection-start-line="24" selection-start-column="63" selection-end-line="24" selection-end-column="63" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/utils/Utils.java">
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1881" max-vertical-offset="3468">
-          <caret line="165" column="45" selection-start-line="165" selection-start-column="25" selection-end-line="165" selection-end-column="45" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="901">
+          <caret line="33" column="64" selection-start-line="33" selection-start-column="64" selection-end-line="33" selection-end-column="64" />
           <folding>
-            <element signature="e#1043#1068#0" expanded="true" />
-            <element signature="e#1199#1223#0" expanded="true" />
-            <element signature="e#1349#1379#0" expanded="true" />
-            <element signature="e#1563#1590#0" expanded="true" />
-            <element signature="e#1953#1978#0" expanded="true" />
-            <element signature="e#2088#2112#0" expanded="true" />
-            <element signature="e#2217#2247#0" expanded="true" />
-            <element signature="e#2404#2431#0" expanded="true" />
-            <element signature="e#2672#2697#0" expanded="true" />
-            <element signature="e#2826#2850#0" expanded="true" />
-            <element signature="e#2974#3004#0" expanded="true" />
-            <element signature="e#3119#3146#0" expanded="true" />
-            <element signature="e#3366#3391#0" expanded="true" />
-            <element signature="e#3511#3535#0" expanded="true" />
-            <element signature="e#3650#3680#0" expanded="true" />
-            <element signature="e#3843#3870#0" expanded="true" />
-            <element signature="e#4054#4087#0" expanded="true" />
-            <element signature="e#4180#4191#0" expanded="true" />
-            <element signature="e#4688#4721#0" expanded="true" />
-            <element signature="e#4814#4825#0" expanded="true" />
-            <element signature="e#5229#5240#0" expanded="true" />
-            <element signature="e#5881#5892#0" expanded="true" />
-            <element signature="e#6379#6410#0" expanded="true" />
+            <element signature="e#713#731#0" expanded="true" />
+            <element signature="e#1135#1153#0" expanded="true" />
+            <element signature="e#1237#1255#0" expanded="true" />
+            <element signature="e#1342#1360#0" expanded="true" />
+            <element signature="e#1449#1467#0" expanded="true" />
+            <element signature="e#1565#1583#0" expanded="true" />
+            <element signature="e#1673#1691#0" expanded="true" />
+            <element signature="e#1786#1804#0" expanded="true" />
+            <element signature="e#2103#2121#0" expanded="true" />
+            <element signature="e#2625#2641#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/service/SendFBMessagePaymentTask.java">
+    <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/service/AsyncTaskResult.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1717">
-          <caret line="16" column="28" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
-          <folding>
-            <element signature="e#2097#2304#0" expanded="true" />
-            <element signature="e#2289#2290#0" expanded="true" />
-            <element signature="e#2627#2687#0" expanded="true" />
-            <element signature="e#2975#3032#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1394">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/NewCollectionActivity.java">
+    <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/model/Collection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="9294" max-vertical-offset="12325">
-          <caret line="752" column="0" selection-start-line="752" selection-start-column="0" selection-end-line="752" selection-end-column="0" />
-          <folding>
-            <element signature="e#2936#2964#0" expanded="true" />
-            <element signature="e#3010#3037#0" expanded="true" />
-            <element signature="e#3283#3317#0" expanded="true" />
-            <element signature="e#3375#3409#0" expanded="true" />
-            <element signature="e#12458#12493#0" expanded="true" />
-            <element signature="e#16491#16515#0" expanded="true" />
-            <element signature="e#17265#17299#0" expanded="true" />
-            <element signature="e#18118#18148#0" expanded="true" />
-            <element signature="e#18410#18444#0" expanded="true" />
-            <element signature="e#18909#18940#0" expanded="true" />
-            <element signature="e#19151#19187#0" expanded="true" />
-            <element signature="e#20225#20261#0" expanded="true" />
-            <element signature="e#21368#21400#0" expanded="true" />
-            <element signature="e#21545#21579#0" expanded="true" />
-            <element signature="e#21803#21843#0" expanded="true" />
-            <element signature="e#22047#22087#0" expanded="true" />
-            <element signature="e#22335#22358#0" expanded="true" />
-            <element signature="e#24420#24448#0" expanded="true" />
-            <element signature="e#24450#24466#0" expanded="true" />
-            <element signature="e#28725#28753#0" expanded="true" />
-            <element signature="e#28755#28771#0" expanded="true" />
-            <element signature="e#31337#31338#0" expanded="true" />
-            <element signature="e#31377#31378#0" expanded="true" />
-            <element signature="e#31969#32012#0" expanded="true" />
-            <element signature="e#33129#33156#0" expanded="true" />
-            <element signature="e#33158#33479#0" expanded="true" />
-            <element signature="e#33452#33453#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="-14.16" vertical-offset="938" max-vertical-offset="3281">
+          <caret line="134" column="5" selection-start-line="134" selection-start-column="5" selection-end-line="134" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../android-sdk/sources/android-19/android/widget/GridLayout.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.30539498" vertical-offset="30424" max-vertical-offset="44812">
+          <caret line="1857" column="24" selection-start-line="1857" selection-start-column="24" selection-end-line="1857" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../android-sdk/sources/android-19/android/view/View.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="32328" max-vertical-offset="322830">
+          <caret line="2017" column="28" selection-start-line="2017" selection-start-column="28" selection-end-line="2017" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../android-sdk/sources/android-19/android/view/Gravity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="589" max-vertical-offset="7361">
+          <caret line="69" column="28" selection-start-line="69" selection-start-column="28" selection-end-line="69" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/HomeActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1904">
+          <caret line="46" column="43" selection-start-line="46" selection-start-column="43" selection-end-line="46" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/new_payment.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-18.08" vertical-offset="1520" max-vertical-offset="3451">
+          <caret line="116" column="75" selection-start-line="116" selection-start-column="75" selection-end-line="116" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../android-sdk/sources/android-19/android/app/ListActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2289" max-vertical-offset="5083">
+          <caret line="174" column="13" selection-start-line="174" selection-start-column="13" selection-end-line="174" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/PaymentsActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2380">
+          <caret line="27" column="53" selection-start-line="27" selection-start-column="53" selection-end-line="27" selection-end-column="53" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/NewPaymentActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="182" max-vertical-offset="4318">
-          <caret line="70" column="0" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
-          <folding>
-            <element signature="e#10616#10643#0" expanded="true" />
-            <element signature="e#10645#10966#0" expanded="true" />
-            <element signature="e#10939#10940#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="1989" max-vertical-offset="3077">
+          <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/PaymentConfirmationActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="901">
+          <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/FbAwareActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="16" max-vertical-offset="1921">
+          <caret line="18" column="29" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/FbAwareListActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1921">
+          <caret line="19" column="62" selection-start-line="19" selection-start-column="62" selection-end-line="19" selection-end-column="62" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/CollectionsActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1716" max-vertical-offset="3009">
-          <caret line="135" column="61" selection-start-line="135" selection-start-column="61" selection-end-line="135" selection-end-column="61" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3009">
+          <caret line="35" column="13" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
+    <entry file="file://$PROJECT_DIR$/res/drawable-xhdpi/im_emailico.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/fb_participant.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="437" max-vertical-offset="1462">
-          <caret line="78" column="109" selection-start-line="78" selection-start-column="109" selection-end-line="78" selection-end-column="109" />
+        <state vertical-scroll-proportion="-23.12" vertical-offset="0" max-vertical-offset="680">
+          <caret line="34" column="17" selection-start-line="34" selection-start-column="17" selection-end-line="34" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/CollectionConfirmationActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="1190">
+          <caret line="68" column="93" selection-start-line="68" selection-start-column="93" selection-end-line="68" selection-end-column="93" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/service/SendFBMessageCollectionTask.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.44219652" vertical-offset="255" max-vertical-offset="1615">
-          <caret line="55" column="13" selection-start-line="55" selection-start-column="13" selection-end-line="55" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="322" max-vertical-offset="1615">
+          <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/NewCollectionActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="11402" max-vertical-offset="12444">
+          <caret line="719" column="0" selection-start-line="719" selection-start-column="0" selection-end-line="719" selection-end-column="0" />
           <folding>
-            <element signature="e#2880#2928#0" expanded="true" />
-            <element signature="e#3008#3056#0" expanded="true" />
-            <element signature="e#3094#3165#0" expanded="true" />
+            <element signature="e#19171#19207#0" expanded="true" />
+            <element signature="e#20245#20281#0" expanded="true" />
+            <element signature="e#32931#32932#0" expanded="true" />
+            <element signature="e#33010#33011#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/payment_confirmation.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.76" vertical-offset="0" max-vertical-offset="2040">
+          <caret line="7" column="50" selection-start-line="7" selection-start-column="50" selection-end-line="7" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values/color.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="646">
+          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/collection_confirmation.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.44" vertical-offset="0" max-vertical-offset="2006">
+          <caret line="8" column="54" selection-start-line="8" selection-start-column="54" selection-end-line="8" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/new_collection.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.36" vertical-offset="257" max-vertical-offset="8466">
+          <caret line="23" column="51" selection-start-line="23" selection-start-column="51" selection-end-line="23" selection-end-column="51" />
+          <folding>
+            <element signature="e#21474#21500#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1513">
+          <caret line="36" column="54" selection-start-line="36" selection-start-column="54" selection-end-line="36" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/CollectionDetailActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.32755297" vertical-offset="340" max-vertical-offset="3519">
+          <caret line="69" column="43" selection-start-line="69" selection-start-column="43" selection-end-line="69" selection-end-column="43" />
+          <folding>
+            <element signature="e#3372#3410#0" expanded="true" />
           </folding>
         </state>
       </provider>

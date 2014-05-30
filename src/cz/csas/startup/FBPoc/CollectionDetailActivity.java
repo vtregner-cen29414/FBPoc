@@ -34,10 +34,9 @@ import java.util.Date;
 /**
  * Created by cen29414 on 19.5.2014.
  */
-public class CollectionDetailActivity extends Activity {
+public class CollectionDetailActivity extends FbAwareActivity {
     private static final String TAG = "Friends24";
 
-    UiLifecycleHelper uiHelper;
     Collection collection;
     ProgressBar imageProgressBar;
     ImageView image;
@@ -48,14 +47,6 @@ public class CollectionDetailActivity extends Activity {
         setContentView(R.layout.collection_detail);
         collection = getIntent().getParcelableExtra("data");
 
-        uiHelper = new UiLifecycleHelper(this, new Session.StatusCallback() {
-            @Override
-            public void call(Session session, SessionState state, Exception exception) {
-                onSessionStateChange(session, state, exception);
-            }
-        });
-
-        uiHelper.onCreate(savedInstanceState);
 
         TextView accountRow1 = (TextView) findViewById(R.id.accountRow1);
         TextView accountRow2 = (TextView) findViewById(R.id.accountRow2);
@@ -75,7 +66,7 @@ public class CollectionDetailActivity extends Activity {
             image.setVisibility(View.VISIBLE);
         }
         else {
-            if (collection.isHasImage()) imageProgressBar.setVisibility(View.VISIBLE);
+            imageProgressBar.setVisibility(collection.isHasImage() ? View.VISIBLE : View.GONE);
             image.setVisibility(View.GONE);
 
         }
@@ -83,8 +74,11 @@ public class CollectionDetailActivity extends Activity {
         TextView descriptionView = (TextView) findViewById(R.id.collectionDescription);
         descriptionView.setText(collection.getDescription());
         TextView linkView = (TextView) findViewById(R.id.collectionLink);
-        linkView.setText(Html.fromHtml("<a href=\"" + collection.getLink() + "\">"+getString(R.string.collectionLinkInfo)+"</a>"));
-        linkView.setMovementMethod(LinkMovementMethod.getInstance());
+        linkView.setVisibility(collection.getLink() != null ? View.VISIBLE : View.GONE);
+        if (collection.getLink() != null) {
+            linkView.setText(Html.fromHtml("<a href=\"" + collection.getLink() + "\">" + getString(R.string.collectionLinkInfo) + "</a>"));
+            linkView.setMovementMethod(LinkMovementMethod.getInstance());
+        }
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setMax(collection.getTargetAmount().intValue());
@@ -127,29 +121,6 @@ public class CollectionDetailActivity extends Activity {
         appendParticipants(collection);
     }
 
-    private void onSessionStateChange(Session session, SessionState state, Exception exception) {
-        if (session.isClosed()) {
-            Log.i(TAG, "FB session closed, redirect to login?");
-        }
-        /*if (state.isOpened() && !isFetching) {
-            Log.i(TAG, "Logged in...");
-            isFetching = true;
-            // Request user data and show the results
-            Request.newMeRequest(session, new Request.GraphUserCallback() {
-                @Override
-                public void onCompleted(GraphUser user, Response response) {
-                    isFetching = false;
-                    if (user != null) {
-                        profilePictureView.setProfileId(user.getId());
-                        userNameView.setText(user.getName());
-                    }
-                }
-            }).executeAsync();
-
-        } else if (state.isClosed()) {
-            Log.i(T*//*AG, "Logged out...");
-        }*/
-    }
 
     private void appendParticipants(Collection collection) {
         TableLayout participantsList = (TableLayout) findViewById(R.id.participantList);
@@ -219,53 +190,6 @@ public class CollectionDetailActivity extends Activity {
     }
 
     public void onNotify(View view) {
-    }
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        // For scenarios where the main activity is launched and user
-        // session is not null, the session state change notification
-        // may not be triggered. Trigger it if it's open/closed.
-        Session session = Session.getActiveSession();
-        if (session != null &&
-                (session.isOpened() || session.isClosed()) ) {
-            onSessionStateChange(session, session.getState(), null);
-        }
-
-        uiHelper.onResume();
-
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        uiHelper.onStop();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        uiHelper.onPause();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        uiHelper.onDestroy();
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        uiHelper.onSaveInstanceState(outState);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        //appendParticipants(collection);
     }
 
     public void onImageDetail(View view) {

@@ -77,4 +77,7 @@
     <string name="friends24_server_collection_accept_url">http://startup.cloudapp.net:8080/Friends24Server/ui/incomeCollection/</string>
     <string name="fbCollectionMessage1">Ahoj, pořádám sbírku</string>
     <string name="fbCollectionMessage2">Na odkazu níže najdeš další podrobnosti, včetně platebních instrukcí.</string>
+    <string name="collection_confirm_1">Vašim {0} přátelům</string>
+    <string name="collection_confirm_2">byla zaslána žádost o příspěvek do vaší sbírky. Stav sbírky si můžete kdykoliv zkontrolovat v aplikaci Friends24 nebo Servis24.</string>
+    <string name="new_collection_link"><![CDATA[<u>NOVÁ SBÍRKA</u>]]></string>
 </resources>

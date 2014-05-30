@@ -8,6 +8,7 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import cz.csas.startup.FBPoc.utils.Utils;
+import org.jivesoftware.smack.SmackAndroid;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.List;
 public abstract class FbAwareActivity extends Activity {
     protected UiLifecycleHelper uiHelper;
     private static final String TAG = "Friends24";
+    protected SmackAndroid smackAndroid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,10 @@ public abstract class FbAwareActivity extends Activity {
         });
 
         uiHelper.onCreate(savedInstanceState);
+    }
+
+    protected void initSmack() {
+        smackAndroid = SmackAndroid.init(this);
     }
 
     @Override
@@ -107,6 +113,7 @@ public abstract class FbAwareActivity extends Activity {
     public void onDestroy() {
         super.onDestroy();
         uiHelper.onDestroy();
+        if (smackAndroid != null) smackAndroid.onDestroy();
     }
 
     @Override

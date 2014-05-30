@@ -13,15 +13,16 @@ import com.facebook.UiLifecycleHelper;
 import com.facebook.widget.ProfilePictureView;
 import cz.csas.startup.FBPoc.model.Account;
 import cz.csas.startup.FBPoc.model.Payment;
+import cz.csas.startup.FBPoc.widget.RoundedProfilePictureView;
 
 /**
  * Created by cen29414 on 16.5.2014.
  */
-public class PaymentConfirmationActivity extends Activity {
+public class PaymentConfirmationActivity extends FbAwareActivity {
     private static final String TAG = "Friends24";
 
     private TextView recipientName;
-    private ProfilePictureView recipientPicture;
+    private RoundedProfilePictureView recipientPicture;
     private UiLifecycleHelper uiHelper;
 
     @Override
@@ -41,17 +42,9 @@ public class PaymentConfirmationActivity extends Activity {
         accountRow1.setText(AccountsAdapter.getAccountRow1(account));
         accountRow2.setText(AccountsAdapter.getAccountRow2(account));
 
-        uiHelper = new UiLifecycleHelper(this, new Session.StatusCallback() {
-            @Override
-            public void call(Session session, SessionState state, Exception exception) {
-                onSessionStateChange(session, state, exception);
-            }
-        });
-
-        uiHelper.onCreate(savedInstanceState);
 
         recipientName = (TextView) findViewById(R.id.recipent_name);
-        recipientPicture = (ProfilePictureView) findViewById(R.id.recipient_pic);
+        recipientPicture = (RoundedProfilePictureView) findViewById(R.id.recipient_pic);
         recipientPicture.setCropped(true);
 
 
@@ -63,29 +56,5 @@ public class PaymentConfirmationActivity extends Activity {
         Intent intent = new Intent(this, NewPaymentActivity.class);
         startActivity(intent);
         finish();
-    }
-
-    private void onSessionStateChange(Session session, SessionState state, Exception exception) {
-        if (session.isClosed()) {
-            Log.i(TAG, "FB session closed, redirect to login?");
-        }
-        /*if (state.isOpened() && !isFetching) {
-            Log.i(TAG, "Logged in...");
-            isFetching = true;
-            // Request user data and show the results
-            Request.newMeRequest(session, new Request.GraphUserCallback() {
-                @Override
-                public void onCompleted(GraphUser user, Response response) {
-                    isFetching = false;
-                    if (user != null) {
-                        profilePictureView.setProfileId(user.getId());
-                        userNameView.setText(user.getName());
-                    }
-                }
-            }).executeAsync();
-
-        } else if (state.isClosed()) {
-            Log.i(T*//*AG, "Logged out...");
-        }*/
     }
 }

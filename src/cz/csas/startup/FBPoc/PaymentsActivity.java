@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Created by cen29414 on 9.5.2014.
  */
-public class PaymentsActivity extends Activity {
+public class PaymentsActivity extends FbAwareActivity {
     private static final String TAG = "Friends24";
 
     ExpandablePaymentsAdapter paymentsAdapter;
