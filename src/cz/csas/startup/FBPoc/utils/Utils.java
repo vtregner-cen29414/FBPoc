@@ -163,6 +163,11 @@ public class Utils {
         return shortName;
     }
 
+    public static String getFirstFacebookName(String name) {
+        String[] split = name.split("\\s");
+        return split[0];
+    }
+
     public static final void setAppFont(ViewGroup mContainer, Typeface mFont, boolean reflect)
     {
         if (mContainer == null || mFont == null) return;

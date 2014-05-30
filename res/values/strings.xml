@@ -21,7 +21,7 @@
     <string name="recipent">Příjemce</string>
     <string name="messageForRecipient">Poznámka</string>
     <string name="notif_email">Email notifikace</string>
-    <string name="friends24_server_url">http://friends24.apiary-mock.com/</string>
+    <string name="friends24_server_url">http://friends24.apiary-mock.com/Friends24Server/rest/</string>
     <string name="error">Chyba</string>
     <string name="info">Info</string>
     <string name="error_common">V aplikace došlo k chybě. Prosím kontaktujte správce aplikace.</string>
@@ -67,4 +67,10 @@
     <string name="targetAmmountNotSet">Zadejte nejprve celkovou částku sbírky.</string>
     <string name="warning">Upozornění</string>
     <string name="noEmptyParticipants">Všichni účastníci již mají částky zadané.</string>
+    <string name="invalidEmail">Zadejte validní email adresu</string>
+    <string name="mandatoryField">Povinné pole</string>
+    <string name="invalidUrl">Není platné URL</string>
+    <string name="invalidDate">Zadejte platné datum</string>
+    <string name="participantDuplicity">Duplicitní účastník</string>
+    <string name="noParticipants">Sbírka neobsahuje žádné účastníky.</string>
 </resources>

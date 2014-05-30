@@ -3,6 +3,9 @@ package cz.csas.startup.FBPoc.model;
 import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -129,6 +132,41 @@ public class Collection implements Parcelable {
 
     public void setHasImage(boolean hasImage) {
         this.hasImage = hasImage;
+    }
+
+    @Override
+    public String toString() {
+        JSONObject object = new JSONObject();
+        try {
+            object.put("dueDate", getDueDate().getTime());
+            object.put("collectionAccount", getCollectionAccount());
+            if (getTargetAmount() != null) object.put("targetAmount", getTargetAmount());
+            object.put("currency", getCurrency());
+            object.put("name", getName());
+            if (getDescription() != null) object.put("description", getDescription());
+            if (getLink() != null) object.put("link", getLink());
+            object.put("hasImage", isHasImage());
+
+            if (getFbParticipants() != null) {
+                JSONArray fbp = new JSONArray();
+                for (FacebookCollectionParticipant participant : fbParticipants) {
+                    fbp.put(participant.toJson());
+                }
+                object.put("collectionFBParticipants", fbp);
+            }
+
+            if (getEmailParticipants() != null) {
+                JSONArray ebp = new JSONArray();
+                for (EmailCollectionParticipant participant : emailParticipants) {
+                    ebp.put(participant.toJson());
+                }
+                object.put("collectionEmailParticipants", ebp);
+            }
+
+            return object.toString();
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public BigDecimal getCurrentCollectedAmount() {

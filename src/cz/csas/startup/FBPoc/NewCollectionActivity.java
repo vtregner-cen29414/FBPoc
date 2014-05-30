@@ -3,7 +3,9 @@ package cz.csas.startup.FBPoc;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.ProgressDialog;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -18,15 +20,20 @@ import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
+import android.util.ArrayMap;
+import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import com.facebook.model.GraphUser;
+import cz.csas.startup.FBPoc.model.*;
 import cz.csas.startup.FBPoc.model.Collection;
-import cz.csas.startup.FBPoc.model.CollectionParticipant;
-import cz.csas.startup.FBPoc.model.EmailCollectionParticipant;
-import cz.csas.startup.FBPoc.model.FacebookCollectionParticipant;
+import cz.csas.startup.FBPoc.service.AsyncTask;
+import cz.csas.startup.FBPoc.service.AsyncTaskResult;
 import cz.csas.startup.FBPoc.utils.Utils;
 import cz.csas.startup.FBPoc.widget.RoundedProfilePictureView;
+import org.apache.http.client.methods.HttpPost;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -34,9 +41,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by cen29414 on 22.5.2014.
@@ -301,7 +307,7 @@ public class NewCollectionActivity extends FbAwareActivity {
             RoundedProfilePictureView pic = (RoundedProfilePictureView) row.findViewById(R.id.participantPic);
             pic.setProfileId(participant.getId());
             TextView name = (TextView) row.findViewById(R.id.participantName);
-            name.setText(participant.getFirstName());
+            name.setText(Utils.getFirstFacebookName(participant.getName()));
             row.setTag(participant);
 
             EditText amountView = (EditText) row.findViewById(R.id.amount);
@@ -374,6 +380,8 @@ public class NewCollectionActivity extends FbAwareActivity {
 
     private boolean validateFields() {
         boolean valid = true;
+        collection.setCollectionAccount(((Account) accountSpinner.getSelectedItem()).getId());
+        collection.setCurrency("CZK");
         EditText collectionNameView = (EditText) findViewById(R.id.collectionName);
         EditText amountView = (EditText) findViewById(R.id.amount);
         EditText collectionDescriptionView = (EditText) findViewById(R.id.collectionDescription);
@@ -381,7 +389,7 @@ public class NewCollectionActivity extends FbAwareActivity {
         EditText collectionDueDateView = (EditText) findViewById(R.id.collectionDueDate);
 
         if (collectionNameView.length() < 1) {
-            collectionNameView.setError("Povinné pole");
+            collectionNameView.setError(getString(R.string.mandatoryField));
             valid = false;
         }
         else {
@@ -399,7 +407,7 @@ public class NewCollectionActivity extends FbAwareActivity {
                 new URL(s);
                 collectionLinkView.setError(null);
             } catch (MalformedURLException e) {
-                collectionLinkView.setError("Není platné URL");
+                collectionLinkView.setError(getString(R.string.invalidUrl));
                 valid = false;
             }
         }
@@ -409,7 +417,7 @@ public class NewCollectionActivity extends FbAwareActivity {
         }
 
         if (collectionDueDateView.length() < 1) {
-            collectionDueDateView.setError("Povinné pole");
+            collectionDueDateView.setError(getString(R.string.mandatoryField));
             valid = false;
         }
         else {
@@ -420,12 +428,13 @@ public class NewCollectionActivity extends FbAwareActivity {
                 collection.setDueDate(sfd.parse(collectionDueDateView.getText().toString()));
                 collectionDueDateView.setError(null);
             } catch (ParseException e) {
-                collectionDueDateView.setError("Zadejte platné datum");
+                collectionDueDateView.setError(getString(R.string.invalidDate));
                 valid = false;
             }
         }
 
         ViewGroup fbParticipants = (ViewGroup) findViewById(R.id.fbParticipants);
+        Map<String, DuplicateParticipantHolder> fbCounts = new HashMap<String, DuplicateParticipantHolder>(fbParticipants.getChildCount());
         if (fbParticipants.getChildCount() > 0) {
             for (int i=0; i<fbParticipants.getChildCount(); i++) {
                 ViewGroup row = (ViewGroup) fbParticipants.getChildAt(i);
@@ -434,32 +443,57 @@ public class NewCollectionActivity extends FbAwareActivity {
                 GraphUser fbGraphUser = (GraphUser) row.getTag();
                 participant.setFbUserId(fbGraphUser.getId());
                 participant.setFbUserName(fbGraphUser.getName());
+                if (!fbCounts.containsKey(fbGraphUser.getId())) fbCounts.put(fbGraphUser.getId(), new DuplicateParticipantHolder(participantAmountView));
+                else fbCounts.get(fbGraphUser.getId()).count++;
             }
         }
 
         ViewGroup emailParticipants = (ViewGroup) findViewById(R.id.emailParticipants);
+        Map<String, DuplicateParticipantHolder> emailCounts = new HashMap<String, DuplicateParticipantHolder>(fbParticipants.getChildCount());
         if (emailParticipants.getChildCount() > 0) {
             for (int i=0; i<emailParticipants.getChildCount(); i++) {
                 ViewGroup row = (ViewGroup) emailParticipants.getChildAt(i);
                 EditText participantAmountView = (EditText) row.findViewById(R.id.amount);
                 EmailCollectionParticipant participant = (EmailCollectionParticipant) participantAmountView.getTag();
-                TextView emailView = (TextView) row.findViewById(R.id.pEmail);
+                EditText emailView = (EditText) row.findViewById(R.id.pEmail);
                 if (emailView.length() > 0) {
                     String email = emailView.getText().toString();
                     if (android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                         participant.setEmail(email);
                         emailView.setError(null);
+                        if (!emailCounts.containsKey(email)) emailCounts.put(email, new DuplicateParticipantHolder(emailView));
+                        else emailCounts.get(email).count++;
                     }
                     else {
-                        emailView.setError("Zadejte validní email adresu");
+                        emailView.setError(getString(R.string.invalidEmail));
                         valid = false;
                     }
 
                 }
                 else {
-                    emailView.setError("Povinné pole");
+                    emailView.setError(getString(R.string.mandatoryField));
                     valid = false;
                 }
+            }
+        }
+
+        for (DuplicateParticipantHolder holder : fbCounts.values()) {
+            if (holder.count > 1) {
+                holder.view.setError(getString(R.string.participantDuplicity));
+                valid = false;
+            }
+        }
+        for (DuplicateParticipantHolder holder : emailCounts.values()) {
+            if (holder.count > 1) {
+                holder.view.setError(getString(R.string.participantDuplicity));
+                valid = false;
+            }
+        }
+
+        if (valid) {
+            if (fbParticipants.getChildCount() == 0 && emailParticipants.getChildCount() == 0) {
+                valid = false;
+                Utils.showMessage(this, R.string.noParticipants);
             }
         }
 
@@ -473,7 +507,9 @@ public class NewCollectionActivity extends FbAwareActivity {
     }
 
     public void onCreteCollection(View view) {
-        validateFields();
+        if (validateFields()) {
+            new CreateCollectionTask(this, collection).execute();
+        }
     }
 
     @Override
@@ -654,6 +690,53 @@ public class NewCollectionActivity extends FbAwareActivity {
         public void onDateSet(DatePicker view, int year, int month, int day) {
             EditText collectionDueDateView = (EditText) findViewById(R.id.collectionDueDate);
             collectionDueDateView.setText(day+"."+(month+1)+"."+year);
+        }
+    }
+
+    private static class DuplicateParticipantHolder {
+        EditText view;
+        int count = 1;
+
+        private DuplicateParticipantHolder(EditText view) {
+            this.view = view;
+        }
+    }
+
+    private class CreateCollectionTask extends AsyncTask<Collection, Void, Collection> {
+        public static final String URI = "addCollectionOrder";
+        private Collection collection;
+        ProgressDialog progressDialog;
+
+        private CreateCollectionTask(Context context, Collection collection) {
+            super(context, URI, HttpPost.METHOD_NAME, collection, true, false);
+            Log.d(TAG, "Request");
+            Log.d(TAG, collection.toString());
+            this.collection = collection;
+            progressDialog = ProgressDialog.show(getContext(), null, getContext().getString(R.string.waitPlease));
+        }
+
+        @Override
+        public Collection parseResponseObject(JSONObject object) throws JSONException {
+            collection.setId(object.getString("id"));
+            return collection;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult<Collection> result) {
+            super.onPostExecute(result);
+            progressDialog.dismiss();
+            if (result.getStatus() == AsyncTaskResult.Status.OK) {
+                Toast.makeText(getContext(), "Created " + result.getResult().getId(), Toast.LENGTH_LONG).show();
+            }
+            else {
+                Utils.showErrorDialog(getContext(), result);
+            }
         }
     }
 
