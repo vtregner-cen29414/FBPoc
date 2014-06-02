@@ -21,31 +21,26 @@ import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
-import android.util.ArrayMap;
 import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import com.facebook.model.GraphUser;
 import cz.csas.startup.FBPoc.model.*;
 import cz.csas.startup.FBPoc.model.Collection;
-import cz.csas.startup.FBPoc.service.AsyncTask;
-import cz.csas.startup.FBPoc.service.AsyncTaskResult;
-import cz.csas.startup.FBPoc.service.OnTaskCompleteListener;
-import cz.csas.startup.FBPoc.service.SendFBMessageCollectionTask;
+import cz.csas.startup.FBPoc.service.*;
 import cz.csas.startup.FBPoc.utils.Utils;
 import cz.csas.startup.FBPoc.widget.RoundedProfilePictureView;
 import org.apache.http.client.methods.HttpPost;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
+import java.io.*;
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by cen29414 on 22.5.2014.
@@ -56,9 +51,11 @@ public class NewCollectionActivity extends FbAwareActivity {
     private static final int PICK_FRIENDS_ACTIVITY = 1;
     public static final int SELECT_PICTURE_REQUEST_CODE = 500;
     public static final String COLLECTION = "COLLECTION";
+    public static final String PHOTO_FILE_NAME = "cphoto.jpg";
 
     private Spinner accountSpinner;
     private Uri outputPhotoFileUri;
+    private boolean isFromCamera;
     private int numOfEmailParticipants = 0;
 
     private Collection collection;
@@ -130,7 +127,7 @@ public class NewCollectionActivity extends FbAwareActivity {
     public void addPhoto(View view) {
         // Determine Uri of camera image to save.
         final File root = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        final String fname = "cphoto.jpg";
+        final String fname = PHOTO_FILE_NAME;
         final File sdImageMainDirectory = new File(root, fname);
         outputPhotoFileUri = Uri.fromFile(sdImageMainDirectory);
 
@@ -185,7 +182,9 @@ public class NewCollectionActivity extends FbAwareActivity {
                     selectedImageUri = outputPhotoFileUri;
                 } else {
                     selectedImageUri = data.getData();
+                    outputPhotoFileUri = selectedImageUri;
                 }
+                isFromCamera = isCamera;
 
                 setCollectionImage(isCamera, selectedImageUri);
             }
@@ -234,6 +233,31 @@ public class NewCollectionActivity extends FbAwareActivity {
 
         //Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
         //imageView.setImageBitmap(BitmapFactory.decodeFile(imagePath));
+    }
+
+    public String copyImageToFile(boolean isCamera, Uri selectedImageUri, String collectionId) {
+        final File root = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        final String fname = "temp_"+collectionId+".jpg";
+        String imagePath = !isCamera ? getImagePath(selectedImageUri) : selectedImageUri.getPath();
+        File file = new File(root, fname);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            FileInputStream fis = new FileInputStream(imagePath);
+            // Transfer bytes from in to out
+            byte[] buf = new byte[1024];
+            int len;
+            while ((len = fis.read(buf)) > 0) {
+                fos.write(buf, 0, len);
+            }
+            fis.close();
+            fos.close();
+            return file.getAbsolutePath();
+        } catch (FileNotFoundException e) {
+            Log.e(TAG, "Error "+ e);
+        } catch (IOException e) {
+            Log.e(TAG, "Error " + e);
+        }
+        return null;
     }
 
     private String getImagePath(Uri uri) {
@@ -498,6 +522,7 @@ public class NewCollectionActivity extends FbAwareActivity {
                 valid = false;
                 Utils.showMessage(this, R.string.noParticipants);
             }
+            collection.setHasImage(outputPhotoFileUri != null);
         }
 
         return valid;
@@ -766,6 +791,19 @@ public class NewCollectionActivity extends FbAwareActivity {
         }
 
         private void onTaskCompleted(AsyncTaskResult<Collection> result) {
+            if (result.getResult().isHasImage()) {
+                String value = copyImageToFile(isFromCamera, outputPhotoFileUri, result.getResult().getId());
+                if (value != null) {
+                    Intent uploadImageIntent = new Intent(getContext(), UploadImageService.class);
+                    uploadImageIntent.putExtra(UploadImageService.COLLECTION_ID, result.getResult().getId());
+                    //uploadImageIntent.putExtra(UploadImageService.IS_FROM_CAMERA, isFromCamera);
+                    uploadImageIntent.putExtra(UploadImageService.IMAGE_URI, value);
+                    getContext().startService(uploadImageIntent);
+                }
+
+
+            }
+
             Intent intent = new Intent(getContext(), CollectionConfirmationActivity.class);
             intent.putExtra("data", result.getResult());
             startActivity(intent);

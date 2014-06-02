@@ -80,4 +80,8 @@
     <string name="collection_confirm_1">Vašim {0} přátelům</string>
     <string name="collection_confirm_2">byla zaslána žádost o příspěvek do vaší sbírky. Stav sbírky si můžete kdykoliv zkontrolovat v aplikaci Friends24 nebo Servis24.</string>
     <string name="new_collection_link"><![CDATA[<u>NOVÁ SBÍRKA</u>]]></string>
+    <string name="imageUploadTitle">Obrázek sbírky</string>
+    <string name="imageUploadInProgress">Probíhá nahrávání</string>
+    <string name="imageUploadDone">Obrázek úspěšně nahrán</string>
+    <string name="imageUploadError">Chyba při nahrávání obrázku</string>
 </resources>

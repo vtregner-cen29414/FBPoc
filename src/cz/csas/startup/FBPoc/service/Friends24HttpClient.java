@@ -184,7 +184,7 @@ public class Friends24HttpClient<REQ, RES> {
 
     }
 
-    public HttpClient getNewHttpClient() {
+    public static HttpClient getNewHttpClient() {
         HttpParams params = new BasicHttpParams();
         HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
         HttpProtocolParams.setContentCharset(params, HTTP.UTF_8);
