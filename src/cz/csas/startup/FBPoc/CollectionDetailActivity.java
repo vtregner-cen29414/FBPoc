@@ -1,6 +1,5 @@
 package cz.csas.startup.FBPoc;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -10,16 +9,12 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TextView;
-import com.facebook.Session;
-import com.facebook.SessionState;
-import com.facebook.UiLifecycleHelper;
 import cz.csas.startup.FBPoc.model.*;
 import cz.csas.startup.FBPoc.service.AsyncTask;
 import cz.csas.startup.FBPoc.service.AsyncTaskResult;
@@ -58,7 +53,7 @@ public class CollectionDetailActivity extends FbAwareActivity {
         TextView collectionHeader2 = (TextView) findViewById(R.id.collectionHeader2);
         collectionHeader1.setText(collection.getName().toUpperCase());
         SimpleDateFormat sfd = new SimpleDateFormat("dd.MM.yyyy");
-        collectionHeader2.setText(collection.getTargetAmount() + " " + collection.getCurrency() + " do " + sfd.format(collection.getDueDate()));
+        collectionHeader2.setText(Utils.getFormattedAmount(collection.getTargetAmount(), collection.getCurrency()) + " do " + sfd.format(collection.getDueDate()));
         image = (ImageView) findViewById(R.id.collectionImage);
         imageProgressBar = (ProgressBar) findViewById(R.id.imageProgressBar);
         if (collection.getImage() != null) {
@@ -86,9 +81,9 @@ public class CollectionDetailActivity extends FbAwareActivity {
         progressBar.setProgress(currentCollectedAmount.intValue());
 
         TextView currentAmount = (TextView) findViewById(R.id.currentAmount);
-        currentAmount.setText(currentCollectedAmount.toString() + " " + collection.getCurrency());
+        currentAmount.setText(Utils.getFormattedAmount(currentCollectedAmount,collection.getCurrency()));
         TextView targetAmount = (TextView) findViewById(R.id.targetAmount);
-        targetAmount.setText("z " + collection.getTargetAmount() + " " + collection.getCurrency());
+        targetAmount.setText("z " + Utils.getFormattedAmount(collection.getTargetAmount(),collection.getCurrency()));
 
         TextView numberOfParticipants = (TextView) findViewById(R.id.numberOfParticipants);
         numberOfParticipants.setText("(" + collection.getNumberOfParticipants() + ")");
@@ -167,7 +162,7 @@ public class CollectionDetailActivity extends FbAwareActivity {
     private int appendParticipantCommonValues(Collection collection, int row, CollectionParticipant participant, View view) {
         TextView amount = (TextView) view.findViewById(R.id.amount);
         if (participant.getAmount() != null) {
-            amount.setText(participant.getAmount() + " " + collection.getCurrency());
+            amount.setText(Utils.getFormattedAmount(participant.getAmount(),collection.getCurrency()));
         }
 
         ImageView status = (ImageView) view.findViewById(R.id.participantStatus);

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import cz.csas.startup.FBPoc.model.Payment;
+import cz.csas.startup.FBPoc.utils.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -98,7 +99,7 @@ public class ExpandablePaymentsAdapter extends BaseExpandableListAdapter {
         Payment payment = (Payment) getGroup(groupPosition);
         holder.recipientNameView.setText(!isExpanded ? payment.getShortRecipentName() : payment.getRecipientName());
 
-        holder.amountView.setText(payment.getAmount() + " " + payment.getCurrency());
+        holder.amountView.setText(Utils.getFormattedAmount(payment.getAmount(),payment.getCurrency()));
         holder.amountView.setVisibility(isExpanded ? View.GONE : View.VISIBLE);
 
         SimpleDateFormat sfd = new SimpleDateFormat("dd.MM.");
@@ -153,7 +154,7 @@ public class ExpandablePaymentsAdapter extends BaseExpandableListAdapter {
 
         Payment payment = (Payment) getGroup(groupPosition);
         holder.note.setText(payment.getNote() != null ? payment.getNote() : "");
-        holder.amountView.setText(payment.getAmount() + " " + payment.getCurrency());
+        holder.amountView.setText(Utils.getFormattedAmount(payment.getAmount(),payment.getCurrency()));
         fillStatus(holder, payment);
 
         setRowMarker(groupPosition, holder);

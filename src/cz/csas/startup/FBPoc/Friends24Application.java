@@ -102,4 +102,11 @@ public class Friends24Application extends Application {
         FontsOverride.setDefaultFont(this, "MONOSPACE", "fonts/Gotham-Light.otf");
         FontsOverride.setDefaultFont(this, "DEFAULT", "fonts/Gotham-Light.otf");
     }
+
+    public void clearSession() {
+        setFbUser(null);
+        setAuthHeader(null);
+        setAccounts(null);
+        setSelectedFrieds(null);
+    }
 }

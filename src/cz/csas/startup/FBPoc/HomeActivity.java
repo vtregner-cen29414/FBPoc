@@ -86,7 +86,7 @@ public class HomeActivity extends FbAwareActivity {
                 a.append(account.getNumber()).append("/0800");
                 aView.setText(a.toString());
                 aType.setText(account.getType());
-                aBalance.setText(account.getBalance().toString() + " " + account.getCurrency());
+                aBalance.setText(Utils.getFormattedAmount(account.getBalance(), account.getCurrency()));
                 accountListView.addView(view);
             }
         }
@@ -116,5 +116,9 @@ public class HomeActivity extends FbAwareActivity {
         startActivity(intent);
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        getFriendsApplication().clearSession();
+    }
 }

@@ -1,20 +1,17 @@
 package cz.csas.startup.FBPoc;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.TextView;
-import com.facebook.Session;
-import com.facebook.SessionState;
-import com.facebook.UiLifecycleHelper;
-import com.facebook.widget.ProfilePictureView;
-import cz.csas.startup.FBPoc.model.*;
+import cz.csas.startup.FBPoc.model.Account;
+import cz.csas.startup.FBPoc.model.Collection;
+import cz.csas.startup.FBPoc.model.EmailCollectionParticipant;
+import cz.csas.startup.FBPoc.model.FacebookCollectionParticipant;
 import cz.csas.startup.FBPoc.utils.Utils;
 import cz.csas.startup.FBPoc.widget.RoundedProfilePictureView;
 

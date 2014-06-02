@@ -8,6 +8,7 @@ import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import cz.csas.startup.FBPoc.model.Account;
+import cz.csas.startup.FBPoc.utils.Utils;
 
 import java.util.List;
 
@@ -37,8 +38,8 @@ public class AccountsAdapter extends ArrayAdapter<Account> {
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
         View view = getView(position, convertView, parent);
         final float scale = getContext().getResources().getDisplayMetrics().density;
-        // set height if dropdown item to 96dp
-        view.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int)(96*scale+0.5f)));
+        // set height if dropdown item to 89dp
+        view.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int)(89*scale+0.5f)));
         return view;
     }
 
@@ -71,7 +72,7 @@ public class AccountsAdapter extends ArrayAdapter<Account> {
     }
 
     public static String getAccountRow1(Account account) {
-        return account.getType() + " - " + account.getBalance() + account.getCurrency();
+        return account.getType() + " - " + Utils.getFormattedAmount(account.getBalance(), account.getCurrency());
     }
 
     static class AccountHolder {

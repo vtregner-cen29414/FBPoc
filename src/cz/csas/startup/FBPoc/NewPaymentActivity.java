@@ -13,10 +13,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import com.facebook.Session;
-import com.facebook.SessionState;
-import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
-import com.facebook.widget.ProfilePictureView;
 import cz.csas.startup.FBPoc.model.Account;
 import cz.csas.startup.FBPoc.model.CreatePayment;
 import cz.csas.startup.FBPoc.model.Payment;
@@ -27,7 +24,6 @@ import cz.csas.startup.FBPoc.service.SendFBMessagePaymentTask;
 import cz.csas.startup.FBPoc.utils.Utils;
 import cz.csas.startup.FBPoc.widget.RoundedProfilePictureView;
 import org.apache.http.client.methods.HttpPost;
-import org.jivesoftware.smack.SmackAndroid;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -163,7 +159,7 @@ public class NewPaymentActivity extends FbAwareActivity {
             payment.setRecipientId(object.getString("recipientId"));
             payment.setRecipientName(object.getString("recipientName"));
             payment.setAmount(new BigDecimal(object.getString("amount")));
-            payment.setCurrency(Utils.getCurrencyDesc(getContext(), object.getString("currency")));
+            payment.setCurrency(object.getString("currency"));
             payment.setNote(object.getString("note"));
             payment.setStatus(Payment.Status.valueOf(object.getInt("status")));
 

@@ -1,7 +1,6 @@
 package cz.csas.startup.FBPoc;
 
 import android.app.Activity;
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -9,7 +8,10 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Base64;
 import android.view.View;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
 import cz.csas.startup.FBPoc.model.*;
 import cz.csas.startup.FBPoc.service.AsyncTask;
 import cz.csas.startup.FBPoc.service.AsyncTaskResult;
@@ -120,7 +122,7 @@ public class CollectionsActivity extends FbAwareListActivity {
                 collection.setDueDate(new Date(jcollection.getLong("dueDate")));
                 collection.setCollectionAccount(jcollection.getLong("collectionAccount"));
                 collection.setTargetAmount(new BigDecimal(jcollection.getString("targetAmount")));
-                collection.setCurrency(Utils.getCurrencyDesc(getContext(), jcollection.getString("currency")));
+                collection.setCurrency(jcollection.getString("currency"));
                 collection.setName(jcollection.getString("name"));
                 if (!jcollection.isNull("description")) collection.setDescription(jcollection.getString("description"));
 
