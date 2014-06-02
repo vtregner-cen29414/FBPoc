@@ -293,7 +293,7 @@ public class NewCollectionActivity extends FbAwareActivity {
         index.setText(++numOfEmailParticipants+".");
         LinearLayout participants = (LinearLayout) findViewById(R.id.emailParticipants);
         participants.addView(row);
-        amountView.requestFocus();
+        row.findViewById(R.id.pEmail).requestFocus();
     }
 
     public void onPEmailDelete(View view) {
