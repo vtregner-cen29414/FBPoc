@@ -36,15 +36,15 @@ public class UploadImageService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         String imageUri = intent.getStringExtra(IMAGE_URI);
         String collectionId = intent.getStringExtra(COLLECTION_ID);
-        int id = 1;
+        final int id = 1;
 
-        NotificationManager mNotifyManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
+        final NotificationManager mNotifyManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        final NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
         mBuilder.setContentTitle(getString(R.string.imageUploadTitle))
                 .setContentText(getString(R.string.imageUploadInProgress))
-                .setSmallIcon(android.R.drawable.stat_sys_upload);
-        mBuilder.setProgress(0, 0, true);
-        mBuilder.setAutoCancel(false);
+                .setSmallIcon(android.R.drawable.stat_sys_upload)
+                .setProgress(0, 0, true)
+                .setAutoCancel(false);
         mNotifyManager.notify(id, mBuilder.build());
 
         HttpClient httpClient = Friends24HttpClient.getNewHttpClient();
@@ -52,7 +52,14 @@ public class UploadImageService extends IntentService {
         HttpPost method = new HttpPost(getBaseUri()+"collections/"+collectionId+"/image");
         method.addHeader("Authorization", application.getAuthHeader());
 
-        SimpleMultipartEntity entity = new SimpleMultipartEntity();
+        SimpleMultipartEntity entity = new SimpleMultipartEntity(new UploadProgressListener() {
+            @Override
+            public void onProgressChange(int progress) {
+                mBuilder.setProgress(100, progress, false);
+                mNotifyManager.notify(id, mBuilder.build());
+            }
+        });
+
         method.setEntity(entity);
         FileInputStream fin = null;
         boolean ok = true;

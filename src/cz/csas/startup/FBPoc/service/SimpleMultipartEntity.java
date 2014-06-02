@@ -19,14 +19,17 @@ public class SimpleMultipartEntity implements HttpEntity {
     ByteArrayOutputStream out = new ByteArrayOutputStream();
     boolean isSetLast = false;
     boolean isSetFirst = false;
+    private UploadProgressListener progressListnener;
+    private int currentProgress = 0;
 
-    public SimpleMultipartEntity() {
+    public SimpleMultipartEntity(UploadProgressListener progressListnener) {
         final StringBuffer buf = new StringBuffer();
         final Random rand = new Random();
         for (int i = 0; i < 30; i++) {
             buf.append(MULTIPART_CHARS[rand.nextInt(MULTIPART_CHARS.length)]);
         }
         this.boundary = buf.toString();
+        this.progressListnener = progressListnener;
 
     }
 
@@ -131,7 +134,22 @@ public class SimpleMultipartEntity implements HttpEntity {
 
     @Override
     public void writeTo(final OutputStream outstream) throws IOException {
-        outstream.write(out.toByteArray());
+        final long contentLength = getContentLength();
+        final CountingOutputStream wrapper = new CountingOutputStream(outstream, new WriteBytesListener() {
+            @Override
+            public void onByteWrite(long bytesWritten) {
+                int progress;
+                if (contentLength <=0) progress = 0;
+                else {
+                    progress = (int)(100*bytesWritten/contentLength);
+                }
+                if (progress > currentProgress) {
+                    currentProgress = progress;
+                    if (progressListnener != null) progressListnener.onProgressChange(currentProgress);
+                }
+            }
+        });
+        wrapper.write(out.toByteArray());
     }
 
     @Override
@@ -152,6 +170,37 @@ public class SimpleMultipartEntity implements HttpEntity {
     public InputStream getContent() throws IOException,
             UnsupportedOperationException {
         return new ByteArrayInputStream(out.toByteArray());
+    }
+
+    private static class CountingOutputStream extends FilterOutputStream {
+        private long bytesWritten = 0;
+        private WriteBytesListener listener;
+
+        /**
+         * Constructs a new {@code FilterOutputStream} with {@code out} as its
+         * target stream.
+         *
+         * @param out the target stream that this stream writes to.
+         */
+        public CountingOutputStream(OutputStream out, WriteBytesListener listener) {
+            super(out);
+            this.listener = listener;
+        }
+
+        @Override
+        public void write(int oneByte) throws IOException {
+            super.write(oneByte);
+            bytesWritten+=1;
+            if (listener != null && bytesWritten%100 == 0) listener.onByteWrite(bytesWritten);
+        }
+
+        public long getBytesWritten() {
+            return bytesWritten;
+        }
+    }
+
+    private static interface WriteBytesListener {
+        void onByteWrite(long bytesWritten);
     }
 
 }

@@ -82,6 +82,6 @@
     <string name="new_collection_link"><![CDATA[<u>NOVÁ SBÍRKA</u>]]></string>
     <string name="imageUploadTitle">Obrázek sbírky</string>
     <string name="imageUploadInProgress">Probíhá nahrávání</string>
-    <string name="imageUploadDone">Obrázek úspěšně nahrán</string>
+    <string name="imageUploadDone">Obrázek byl úspěšně nahrán</string>
     <string name="imageUploadError">Chyba při nahrávání obrázku</string>
 </resources>
