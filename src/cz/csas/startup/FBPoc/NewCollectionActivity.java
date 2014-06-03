@@ -235,6 +235,8 @@ public class NewCollectionActivity extends FbAwareActivity {
         //imageView.setImageBitmap(BitmapFactory.decodeFile(imagePath));
     }
 
+
+
     public String copyImageToFile(boolean isCamera, Uri selectedImageUri, String collectionId) {
         final File root = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         final String fname = "temp_"+collectionId+".jpg";

@@ -6,15 +6,18 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import com.facebook.android.Util;
 import cz.csas.startup.FBPoc.model.*;
 import cz.csas.startup.FBPoc.service.AsyncTask;
 import cz.csas.startup.FBPoc.service.AsyncTaskResult;
@@ -22,6 +25,10 @@ import cz.csas.startup.FBPoc.utils.Utils;
 import cz.csas.startup.FBPoc.widget.RoundedProfilePictureView;
 import org.apache.http.client.methods.HttpGet;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -188,9 +195,9 @@ public class CollectionDetailActivity extends FbAwareActivity {
     }
 
     public void onImageDetail(View view) {
-        if (collection.getImage() != null) {
+        if (collection.getImageLocalPath() != null) {
             Intent intent = new Intent(this, ImageDetailActivity.class);
-            intent.putExtra("data", collection.getImage());
+            intent.putExtra("data", collection.getImageLocalPath());
             startActivity(intent);
         }
     }
@@ -208,18 +215,45 @@ public class CollectionDetailActivity extends FbAwareActivity {
             super.onPostExecute(result);
             imageProgressBar.setVisibility(View.GONE);
             if (result.getStatus().equals(AsyncTaskResult.Status.OK)) {
-                byte[] bytes = Base64.decode(result.getResult(), Base64.NO_WRAP);
+                byte[] bytes = result.getResult();
                 collection.setImage(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
                 if (collection.getImage() == null) {
-                    // try raw format
-                    collection.setImage(BitmapFactory.decodeByteArray(result.getResult(), 0, bytes.length));
+                    // try BASE64 - apiary mock
+                    try {
+                        bytes = Base64.decode(result.getResult(), Base64.NO_WRAP);
+                        collection.setImage(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
+                    } catch (IllegalArgumentException e) {
+                        Log.e(TAG, "cannot decode image base64 data: " + e.getMessage());
+                    }
                 }
-                image.setImageDrawable(new BitmapDrawable(getResources(), collection.getImage()));
-                image.setVisibility(View.VISIBLE);
+                if (collection.getImage() != null) {
+                    //image.setImageDrawable(new BitmapDrawable(getResources(), collection.getImage()));
+                    collection.setImageLocalPath(saveImageLocal(bytes, collection.getId()));
+                    image.setImageBitmap(Utils.scaleBitmapToView(bytes, image));
+                }
+
+                image.setVisibility(collection.getImage() != null ? View.VISIBLE : View.GONE);
             }
             else {
                 Utils.showErrorDialog(getContext(), result);
             }
+        }
+    }
+
+    private String saveImageLocal(byte[] data, String collectionId) {
+        final File root = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        try {
+            File file = new File(root, "temp_" + collectionId + ".jpg");
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(data);
+            fos.close();
+            return file.getAbsolutePath();
+        } catch (FileNotFoundException e) {
+            Log.e(TAG, "Cannot save image to local storage", e);
+            return null;
+        } catch (IOException e) {
+            Log.e(TAG, "Cannot save image to local storage", e);
+            return null;
         }
     }
 }

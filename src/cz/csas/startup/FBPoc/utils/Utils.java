@@ -5,9 +5,12 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import cz.csas.startup.FBPoc.LoginActivity;
@@ -214,6 +217,85 @@ public class Utils {
         }
 
         return nf.format(amount);
+    }
+
+    public static Bitmap scaleBitmapToView(String imagePath, ImageView imageView) {
+        // Get the dimensions of the View
+        int targetW = imageView.getWidth();
+        int targetH = imageView.getHeight();
+        if (targetW <= 0 || targetH <=0) {
+            targetW = imageView.getLayoutParams().width;
+            targetH = imageView.getLayoutParams().height;
+        }
+
+        if (targetH < 0 || targetW < 0) {
+            targetW = imageView.getMaxWidth();
+            targetH = imageView.getMaxHeight();
+        }
+
+        if (targetH < 0 && targetW < 0) {
+            // don't scale image
+            return BitmapFactory.decodeFile(imagePath);
+        }
+
+        // Get the dimensions of the bitmap
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+
+        BitmapFactory.decodeFile(imagePath, bmOptions);
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+        boolean widthBigger = targetW > targetH;
+        if (widthBigger && photoW < photoH) {
+            int temp = photoH;
+            photoH = photoW;
+            photoW = temp;
+        }
+
+        // Determine how much to scale down the image
+        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+
+        // Decode the image file into a Bitmap sized to fill the View
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inPurgeable = true;
+
+        return BitmapFactory.decodeFile(imagePath, bmOptions);
+    }
+
+    public static Bitmap scaleBitmapToView(byte[] imageData, ImageView imageView) {
+        // Get the dimensions of the View
+        int targetW = imageView.getLayoutParams().width;
+        int targetH = imageView.getLayoutParams().height;
+        if (targetH < 0 || targetW < 0) {
+            targetW = imageView.getMaxWidth();
+            targetH = imageView.getMaxHeight();
+        }
+
+        if (targetH < 0 && targetW < 0) {
+            // don't scale image
+            return BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
+        }
+
+        // Get the dimensions of the bitmap
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+
+        BitmapFactory.decodeByteArray(imageData, 0, imageData.length, bmOptions);
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+        // Determine how much to scale down the image
+        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+
+        // Decode the image file into a Bitmap sized to fill the View
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inPurgeable = true;
+
+        return BitmapFactory.decodeByteArray(imageData, 0, imageData.length, bmOptions);
+
     }
 
 }

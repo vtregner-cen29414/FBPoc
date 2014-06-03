@@ -77,8 +77,6 @@ public class SendFBMessagePaymentTask extends AsyncTask<Payment, Void, Void> {
                 return null;
             }
 
-
-
             message.setBody(body.toString());
             newChat.sendMessage(message);
 
