@@ -178,6 +178,7 @@ public class NewPaymentActivity extends FbAwareActivity {
                 SendFBMessagePaymentTask sendFBMessageTask = new SendFBMessagePaymentTask(getContext(), progressDialog, new OnTaskCompleteListener<Void>() {
                     @Override
                     public void onTaskComplete(Void aVoid) {
+                        getFriendsApplication().getPayments().put((Account)accountSpinner.getSelectedItem(), null); // clear cached data
                         Intent intent = new Intent(getContext(), PaymentConfirmationActivity.class);
                         intent.putExtra("data", result.getResult());
                         startActivity(intent);

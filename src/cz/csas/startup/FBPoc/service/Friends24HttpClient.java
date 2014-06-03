@@ -160,10 +160,14 @@ public class Friends24HttpClient<REQ, RES> {
                     }
                 case HttpStatus.SC_UNAUTHORIZED:
                     Header reason = response.getFirstHeader("reason");
-                    status = AsyncTaskResult.Status.OTHER_ERROR;
-                    if ("bad_credentials".equals(reason.getValue())) status = AsyncTaskResult.Status.INVALID_CREDENTIALS;
-                    else if ("locked".equals(reason.getValue())) status = AsyncTaskResult.Status.LOCKED_PASSWORD;
-                    return new AsyncTaskResult<RES>(status);
+                    if (reason != null) {
+                        status = AsyncTaskResult.Status.OTHER_ERROR;
+                        if ("bad_credentials".equals(reason.getValue()))
+                            status = AsyncTaskResult.Status.INVALID_CREDENTIALS;
+                        else if ("locked".equals(reason.getValue())) status = AsyncTaskResult.Status.LOCKED_PASSWORD;
+                        return new AsyncTaskResult<RES>(status);
+                    }
+                    else return new AsyncTaskResult<RES>(AsyncTaskResult.Status.INVALID_CREDENTIALS);
                 case HttpStatus.SC_FORBIDDEN:
                     return new AsyncTaskResult<RES>(AsyncTaskResult.Status.FORBIDDEN);
                 case HttpStatus.SC_NOT_FOUND:

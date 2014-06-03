@@ -64,12 +64,12 @@ public class SendFBMessagePaymentTask extends AsyncTask<Payment, Void, Void> {
             if (payment.getStatus() == Payment.Status.PENDING) {
                 // we don't know account number, user must enter it
                 body.append(getContext().getString(R.string.fb_message_accout_not_known)).append("\n");
-                body.append("https://www.servis24.cz/f24a/").append(payment.getId());
+                body.append(getContext().getString(R.string.friends24_server_payment_accept_url)).append(payment.getId());
             }
             else if (payment.getStatus() == Payment.Status.ACCEPTED) {
                 // we know account number, payment was already proceeded
                 body.append(getContext().getString(R.string.fb_message_account_known)).append("\n");
-                body.append("https://www.servis24.cz/f24b/").append(payment.getId());
+                body.append(getContext().getString(R.string.friends24_server_payment_accept_url)).append(payment.getId());
 
             }
             else {

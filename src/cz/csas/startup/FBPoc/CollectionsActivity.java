@@ -81,6 +81,16 @@ public class CollectionsActivity extends FbAwareListActivity {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        Spinner accountSpinner = (Spinner) findViewById(R.id.accountSelector);
+        Account account = (Account) accountSpinner.getSelectedItem();
+        if (account != null && getFriendsApplication().getPayments() != null && getFriendsApplication().getCollections().get(account) == null) {
+            new GetCollectionsTask(this, account, collectionsAdapter).execute();
+        }
+    }
+
+    @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         Intent intent = new Intent(this, CollectionDetailActivity.class);
         intent.putExtra("data", (Parcelable) getListView().getItemAtPosition(position));
@@ -126,16 +136,16 @@ public class CollectionsActivity extends FbAwareListActivity {
                 collection.setName(jcollection.getString("name"));
                 if (!jcollection.isNull("description")) collection.setDescription(jcollection.getString("description"));
 
-                if (jcollection.has("image")) {
+                if (!jcollection.isNull("image")) {
                     byte[] bytes = Base64.decode(jcollection.getString("image"), Base64.NO_WRAP);
                     collection.setImage(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
                 }
 
                 collection.setHasImage(jcollection.getBoolean("hasImage"));
 
-                if (jcollection.has("link")) collection.setLink(jcollection.getString("link"));
+                if (!jcollection.isNull("link")) collection.setLink(jcollection.getString("link"));
 
-                if (jcollection.has("collectionFBParticipants")) {
+                if (!jcollection.isNull("collectionFBParticipants")) {
                     List<FacebookCollectionParticipant> participants = new ArrayList<FacebookCollectionParticipant>();
                     collection.setFbParticipants(participants);
                     JSONArray jparticipants = jcollection.getJSONArray("collectionFBParticipants");
@@ -150,7 +160,7 @@ public class CollectionsActivity extends FbAwareListActivity {
                     }
                 }
 
-                if (jcollection.has("collectionEmailParticipants")) {
+                if (!jcollection.isNull("collectionEmailParticipants")) {
                     List<EmailCollectionParticipant> participants = new ArrayList<EmailCollectionParticipant>();
                     collection.setEmailParticipants(participants);
                     JSONArray jparticipants = jcollection.getJSONArray("collectionEmailParticipants");

@@ -84,6 +84,16 @@ public class PaymentsActivity extends FbAwareActivity {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Spinner accountSpinner = (Spinner) findViewById(R.id.accountSelector);
+        Account account = (Account) accountSpinner.getSelectedItem();
+        if (account != null && getFriendsApplication().getPayments() != null && getFriendsApplication().getPayments().get(account) == null) {
+            new GetPaymentsTask(PaymentsActivity.this, account, paymentsAdapter).execute();
+        }
+    }
+
     public void onNewPayment(View view) {
         Intent intent = new Intent(this, NewPaymentActivity.class);
         Spinner accounts = (Spinner) findViewById(R.id.accountSelector);

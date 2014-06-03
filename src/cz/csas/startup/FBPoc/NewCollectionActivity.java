@@ -786,6 +786,7 @@ public class NewCollectionActivity extends FbAwareActivity {
                 }
             }
             else {
+                progressDialog.dismiss();
                 Utils.showErrorDialog(getContext(), result);
             }
         }
@@ -803,6 +804,9 @@ public class NewCollectionActivity extends FbAwareActivity {
 
 
             }
+
+            // clear cached data
+            getFriendsApplication().getCollections().put((Account)accountSpinner.getSelectedItem(), null);
 
             Intent intent = new Intent(getContext(), CollectionConfirmationActivity.class);
             intent.putExtra("data", result.getResult());
