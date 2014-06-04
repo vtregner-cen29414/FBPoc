@@ -79,28 +79,26 @@
                     android:layout_marginTop="12dp">
 
                 <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="143dp"
+                        android:layout_height="143dp"
+                        android:background="@drawable/gray_border"
                         android:id="@+id/collectionImageContainer">
 
                     <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:id="@+id/collectionImage"
                             android:src="@drawable/collectiondetail"
-                            android:maxHeight="96dp"
                             android:padding="1dp"
                             android:adjustViewBounds="true"
-                            android:background="@drawable/gray_border"
                             android:baselineAlignBottom="false"
                             android:cropToPadding="false"
-                            android:maxWidth="96dp"
+                            android:scaleType="centerCrop"
                             android:onClick="onImageDetail"/>
 
                     <ProgressBar
-                            android:layout_width="96dp"
-                            android:layout_height="96dp"
-                            android:background="@drawable/gray_border"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:id="@+id/imageProgressBar"/>
 
                 </FrameLayout>

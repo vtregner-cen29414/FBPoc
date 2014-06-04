@@ -1,29 +1,25 @@
 package cz.csas.startup.FBPoc;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TextView;
-import com.facebook.android.Util;
 import cz.csas.startup.FBPoc.model.*;
-import cz.csas.startup.FBPoc.service.AsyncTask;
 import cz.csas.startup.FBPoc.service.AsyncTaskResult;
+import cz.csas.startup.FBPoc.service.GetCollectionImageTask;
 import cz.csas.startup.FBPoc.utils.Utils;
 import cz.csas.startup.FBPoc.widget.RoundedProfilePictureView;
-import org.apache.http.client.methods.HttpGet;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -56,7 +52,7 @@ public class CollectionDetailActivity extends FbAwareActivity {
         accountRow1.setText(AccountsAdapter.getAccountRow1(account));
         accountRow2.setText(AccountsAdapter.getAccountRow2(account));
 
-        TextView collectionHeader1 = (TextView) findViewById(R.id.collectionHeader1);
+        final TextView collectionHeader1 = (TextView) findViewById(R.id.collectionHeader1);
         TextView collectionHeader2 = (TextView) findViewById(R.id.collectionHeader2);
         collectionHeader1.setText(collection.getName().toUpperCase());
         SimpleDateFormat sfd = new SimpleDateFormat("dd.MM.yyyy");
@@ -82,7 +78,7 @@ public class CollectionDetailActivity extends FbAwareActivity {
             linkView.setMovementMethod(LinkMovementMethod.getInstance());
         }
 
-        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setMax(collection.getTargetAmount().intValue());
         BigDecimal currentCollectedAmount = collection.getCurrentCollectedAmount();
         progressBar.setProgress(currentCollectedAmount.intValue());
@@ -100,7 +96,20 @@ public class CollectionDetailActivity extends FbAwareActivity {
         }
 
         if (collection.isHasImage()) {
-            new GetCollectionImageTask(this, collection.getId()).execute();
+            ViewGroup imageContainer = (ViewGroup) findViewById(R.id.collectionImageContainer);
+            GetCollectionImageTask task = new GetCollectionImageTask(this, collection.getId(), Utils.convertToPx(this, imageContainer.getLayoutParams().height)) {
+                @Override
+                protected void onPostExecute(AsyncTaskResult<byte[]> result) {
+                    super.onPostExecute(result);
+                    imageProgressBar.setVisibility(View.GONE);
+                    if (result.getStatus() == AsyncTaskResult.Status.OK) {
+                        image.setImageBitmap(getBitmap());
+                        collection.setImage(getBitmap());
+                    }
+                    image.setVisibility(getBitmap() != null ? View.VISIBLE : View.GONE);
+                }
+            };
+            task.execute();
         }
 
         View btnNotify = findViewById(R.id.btnNotify);
@@ -195,48 +204,10 @@ public class CollectionDetailActivity extends FbAwareActivity {
     }
 
     public void onImageDetail(View view) {
-        if (collection.getImageLocalPath() != null) {
+        if (collection.getImage() != null) {
             Intent intent = new Intent(this, ImageDetailActivity.class);
-            intent.putExtra("data", collection.getImageLocalPath());
+            intent.putExtra(ImageDetailActivity.COLLECTION_ID, collection.getId());
             startActivity(intent);
-        }
-    }
-
-    public class GetCollectionImageTask extends AsyncTask<String, Void, byte[]> {
-        public static final String URI = "collections/{id}/image";
-
-        public GetCollectionImageTask(Context context, String collectionId) {
-            super(context, URI.replace("{id}", collectionId), HttpGet.METHOD_NAME, null, false, false);
-            getHttpClient().setBinaryResponse(true);
-        }
-
-        @Override
-        protected void onPostExecute(AsyncTaskResult<byte[]> result) {
-            super.onPostExecute(result);
-            imageProgressBar.setVisibility(View.GONE);
-            if (result.getStatus().equals(AsyncTaskResult.Status.OK)) {
-                byte[] bytes = result.getResult();
-                collection.setImage(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
-                if (collection.getImage() == null) {
-                    // try BASE64 - apiary mock
-                    try {
-                        bytes = Base64.decode(result.getResult(), Base64.NO_WRAP);
-                        collection.setImage(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
-                    } catch (IllegalArgumentException e) {
-                        Log.e(TAG, "cannot decode image base64 data: " + e.getMessage());
-                    }
-                }
-                if (collection.getImage() != null) {
-                    //image.setImageDrawable(new BitmapDrawable(getResources(), collection.getImage()));
-                    collection.setImageLocalPath(saveImageLocal(bytes, collection.getId()));
-                    image.setImageBitmap(Utils.scaleBitmapToView(bytes, image));
-                }
-
-                image.setVisibility(collection.getImage() != null ? View.VISIBLE : View.GONE);
-            }
-            else {
-                Utils.showErrorDialog(getContext(), result);
-            }
         }
     }
 

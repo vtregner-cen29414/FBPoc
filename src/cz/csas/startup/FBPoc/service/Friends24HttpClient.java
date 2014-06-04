@@ -228,4 +228,8 @@ public class Friends24HttpClient<REQ, RES> {
     public void setDoAuthorization(boolean doAuthorization) {
         this.doAuthorization = doAuthorization;
     }
+
+    public String getUri() {
+        return uri;
+    }
 }

@@ -23,7 +23,6 @@ public class Collection implements Parcelable {
     private String currency;
     private String description;
     private Bitmap image;
-    private String imageLocalPath;
     private boolean hasImage;
     private String link;
     private Date dueDate;
@@ -135,14 +134,6 @@ public class Collection implements Parcelable {
         this.hasImage = hasImage;
     }
 
-    public String getImageLocalPath() {
-        return imageLocalPath;
-    }
-
-    public void setImageLocalPath(String imageLocalPath) {
-        this.imageLocalPath = imageLocalPath;
-    }
-
     @Override
     public String toString() {
         JSONObject object = new JSONObject();
@@ -217,7 +208,6 @@ public class Collection implements Parcelable {
         dest.writeString(this.currency);
         dest.writeString(this.description);
         //dest.writeParcelable(this.image, 0);
-        dest.writeString(this.imageLocalPath);
         dest.writeString(this.link);
         dest.writeLong(dueDate != null ? dueDate.getTime() : -1);
         dest.writeLong(created != null ? created.getTime() : -1);
@@ -237,7 +227,6 @@ public class Collection implements Parcelable {
         this.currency = in.readString();
         this.description = in.readString();
         //this.image = in.readParcelable(Bitmap.class.getClassLoader());
-        this.imageLocalPath = in.readString();
         this.link = in.readString();
         long tmpDueDate = in.readLong();
         this.dueDate = tmpDueDate == -1 ? null : new Date(tmpDueDate);

@@ -47,4 +47,9 @@ public class AsyncTask<Params, Progress, Result> extends android.os.AsyncTask<Pa
     public Friends24Application getApplication() {
         return (Friends24Application) getContext().getApplicationContext();
     }
+
+    protected boolean isMock() {
+        return getHttpClient().getUri().contains("mock");
+    }
+
 }
