@@ -311,7 +311,8 @@
                             android:id="@+id/fbParticipants"
                             android:orientation="vertical"
                             android:layout_width="fill_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:animateLayoutChanges="true">
                     </LinearLayout>
 
                     <TextView
@@ -394,6 +395,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="15dp"
+                        android:animateLayoutChanges="true"
                         android:layout_span="3">
                 </LinearLayout>
             </TableRow>
