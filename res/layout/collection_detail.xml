@@ -11,70 +11,32 @@
             android:layout_height="wrap_content"
             android:background="@color/homepage_background"
             android:gravity="center_horizontal">
-        
-        <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="89dp"
-                android:id="@+id/flContainer">
-
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                          android:id="@+id/lay1"
-                          android:orientation="vertical"
-                          android:background="@drawable/backgroundtile"
-                          android:layout_width="match_parent"
-                          android:layout_height="89dp"
-                          android:gravity="center"
-                          android:visibility="visible">
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Osobní účet - 12 546 Kč"
-                        android:id="@+id/accountRow1"
-                        android:textColor="#ffffff"
-                        android:textSize="18sp"
-                        android:textStyle="bold"/>
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="123123/0800"
-                        android:textColor="#8E8E8E"
-                        android:id="@+id/accountRow2"
-                        />
-            </LinearLayout>
-
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                          android:orientation="vertical"
-                          android:background="@drawable/backgroundtile"
-                          android:layout_width="match_parent"
-                          android:layout_height="89dp"
-                          android:gravity="center"
-                          android:visibility="gone"
-                          android:id="@+id/lay2">
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Osobní účet - 12 546 Kč"
-                        android:id="@+id/BaccountRow1"
-                        android:textColor="#ffffff"
-                        android:textSize="18sp"
-                        android:textStyle="bold"/>
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="123123/0800"
-                        android:textColor="#8E8E8E"
-                        android:id="@+id/BaccountRow2"
-                        />
-            </LinearLayout>
-
-        </FrameLayout>
 
 
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:orientation="vertical"
+                      android:background="@drawable/backgroundtile"
+                      android:layout_width="match_parent"
+                      android:layout_height="89dp"
+                      android:gravity="center">
 
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Osobní účet - 12 546 Kč"
+                    android:id="@+id/accountRow1"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="123123/0800"
+                    android:textColor="#8E8E8E"
+                    android:id="@+id/accountRow2"
+                    />
+        </LinearLayout>
 
         <LinearLayout
                 android:layout_width="match_parent"

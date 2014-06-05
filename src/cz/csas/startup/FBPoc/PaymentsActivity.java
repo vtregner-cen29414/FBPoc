@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.*;
 import cz.csas.startup.FBPoc.model.Account;
@@ -11,6 +13,7 @@ import cz.csas.startup.FBPoc.model.Payment;
 import cz.csas.startup.FBPoc.service.AsyncTask;
 import cz.csas.startup.FBPoc.service.AsyncTaskResult;
 import cz.csas.startup.FBPoc.utils.Utils;
+import cz.csas.startup.FBPoc.widget.SwipeAccountSelector;
 import org.apache.http.client.methods.HttpGet;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,23 +31,23 @@ import java.util.List;
 public class PaymentsActivity extends FbAwareActivity {
     private static final String TAG = "Friends24";
 
-    ExpandablePaymentsAdapter paymentsAdapter;
+    private ExpandablePaymentsAdapter paymentsAdapter;
+    SwipeAccountSelector accountSpinner ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.payment_list);
 
-        Spinner accountSpinner = (Spinner) findViewById(R.id.accountSelector);
         final Friends24Application application = (Friends24Application) getApplication();
-        AccountsAdapter adapter = new AccountsAdapter(this, R.layout.account_selector);
-        accountSpinner.setAdapter(adapter);
-        adapter.setData(application.getAccounts());
 
-        accountSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+        accountSpinner = (SwipeAccountSelector) findViewById(R.id.accountSelector);
+        accountSpinner.setAccounts(R.layout.account_selector, application.getAccounts());
+        accountSpinner.setOnItemSelectedListener(new SwipeAccountSelector.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Account account = (Account) parent.getItemAtPosition(position);
+            public void onItemSelected(Account account, View view, int position) {
                 if (account != null) {
                     if (application.getPayments().get(account) == null) {
                         new GetPaymentsTask(PaymentsActivity.this, account, paymentsAdapter).execute();
@@ -53,23 +56,14 @@ public class PaymentsActivity extends FbAwareActivity {
                         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
                         progressBar.setVisibility(View.GONE);
                         ListView listView = (ListView) findViewById(android.R.id.list);
-                        listView.setVisibility(View.VISIBLE);
                         paymentsAdapter.setData(application.getPayments().get(account));
+                        paymentsAdapter.notifyDataSetChanged();
+                        listView.setVisibility(View.VISIBLE);
                     }
                 }
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
         });
 
-        /*
-        paymentsAdapter = new PaymentsAdapter(this, R.layout.payment_row);
-        setListAdapter(paymentsAdapter);
-        getListView().addHeaderView(getLayoutInflater().inflate(R.layout.payment_list_header, null));
-        */
 
         paymentsAdapter = new ExpandablePaymentsAdapter(this, R.layout.payment_row, R.layout.payment_row_expanded);
         ExpandableListView listView = (ExpandableListView) findViewById(android.R.id.list);
@@ -84,10 +78,12 @@ public class PaymentsActivity extends FbAwareActivity {
         }
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
-        Spinner accountSpinner = (Spinner) findViewById(R.id.accountSelector);
+        //Spinner accountSpinner = (Spinner) findViewById(R.id.accountSelector);
+        SwipeAccountSelector accountSpinner = (SwipeAccountSelector) findViewById(R.id.accountSelector);
         Account account = (Account) accountSpinner.getSelectedItem();
         if (account != null && getFriendsApplication().getPayments() != null && getFriendsApplication().getPayments().get(account) == null) {
             new GetPaymentsTask(PaymentsActivity.this, account, paymentsAdapter).execute();
@@ -96,7 +92,7 @@ public class PaymentsActivity extends FbAwareActivity {
 
     public void onNewPayment(View view) {
         Intent intent = new Intent(this, NewPaymentActivity.class);
-        Spinner accounts = (Spinner) findViewById(R.id.accountSelector);
+        SwipeAccountSelector accounts = (SwipeAccountSelector) findViewById(R.id.accountSelector);
         intent.putExtra("account", accounts.getSelectedItemPosition());
         startActivity(intent);
         
@@ -155,6 +151,7 @@ public class PaymentsActivity extends FbAwareActivity {
             if (result.getStatus().equals(AsyncTaskResult.Status.OK)) {
                 getApplication().getPayments().put(account, result.getResult());
                 paymentsAdapter.setData(result.getResult());
+                paymentsAdapter.notifyDataSetChanged();
             }
             else {
                 Utils.showErrorDialog(getContext(), result);

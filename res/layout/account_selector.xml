@@ -7,14 +7,39 @@
               android:layout_height="89dp"
               android:gravity="center"  >
 
-    <TextView
-            android:layout_width="wrap_content"
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Osobní účet - 12 546 Kč"
-            android:id="@+id/accountRow1"
-            android:textColor="#ffffff"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
+            >
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/im_leftarrow"
+                android:layout_weight="0"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="25dp"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Osobní účet - 12 546 Kč"
+                android:id="@+id/accountRow1"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"/>
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/im_rightarrow"
+                android:layout_weight="0"
+                android:layout_gravity="center_vertical"
+                android:paddingRight="25dp"/>
+    </LinearLayout>
 
     <TextView
             android:layout_width="wrap_content"
