@@ -8,13 +8,10 @@ import android.os.Environment;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TableLayout;
-import android.widget.TextView;
+import android.view.*;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.*;
 import cz.csas.startup.FBPoc.model.*;
 import cz.csas.startup.FBPoc.service.AsyncTaskResult;
 import cz.csas.startup.FBPoc.service.GetCollectionImageTask;
@@ -38,6 +35,7 @@ public class CollectionDetailActivity extends FbAwareActivity {
     Collection collection;
     ProgressBar imageProgressBar;
     ImageView image;
+    GestureDetector gesturedetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +119,32 @@ public class CollectionDetailActivity extends FbAwareActivity {
             sfd = new SimpleDateFormat("dd.MM.");
             collectionExpiredView.setText(collectionExpiredView.getText() + " " + sfd.format(collection.getDueDate()));
         }
+
+        FrameLayout flContainer = (FrameLayout) findViewById(R.id.flContainer);
+        LinearLayout ivLayer1 = (LinearLayout)findViewById(R.id.lay1);
+        LinearLayout ivLayer2 = (LinearLayout)findViewById(R.id.lay2);
+
+        gesturedetector = new GestureDetector(this, new MyGestureListener(ivLayer1, ivLayer2));
+
+        flContainer.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                gesturedetector.onTouchEvent(event);
+
+                return true;
+
+            }
+
+        });
+
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        super.dispatchTouchEvent(ev);
+        return gesturedetector.onTouchEvent(ev);
 
     }
 
@@ -226,5 +250,92 @@ public class CollectionDetailActivity extends FbAwareActivity {
             Log.e(TAG, "Cannot save image to local storage", e);
             return null;
         }
+    }
+
+    class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
+
+        LinearLayout ivLayer1;
+        LinearLayout ivLayer2;
+
+
+        private static final int SWIPE_MIN_DISTANCE = 20;
+
+        private static final int SWIPE_MAX_OFF_PATH = 100;
+
+        private static final int SWIPE_THRESHOLD_VELOCITY = 100;
+
+        MyGestureListener(LinearLayout ivLayer1, LinearLayout ivLayer2) {
+            this.ivLayer1 = ivLayer1;
+            this.ivLayer2 = ivLayer2;
+        }
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
+
+                               float velocityY) {
+
+            float dX = e2.getX() - e1.getX();
+
+            float dY = e1.getY() - e2.getY();
+
+            if (Math.abs(dY) < SWIPE_MAX_OFF_PATH &&
+
+                    Math.abs(velocityX) >= SWIPE_THRESHOLD_VELOCITY &&
+
+                    Math.abs(dX) >= SWIPE_MIN_DISTANCE) {
+
+                if (dX > 0) {
+
+                    Toast.makeText(getApplicationContext(), "Right Swipe",
+                            Toast.LENGTH_SHORT).show();
+                    //Now Set your animation
+
+                    if(ivLayer2.getVisibility()==View.GONE)
+                    {
+                        Animation fadeInAnimation = AnimationUtils.loadAnimation(CollectionDetailActivity.this, R.anim.slide_right_in);
+                        ivLayer2.startAnimation(fadeInAnimation);
+                        ivLayer2.setVisibility(View.VISIBLE);
+                    }
+                } else {
+
+                    Toast.makeText(getApplicationContext(), "Left Swipe",
+                            Toast.LENGTH_SHORT).show();
+
+                    if(ivLayer2.getVisibility()==View.VISIBLE)
+                    {
+                        Animation fadeInAnimation = AnimationUtils.loadAnimation(CollectionDetailActivity.this, R.anim.slide_left_out);
+                        ivLayer2.startAnimation(fadeInAnimation);
+                        ivLayer2.setVisibility(View.GONE);
+                    }
+
+                }
+
+                return true;
+
+            } else if (Math.abs(dX) < SWIPE_MAX_OFF_PATH &&
+
+                    Math.abs(velocityY) >= SWIPE_THRESHOLD_VELOCITY &&
+
+                    Math.abs(dY) >= SWIPE_MIN_DISTANCE) {
+
+                if (dY > 0) {
+
+                    Toast.makeText(getApplicationContext(), "Up Swipe",
+                            Toast.LENGTH_SHORT).show();
+
+                } else {
+
+                    Toast.makeText(getApplicationContext(), "Down Swipe",
+                            Toast.LENGTH_SHORT).show();
+                }
+
+                return true;
+
+            }
+
+            return false;
+
+        }
+
     }
 }
