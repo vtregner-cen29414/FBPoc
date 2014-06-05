@@ -30,6 +30,7 @@ import cz.csas.startup.FBPoc.model.Collection;
 import cz.csas.startup.FBPoc.service.*;
 import cz.csas.startup.FBPoc.utils.Utils;
 import cz.csas.startup.FBPoc.widget.RoundedProfilePictureView;
+import cz.csas.startup.FBPoc.widget.SwipeAccountSelector;
 import org.apache.http.client.methods.HttpPost;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,7 +54,7 @@ public class NewCollectionActivity extends FbAwareActivity {
     public static final String COLLECTION = "COLLECTION";
     public static final String PHOTO_FILE_NAME = "cphoto.jpg";
 
-    private Spinner accountSpinner;
+    private SwipeAccountSelector accountSpinner;
     private Uri outputPhotoFileUri;
     private boolean isFromCamera;
     private int numOfEmailParticipants = 0;
@@ -65,11 +66,12 @@ public class NewCollectionActivity extends FbAwareActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_collection);
 
-        accountSpinner = (Spinner) findViewById(R.id.accountSelector);
+        accountSpinner = (SwipeAccountSelector) findViewById(R.id.accountSelector);
         final Friends24Application application = (Friends24Application) getApplication();
-        AccountsAdapter adapter = new AccountsAdapter(this, R.layout.account_selector);
+        /*AccountsAdapter adapter = new AccountsAdapter(this, R.layout.account_selector);
         accountSpinner.setAdapter(adapter);
-        adapter.setData(application.getAccounts());
+        adapter.setData(application.getAccounts());*/
+        accountSpinner.setAccounts(R.layout.account_selector, application.getAccounts());
         Intent intent = getIntent();
         accountSpinner.setSelection(intent.getIntExtra("account", 0));
 

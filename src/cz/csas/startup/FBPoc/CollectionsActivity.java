@@ -16,6 +16,7 @@ import cz.csas.startup.FBPoc.model.*;
 import cz.csas.startup.FBPoc.service.AsyncTask;
 import cz.csas.startup.FBPoc.service.AsyncTaskResult;
 import cz.csas.startup.FBPoc.utils.Utils;
+import cz.csas.startup.FBPoc.widget.SwipeAccountSelector;
 import org.apache.http.client.methods.HttpGet;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,16 +34,18 @@ import java.util.List;
 public class CollectionsActivity extends FbAwareListActivity {
     private static final String TAG = "Friends24";
 
-    CollectionsAdapter collectionsAdapter;
+    private CollectionsAdapter collectionsAdapter;
+    private SwipeAccountSelector accountSelector;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.collection_list);
 
-        Spinner accountSpinner = (Spinner) findViewById(R.id.accountSelector);
+        //Spinner accountSpinner = (Spinner) findViewById(R.id.accountSelector);
         final Friends24Application application = (Friends24Application) getApplication();
-        AccountsAdapter adapter = new AccountsAdapter(this, R.layout.account_selector);
+        /*AccountsAdapter adapter = new AccountsAdapter(this, R.layout.account_selector);
         accountSpinner.setAdapter(adapter);
         adapter.setData(application.getAccounts());
 
@@ -67,7 +70,28 @@ public class CollectionsActivity extends FbAwareListActivity {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
+        });*/
+
+        accountSelector = (SwipeAccountSelector) findViewById(R.id.accountSelector);
+        accountSelector.setAccounts(R.layout.account_selector, application.getAccounts());
+        accountSelector.setOnItemSelectedListener(new SwipeAccountSelector.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(Account account, View view, int position) {
+                if (account != null) {
+                    if (application.getCollections().get(account) == null) {
+                        new GetCollectionsTask(CollectionsActivity.this, account, collectionsAdapter).execute();
+                    } else {
+                        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+                        progressBar.setVisibility(View.GONE);
+                        ListView listView = (ListView) findViewById(android.R.id.list);
+                        listView.setVisibility(View.VISIBLE);
+                        collectionsAdapter.setData(application.getCollections().get(account));
+                        collectionsAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
         });
+
 
         collectionsAdapter = new CollectionsAdapter(this, R.layout.collection_row);
         setListAdapter(collectionsAdapter);
@@ -83,9 +107,8 @@ public class CollectionsActivity extends FbAwareListActivity {
     @Override
     public void onResume() {
         super.onResume();
-        Spinner accountSpinner = (Spinner) findViewById(R.id.accountSelector);
-        Account account = (Account) accountSpinner.getSelectedItem();
-        if (account != null && getFriendsApplication().getPayments() != null && getFriendsApplication().getCollections().get(account) == null) {
+        Account account = (Account) accountSelector.getSelectedItem();
+        if (account != null && getFriendsApplication().getCollections() != null && getFriendsApplication().getCollections().get(account) == null) {
             new GetCollectionsTask(this, account, collectionsAdapter).execute();
         }
     }
@@ -101,8 +124,7 @@ public class CollectionsActivity extends FbAwareListActivity {
         final Friends24Application application = (Friends24Application) getApplication();
         application.setSelectedFrieds(null);
         Intent intent = new Intent(this, NewCollectionActivity.class);
-        Spinner accounts = (Spinner) findViewById(R.id.accountSelector);
-        intent.putExtra("account", accounts.getSelectedItemPosition());
+        intent.putExtra("account", accountSelector.getSelectedItemPosition());
         startActivity(intent);
     }
 
@@ -197,6 +219,7 @@ public class CollectionsActivity extends FbAwareListActivity {
             if (result.getStatus().equals(AsyncTaskResult.Status.OK)) {
                 getApplication().getCollections().put(account, result.getResult());
                 collectionsAdapter.setData(result.getResult());
+                collectionsAdapter.notifyDataSetChanged();
             }
             else {
                 Utils.showErrorDialog(getContext(), result);

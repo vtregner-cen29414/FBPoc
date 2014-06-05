@@ -10,7 +10,6 @@ import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import com.facebook.Session;
 import com.facebook.model.GraphUser;
@@ -23,6 +22,7 @@ import cz.csas.startup.FBPoc.service.OnTaskCompleteListener;
 import cz.csas.startup.FBPoc.service.SendFBMessagePaymentTask;
 import cz.csas.startup.FBPoc.utils.Utils;
 import cz.csas.startup.FBPoc.widget.RoundedProfilePictureView;
+import cz.csas.startup.FBPoc.widget.SwipeAccountSelector;
 import org.apache.http.client.methods.HttpPost;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,7 +42,7 @@ public class NewPaymentActivity extends FbAwareActivity {
     private RoundedProfilePictureView recipientPicture;
     private EditText amountView;
     private EditText messageForRecipientView;
-    private Spinner accountSpinner;
+    private SwipeAccountSelector accountSelector;
 
 
     @Override
@@ -56,13 +56,14 @@ public class NewPaymentActivity extends FbAwareActivity {
         recipientPicture = (RoundedProfilePictureView) findViewById(R.id.recipient_pic);
         recipientPicture.setCropped(true);
 
-        accountSpinner = (Spinner) findViewById(R.id.accountSelector);
+        accountSelector = (SwipeAccountSelector) findViewById(R.id.accountSelector);
         final Friends24Application application = (Friends24Application) getApplication();
-        AccountsAdapter adapter = new AccountsAdapter(this, R.layout.account_selector);
-        accountSpinner.setAdapter(adapter);
-        adapter.setData(application.getAccounts());
+        /*AccountsAdapter adapter = new AccountsAdapter(this, R.layout.account_selector);
+        accountSelector.setAdapter(adapter);
+        adapter.setData(application.getAccounts());*/
+        accountSelector.setAccounts(R.layout.account_selector, application.getAccounts());
         Intent intent = getIntent();
-        accountSpinner.setSelection(intent.getIntExtra("account", 0));
+        accountSelector.setSelection(intent.getIntExtra("account", 0));
 
 
 
@@ -106,7 +107,7 @@ public class NewPaymentActivity extends FbAwareActivity {
             createPayment.setRecipientId(application.getSelectedFrieds().get(0).getId());
             createPayment.setRecipientName(application.getSelectedFrieds().get(0).getName());
             createPayment.setNote(messageForRecipientView.getText().toString());
-            createPayment.setSenderAccount(((Account) accountSpinner.getSelectedItem()).getId());
+            createPayment.setSenderAccount(((Account) accountSelector.getSelectedItem()).getId());
             new CreatePaymentTask(this, createPayment).execute();
         }
     }
@@ -178,7 +179,7 @@ public class NewPaymentActivity extends FbAwareActivity {
                 SendFBMessagePaymentTask sendFBMessageTask = new SendFBMessagePaymentTask(getContext(), progressDialog, new OnTaskCompleteListener<Void>() {
                     @Override
                     public void onTaskComplete(Void aVoid) {
-                        getFriendsApplication().getPayments().put((Account)accountSpinner.getSelectedItem(), null); // clear cached data
+                        getFriendsApplication().getPayments().put((Account) accountSelector.getSelectedItem(), null); // clear cached data
                         Intent intent = new Intent(getContext(), PaymentConfirmationActivity.class);
                         intent.putExtra("data", result.getResult());
                         startActivity(intent);

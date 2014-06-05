@@ -10,9 +10,8 @@
             android:layout_width="match_parent"
             android:layout_height="89dp"
             android:layout_gravity="center_horizontal"
-            android:id="@+id/accountSelector">
+            android:id="@+id/accountSelector"/>
 
-    </cz.csas.startup.FBPoc.widget.SwipeAccountSelector>
 
     <!--<Spinner
             android:layout_width="match_parent"

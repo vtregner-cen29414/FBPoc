@@ -6,13 +6,19 @@
               android:layout_height="match_parent"
               android:background="@color/homepage_background">
 
-    <Spinner
+    <!--<Spinner
             android:layout_width="match_parent"
             android:layout_height="89dp"
             android:id="@+id/accountSelector"
             android:layout_gravity="center_horizontal"
             android:padding="0dp"
-            android:spinnerMode="dropdown"/>
+            android:spinnerMode="dropdown"/>-->
+
+    <cz.csas.startup.FBPoc.widget.SwipeAccountSelector
+            android:layout_width="match_parent"
+            android:layout_height="89dp"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/accountSelector"/>
 
     <LinearLayout
             android:layout_width="match_parent"

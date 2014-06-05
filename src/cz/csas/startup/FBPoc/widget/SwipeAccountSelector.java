@@ -19,7 +19,7 @@ public class SwipeAccountSelector extends RelativeLayout {
 
     private int layoutResourceId;
     private List<Account> accounts;
-    private int currentPosition;
+    private int currentPosition = 0;
     private LayoutInflater layoutInflater;
     private GestureListener gestureListener;
     private OnItemSelectedListener onItemSelectedListener;
@@ -47,9 +47,17 @@ public class SwipeAccountSelector extends RelativeLayout {
             view.setVisibility(GONE);
             this.addView(view);
         }
-        this.getChildAt(0).setVisibility(VISIBLE);
+        this.getChildAt(currentPosition).setVisibility(VISIBLE);
         this.gestureListener = new GestureListener();
         this.gesturedetector = new GestureDetector(getContext(), gestureListener);
+    }
+
+    public void setSelection(int position) {
+        if (getChildCount() > 0) {
+            this.getChildAt(0).setVisibility(GONE);
+            this.getChildAt(position).setVisibility(VISIBLE);
+        }
+        currentPosition = position;
     }
 
     public Account getSelectedItem() {
