@@ -1,5 +1,7 @@
 package cz.csas.startup.FBPoc;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -11,13 +13,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TableLayout;
-import android.widget.TextView;
+import android.widget.*;
+import com.facebook.android.Util;
 import cz.csas.startup.FBPoc.model.*;
 import cz.csas.startup.FBPoc.service.AsyncTaskResult;
 import cz.csas.startup.FBPoc.service.GetCollectionImageTask;
+import cz.csas.startup.FBPoc.service.OnTaskCompleteListener;
+import cz.csas.startup.FBPoc.service.SendFBMessageNotifyCollectionTask;
 import cz.csas.startup.FBPoc.utils.Utils;
 import cz.csas.startup.FBPoc.widget.RoundedProfilePictureView;
 
@@ -28,6 +30,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by cen29414 on 19.5.2014.
@@ -115,16 +118,38 @@ public class CollectionDetailActivity extends FbAwareActivity {
         View btnNotify = findViewById(R.id.btnNotify);
         TextView collectionExpiredView = (TextView) findViewById(R.id.collectionExpiredNotification);
         boolean expired = collection.getDueDate().before(new Date());
-        btnNotify.setVisibility(expired ? View.GONE : View.VISIBLE);
+        if (!expired) {
+            if (canNotifyParticipants(collection.getFbParticipants()) || canNotifyParticipants(collection.getEmailParticipants())) {
+                btnNotify.setVisibility(View.VISIBLE);
+                if (canNotifyParticipants(collection.getFbParticipants())) {
+                    initSmack();
+                }
+            }
+            else {
+                btnNotify.setVisibility(View.GONE);
+            }
+        }
+        else btnNotify.setVisibility(View.GONE);
+
         collectionExpiredView.setVisibility(expired ? View.VISIBLE : View.GONE);
         if (expired) {
             sfd = new SimpleDateFormat("dd.MM.");
             collectionExpiredView.setText(collectionExpiredView.getText() + " " + sfd.format(collection.getDueDate()));
         }
-
     }
 
-
+    private boolean canNotifyParticipants(List<? extends CollectionParticipant> participants) {
+        boolean can = false;
+        if (participants != null) {
+            for (CollectionParticipant participant : participants) {
+                if (participant.getStatus() == CollectionParticipant.Status.PENDING || participant.getStatus() == CollectionParticipant.Status.ACCEPTED) {
+                    can = true;
+                    break;
+                }
+            }
+        }
+        return can;
+    }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
@@ -201,6 +226,34 @@ public class CollectionDetailActivity extends FbAwareActivity {
     }
 
     public void onNotify(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.notifyParticipantsTitle))
+                .setMessage(getString(R.string.notifyParticipantsConfirmText))
+                .setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (canNotifyParticipants(collection.getFbParticipants())) {
+                            new SendFBMessageNotifyCollectionTask(CollectionDetailActivity.this, null, new OnTaskCompleteListener<Void>() {
+                                @Override
+                                public void onTaskComplete(Void aVoid) {
+                                    Utils.showToast(CollectionDetailActivity.this, R.string.collectionNotificationSuccess);
+                                }
+
+                                @Override
+                                public void onTaskError(Throwable throwable) {
+                                    Utils.showToast(CollectionDetailActivity.this, R.string.collectionNotificationSuccess);
+                                }
+                            }).execute(collection);
+                        }
+                    }
+                })
+                .setNegativeButton(R.string.No, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        builder.show();
     }
 
     public void onImageDetail(View view) {

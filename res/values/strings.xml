@@ -6,6 +6,8 @@
     <string name="error_dialog_button_text">OK</string>
     <string name="choose_friend">Zvolte příjemce</string>
     <string name="OK">OK</string>
+    <string name="Yes">Ano</string>
+    <string name="No">Ne</string>
     <string name="send">Odeslat</string>
     <string name="username">Uživatelské jméno</string>
     <string name="password">Heslo</string>
@@ -77,6 +79,9 @@
     <string name="friends24_server_payment_accept_url">http://startup.cloudapp.net:8080/Friends24Server/ui/incomePayment/</string>
     <string name="friends24_server_collection_accept_url">http://startup.cloudapp.net:8080/Friends24Server/ui/incomeCollection/</string>
     <string name="fbCollectionMessage1">Ahoj, pořádám sbírku</string>
+    <string name="fbCollectionNotifMessage1">Ahoj, připomínám se se sbírkou</string>
+    <string name="fbCollectionNotifMessage2">Zatím nemám od Tebe žádné vyjádření, mrkni prosím na odkaz níže.</string>
+    <string name="fbCollectionNotifMessage3">Slíbil si přispět ale zatím od tebe nic nedorazilo.</string>
     <string name="fbCollectionMessage2">Na odkazu níže najdeš další podrobnosti, včetně platebních instrukcí.</string>
     <string name="collection_confirm_1">Vašim {0} přátelům</string>
     <string name="collection_confirm_2">byla zaslána žádost o příspěvek do vaší sbírky. Stav sbírky si můžete kdykoliv zkontrolovat v aplikaci Friends24 nebo Servis24.</string>
@@ -85,4 +90,8 @@
     <string name="imageUploadInProgress">Probíhá nahrávání</string>
     <string name="imageUploadDone">Obrázek byl úspěšně nahrán</string>
     <string name="imageUploadError">Chyba při nahrávání obrázku</string>
+    <string name="notifyParticipantsTitle">Připomenutí účastníků</string>
+    <string name="notifyParticipantsConfirmText">Chcete zaslat na Facebook a email připomenutí sbírky jednotlivým účastníkům?</string>
+    <string name="collectionNotificationSuccess">Připomenutí účastníkům bylo zasláno.</string>
+    <string name="collectionNotificationError">Došlo k chybě při zasílání připomenutí účastníkům.</string>
 </resources>
