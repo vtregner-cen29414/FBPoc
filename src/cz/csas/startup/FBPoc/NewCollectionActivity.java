@@ -749,8 +749,13 @@ public class NewCollectionActivity extends FbAwareActivity {
 
         @Override
         public Collection parseResponseObject(JSONObject object) throws JSONException {
-            collection.setId(object.getString("id"));
-            return collection;
+            if (isMock()) {
+                collection.setId(object.getString("id"));
+                return collection;
+            }
+            else {
+                return Collection.fromJson(object);
+            }
         }
 
         @Override
@@ -796,7 +801,7 @@ public class NewCollectionActivity extends FbAwareActivity {
         }
 
         private void onTaskCompleted(AsyncTaskResult<Collection> result) {
-            if (result.getResult().isHasImage()) {
+            if (collection.isHasImage()) {
                 String value = copyImageToFile(isFromCamera, outputPhotoFileUri, result.getResult().getId());
                 if (value != null) {
                     Intent uploadImageIntent = new Intent(getContext(), UploadImageService.class);

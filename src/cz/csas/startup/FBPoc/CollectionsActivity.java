@@ -174,6 +174,7 @@ public class CollectionsActivity extends FbAwareListActivity {
                     for (int j=0; j< jparticipants.length(); j++) {
                         JSONObject jparticipant = jparticipants.getJSONObject(j);
                         FacebookCollectionParticipant participant = new FacebookCollectionParticipant();
+                        participant.setId(jparticipant.getLong("id"));
                         participant.setFbUserId(jparticipant.getString("fbUserId"));
                         participant.setFbUserName(jparticipant.getString("fbUserName"));
                         if (jparticipant.has("amount")) participant.setAmount(new BigDecimal(jparticipant.getString("amount")));
@@ -189,6 +190,7 @@ public class CollectionsActivity extends FbAwareListActivity {
                     for (int j=0; j< jparticipants.length(); j++) {
                         JSONObject jparticipant = jparticipants.getJSONObject(j);
                         EmailCollectionParticipant participant = new EmailCollectionParticipant();
+                        participant.setId(jparticipant.getLong("id"));
                         participant.setEmail(jparticipant.getString("email"));
                         if (jparticipant.has("amount")) participant.setAmount(new BigDecimal(jparticipant.getString("amount")));
                         participant.setStatus(CollectionParticipant.Status.valueOf(jparticipant.getInt("status")));

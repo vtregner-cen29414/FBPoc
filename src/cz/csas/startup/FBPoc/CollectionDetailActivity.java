@@ -98,8 +98,8 @@ public class CollectionDetailActivity extends FbAwareActivity {
             appendParticipants(collection);
         }
 
+        ViewGroup imageContainer = (ViewGroup) findViewById(R.id.collectionImageContainer);
         if (collection.isHasImage()) {
-            ViewGroup imageContainer = (ViewGroup) findViewById(R.id.collectionImageContainer);
             GetCollectionImageTask task = new GetCollectionImageTask(this, collection.getId(), Utils.convertToPx(this, imageContainer.getLayoutParams().height)) {
                 @Override
                 protected void onPostExecute(AsyncTaskResult<byte[]> result) {
@@ -114,6 +114,7 @@ public class CollectionDetailActivity extends FbAwareActivity {
             };
             task.execute();
         }
+        else imageContainer.setVisibility(View.GONE);
 
         View btnNotify = findViewById(R.id.btnNotify);
         TextView collectionExpiredView = (TextView) findViewById(R.id.collectionExpiredNotification);

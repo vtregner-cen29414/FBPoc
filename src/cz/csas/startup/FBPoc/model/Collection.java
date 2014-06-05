@@ -1,8 +1,10 @@
 package cz.csas.startup.FBPoc.model;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Base64;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -167,6 +169,60 @@ public class Collection implements Parcelable {
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static Collection fromJson(JSONObject jcollection) throws JSONException {
+        Collection collection = new Collection();
+        collection.setId(jcollection.getString("id"));
+        collection.setCreated(new Date(jcollection.getLong("created")));
+        collection.setDueDate(new Date(jcollection.getLong("dueDate")));
+        collection.setCollectionAccount(jcollection.getLong("collectionAccount"));
+        collection.setTargetAmount(new BigDecimal(jcollection.getString("targetAmount")));
+        collection.setCurrency(jcollection.getString("currency"));
+        collection.setName(jcollection.getString("name"));
+        if (!jcollection.isNull("description")) collection.setDescription(jcollection.getString("description"));
+
+        if (!jcollection.isNull("image")) {
+            byte[] bytes = Base64.decode(jcollection.getString("image"), Base64.NO_WRAP);
+            collection.setImage(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
+        }
+
+        collection.setHasImage(jcollection.getBoolean("hasImage"));
+
+        if (!jcollection.isNull("link")) collection.setLink(jcollection.getString("link"));
+
+        if (!jcollection.isNull("collectionFBParticipants")) {
+            List<FacebookCollectionParticipant> participants = new ArrayList<FacebookCollectionParticipant>();
+            collection.setFbParticipants(participants);
+            JSONArray jparticipants = jcollection.getJSONArray("collectionFBParticipants");
+            for (int j=0; j< jparticipants.length(); j++) {
+                JSONObject jparticipant = jparticipants.getJSONObject(j);
+                FacebookCollectionParticipant participant = new FacebookCollectionParticipant();
+                participant.setId(jparticipant.getLong("id"));
+                participant.setFbUserId(jparticipant.getString("fbUserId"));
+                participant.setFbUserName(jparticipant.getString("fbUserName"));
+                if (jparticipant.has("amount")) participant.setAmount(new BigDecimal(jparticipant.getString("amount")));
+                participant.setStatus(CollectionParticipant.Status.valueOf(jparticipant.getInt("status")));
+                participants.add(participant);
+            }
+        }
+
+        if (!jcollection.isNull("collectionEmailParticipants")) {
+            List<EmailCollectionParticipant> participants = new ArrayList<EmailCollectionParticipant>();
+            collection.setEmailParticipants(participants);
+            JSONArray jparticipants = jcollection.getJSONArray("collectionEmailParticipants");
+            for (int j=0; j< jparticipants.length(); j++) {
+                JSONObject jparticipant = jparticipants.getJSONObject(j);
+                EmailCollectionParticipant participant = new EmailCollectionParticipant();
+                participant.setId(jparticipant.getLong("id"));
+                participant.setEmail(jparticipant.getString("email"));
+                if (jparticipant.has("amount")) participant.setAmount(new BigDecimal(jparticipant.getString("amount")));
+                participant.setStatus(CollectionParticipant.Status.valueOf(jparticipant.getInt("status")));
+                participants.add(participant);
+            }
+        }
+
+        return collection;
     }
 
     public BigDecimal getCurrentCollectedAmount() {
