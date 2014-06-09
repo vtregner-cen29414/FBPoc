@@ -249,6 +249,34 @@ public class Collection implements Parcelable {
         return num;
     }
 
+    public Status getCurrentCollectionProgress() {
+        boolean allPaid = true;
+        if (getEmailParticipants() != null) {
+            for (CollectionParticipant participant : emailParticipants) {
+                if (participant.getStatus() != CollectionParticipant.Status.DONE) {
+                    allPaid = false;
+                    break;
+                }
+            }
+        }
+        if (allPaid && getFbParticipants() != null) {
+            for (CollectionParticipant participant : fbParticipants) {
+                if (participant.getStatus() != CollectionParticipant.Status.DONE) {
+                    allPaid = false;
+                    break;
+                }
+            }
+        }
+
+        if (getDueDate().before(new Date()))  {
+            // collection finished
+            return allPaid ? Status.DONE : Status.EXPIRED;
+        }
+        else {
+            return allPaid ? Status.DONE : Status.INPROGRESS;
+        }
+    }
+
 
     @Override
     public int describeContents() {
@@ -304,4 +332,18 @@ public class Collection implements Parcelable {
             return new Collection[size];
         }
     };
+
+    public enum Status {
+        DONE(0), INPROGRESS(1), EXPIRED(2);
+
+        private int value;
+
+        Status(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
 }

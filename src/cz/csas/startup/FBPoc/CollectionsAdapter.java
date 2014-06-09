@@ -53,13 +53,27 @@ public class CollectionsAdapter extends ArrayAdapter<Collection> {
         Collection collection = getItem(position);
         holder.name.setText(collection.getName());
 
-        // TODO progress
+        int progressDrawableRes;
+        Collection.Status collectionProgress = collection.getCurrentCollectionProgress();
+        if (collectionProgress == Collection.Status.DONE) {
+            progressDrawableRes =R.drawable.paymentaccepted;
+        }
+        else if (collectionProgress == Collection.Status.INPROGRESS) {
+            progressDrawableRes =R.drawable.paymentpending;
+        }
+        else {
+            progressDrawableRes =R.drawable.paymentrefused;
+        }
+
+        holder.progressView.setImageDrawable(getContext().getResources().getDrawable(progressDrawableRes));
 
         Drawable background = (position%2 == 0) ? getContext().getResources().getDrawable(R.color.cell_odd) : getContext().getResources().getDrawable(R.color.cell_even);
         holder.rowMarker.setBackground(background);
 
         return convertView;
     }
+
+    private
 
     static class CollectionHolder {
         TextView name;

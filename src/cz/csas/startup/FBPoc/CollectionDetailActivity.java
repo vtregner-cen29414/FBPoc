@@ -1,32 +1,27 @@
 package cz.csas.startup.FBPoc;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Environment;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
-import com.facebook.android.Util;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TableLayout;
+import android.widget.TextView;
 import cz.csas.startup.FBPoc.model.*;
-import cz.csas.startup.FBPoc.service.AsyncTaskResult;
-import cz.csas.startup.FBPoc.service.GetCollectionImageTask;
-import cz.csas.startup.FBPoc.service.OnTaskCompleteListener;
-import cz.csas.startup.FBPoc.service.SendFBMessageNotifyCollectionTask;
+import cz.csas.startup.FBPoc.service.*;
 import cz.csas.startup.FBPoc.utils.Utils;
 import cz.csas.startup.FBPoc.widget.RoundedProfilePictureView;
+import org.apache.http.client.methods.HttpPost;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -233,18 +228,11 @@ public class CollectionDetailActivity extends FbAwareActivity {
                 .setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (canNotifyParticipants(collection.getFbParticipants())) {
-                            new SendFBMessageNotifyCollectionTask(CollectionDetailActivity.this, null, new OnTaskCompleteListener<Void>() {
-                                @Override
-                                public void onTaskComplete(Void aVoid) {
-                                    Utils.showToast(CollectionDetailActivity.this, R.string.collectionNotificationSuccess);
-                                }
-
-                                @Override
-                                public void onTaskError(Throwable throwable) {
-                                    Utils.showToast(CollectionDetailActivity.this, R.string.collectionNotificationSuccess);
-                                }
-                            }).execute(collection);
+                        if (canNotifyParticipants(collection.getEmailParticipants())) {
+                            new NotifyEmailParticipantsTask(collection).execute();
+                        }
+                        else {
+                            executeFbNotification(collection, null);
                         }
                     }
                 })
@@ -265,20 +253,56 @@ public class CollectionDetailActivity extends FbAwareActivity {
         }
     }
 
-    private String saveImageLocal(byte[] data, String collectionId) {
-        final File root = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        try {
-            File file = new File(root, "temp_" + collectionId + ".jpg");
-            FileOutputStream fos = new FileOutputStream(file);
-            fos.write(data);
-            fos.close();
-            return file.getAbsolutePath();
-        } catch (FileNotFoundException e) {
-            Log.e(TAG, "Cannot save image to local storage", e);
-            return null;
-        } catch (IOException e) {
-            Log.e(TAG, "Cannot save image to local storage", e);
-            return null;
+    private void executeFbNotification(Collection collection, ProgressDialog progressDialog) {
+        new SendFBMessageNotifyCollectionTask(CollectionDetailActivity.this, progressDialog, new OnTaskCompleteListener<Void>() {
+            @Override
+            public void onTaskComplete(Void aVoid) {
+                Utils.showToast(CollectionDetailActivity.this, R.string.collectionNotificationSuccess);
+            }
+
+            @Override
+            public void onTaskError(Throwable throwable) {
+                Utils.showToast(CollectionDetailActivity.this, R.string.collectionNotificationError);
+            }
+        }).execute(collection);
+    }
+
+
+    public class NotifyEmailParticipantsTask extends AsyncTask<Collection, Void, Void> {
+        public static final String URI = "collections/{id}/notify";
+        private ProgressDialog progressDialog;
+        private Collection collection;
+
+        public NotifyEmailParticipantsTask(Collection collection) {
+            super(CollectionDetailActivity.this, URI.replace("{id}", collection.getId()), HttpPost.METHOD_NAME, null, false, true);
+            this.collection = collection;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog = ProgressDialog.show(getContext(), null, getContext().getString(R.string.waitPlease));
+            progressDialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult<Void> result) {
+            super.onPostExecute(result);
+            if (result.getStatus() == AsyncTaskResult.Status.OK) {
+                if (canNotifyParticipants(collection.getFbParticipants())) {
+                    executeFbNotification(collection, progressDialog);
+                }
+                else {
+                    progressDialog.dismiss();
+                    Utils.showToast(CollectionDetailActivity.this, R.string.collectionNotificationSuccess);
+                }
+            }
+            else {
+                progressDialog.dismiss();
+                Utils.showErrorDialog(getContext(), result);
+            }
+
+
         }
     }
+
 }

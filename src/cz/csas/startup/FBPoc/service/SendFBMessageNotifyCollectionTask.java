@@ -89,7 +89,9 @@ public class SendFBMessageNotifyCollectionTask extends AsyncTask<Collection, Voi
             body.append(context.getString(R.string.fbCollectionMessage2)).append("\n\n");
         }
 
-        body.append(getContext().getString(R.string.friends24_server_collection_accept_url)).append(collection.getId());
+        body.append(getContext().getString(R.string.friends24_server_collection_accept_url))
+                .append(collection.getId()).append("/")
+                .append(participant.getId());
         message.setBody(body.toString());
         try {
             newChat.sendMessage(message);
