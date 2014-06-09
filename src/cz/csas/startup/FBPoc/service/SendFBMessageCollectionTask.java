@@ -9,7 +9,6 @@ import cz.csas.startup.FBPoc.R;
 import cz.csas.startup.FBPoc.SASLXFacebookPlatformMechanism;
 import cz.csas.startup.FBPoc.model.Collection;
 import cz.csas.startup.FBPoc.model.FacebookCollectionParticipant;
-import cz.csas.startup.FBPoc.model.Payment;
 import org.jivesoftware.smack.*;
 import org.jivesoftware.smack.packet.Message;
 
@@ -52,7 +51,7 @@ public class SendFBMessageCollectionTask extends AsyncTask<Collection, Void, Voi
             ChatManager chatmanager = xmpp.getChatManager();
 
             for (FacebookCollectionParticipant participant : collection.getFbParticipants()) {
-                sendMessage(chatmanager, collection, participant.getFbUserId());
+                sendMessage(chatmanager, collection, participant);
             }
 
         } catch (Exception e) {
@@ -65,8 +64,8 @@ public class SendFBMessageCollectionTask extends AsyncTask<Collection, Void, Voi
         return null;
     }
 
-    private void sendMessage(ChatManager chatmanager, Collection collection, String recipient) {
-        Chat newChat = chatmanager.createChat("-" + recipient + "@chat.facebook.com", new MessageListener() {
+    private void sendMessage(ChatManager chatmanager, Collection collection, FacebookCollectionParticipant recipient) {
+        Chat newChat = chatmanager.createChat("-" + recipient.getFbUserId() + "@chat.facebook.com", new MessageListener() {
             @Override
             public void processMessage(Chat chat, Message msg) {
                 Log.d(TAG, "message sent = " + msg);
@@ -76,7 +75,9 @@ public class SendFBMessageCollectionTask extends AsyncTask<Collection, Void, Voi
         StringBuilder body = new StringBuilder();
         body.append(context.getString(R.string.fbCollectionMessage1)).append(" '").append(collection.getName()).append("'.\n");
         body.append(context.getString(R.string.fbCollectionMessage2)).append("\n\n");
-        body.append(getContext().getString(R.string.friends24_server_collection_accept_url)).append(collection.getId());
+        body.append(getContext().getString(R.string.friends24_server_collection_accept_url))
+            .append(collection.getId()).append("/")
+            .append(recipient.getId());
 
         message.setBody(body.toString());
         try {
