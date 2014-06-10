@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import com.facebook.*;
 import com.facebook.model.GraphUser;
@@ -35,6 +37,8 @@ import java.util.List;
  */
 public class LoginActivity extends Activity {
     private static final String TAG = "Friends24";
+    public static final String PREFERENCES_NAME = "friends24";
+    public static final String USERNAME_PREF_KEY = "username";
 
     private boolean isFetching=false;
     private UiLifecycleHelper uiHelper;
@@ -47,8 +51,8 @@ public class LoginActivity extends Activity {
         final ViewGroup mContainer = (ViewGroup) findViewById(android.R.id.content).getRootView();
         Utils.setAppFont(mContainer, mFont, false);
 
-        final TextView username = (TextView) findViewById(R.id.loginUsername);
-        final TextView password = (TextView) findViewById(R.id.loginPassword);
+        final EditText username = (EditText) findViewById(R.id.loginUsername);
+        final EditText password = (EditText) findViewById(R.id.loginPassword);
         final Button loginButton = (Button) findViewById(R.id.btnLogin);
         loginButton.setEnabled(false);
 
@@ -70,6 +74,12 @@ public class LoginActivity extends Activity {
         };
         username.addTextChangedListener(watcher);
         password.addTextChangedListener(watcher);
+
+        SharedPreferences preferences = getSharedPreferences(PREFERENCES_NAME, MODE_PRIVATE);
+        if (preferences.contains(USERNAME_PREF_KEY)) {
+            username.setText(preferences.getString(USERNAME_PREF_KEY, null));
+            password.requestFocus();
+        }
 
         uiHelper = new UiLifecycleHelper(this, new Session.StatusCallback() {
             @Override
@@ -234,6 +244,9 @@ public class LoginActivity extends Activity {
             if (result.getStatus().equals(AsyncTaskResult.Status.OK)) {
                 getApplication().setAccounts(result.getResult());
                 getApplication().setAppLogged(true);
+                final EditText username = (EditText) findViewById(R.id.loginUsername);
+                SharedPreferences preferences = getSharedPreferences(PREFERENCES_NAME, MODE_PRIVATE);
+                preferences.edit().putString(USERNAME_PREF_KEY, username.getText().toString().trim()).commit();
                 // login to FB
                 if (LoginActivity.this.ensureOpenSession() && getApplication().getFbUser() != null) {
                     Intent intent = new Intent(getContext(), HomeActivity.class);
