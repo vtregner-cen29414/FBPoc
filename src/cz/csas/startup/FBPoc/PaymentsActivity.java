@@ -64,8 +64,8 @@ public class PaymentsActivity extends FbAwareActivity {
 
         paymentsAdapter = new ExpandablePaymentsAdapter(this, R.layout.payment_row, R.layout.payment_row_expanded);
         ExpandableListView listView = (ExpandableListView) findViewById(android.R.id.list);
-        listView.setAdapter(paymentsAdapter);
         listView.addHeaderView(getLayoutInflater().inflate(R.layout.payment_list_header, null));
+        listView.setAdapter(paymentsAdapter);
 
         if (application.getPayments() == null) {
             application.setPayments(new HashMap<Account, List<Payment>>(application.getAccounts().size()));

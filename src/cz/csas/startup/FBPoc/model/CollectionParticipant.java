@@ -14,7 +14,7 @@ public abstract class CollectionParticipant implements Parcelable {
     private Status status;
 
     public enum Status {
-        PENDING(0), ACCEPTED(1), DONE(2), REFUSED(3);
+        PENDING(0), ACCEPTED(1), REFUSED(2), DONE(3);
 
         int value;
 

@@ -1,11 +1,14 @@
 package cz.csas.startup.FBPoc;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import com.facebook.Session;
 import com.facebook.SessionState;
@@ -78,7 +81,7 @@ public class HomeActivity extends FbAwareActivity {
                 TextView aView = (TextView) view.findViewById(R.id.accountNumber);
                 TextView aType = (TextView) view.findViewById(R.id.accountType);
                 TextView aBalance = (TextView) view.findViewById(R.id.accountBalance);
-                Drawable background = (row++%2 == 0) ? getResources().getDrawable(R.color.cell_even) : getResources().getDrawable(R.color.cell_odd);
+                Drawable background = (row%2 == 0) ? getResources().getDrawable(R.color.cell_even) : getResources().getDrawable(R.color.cell_odd);
                 view.findViewById(R.id.rowMarkColor).setBackground(background);
 
                 StringBuilder a = new StringBuilder();
@@ -88,6 +91,14 @@ public class HomeActivity extends FbAwareActivity {
                 aType.setText(account.getType());
                 aBalance.setText(Utils.getFormattedAmount(account.getBalance(), account.getCurrency()));
                 accountListView.addView(view);
+
+                // na 4.1 mi nefunguje divider atribut u LinearLayout proto takto programove
+                if (row++ < accounts.size()) {
+                    View divider = new View(this);
+                    divider.setBackground(new ColorDrawable(R.color.dividerColor));
+                    divider.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1));
+                    accountListView.addView(divider);
+                }
             }
         }
 

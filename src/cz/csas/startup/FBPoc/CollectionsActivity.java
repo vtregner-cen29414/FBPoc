@@ -94,8 +94,8 @@ public class CollectionsActivity extends FbAwareListActivity {
 
 
         collectionsAdapter = new CollectionsAdapter(this, R.layout.collection_row);
-        setListAdapter(collectionsAdapter);
         getListView().addHeaderView(getLayoutInflater().inflate(R.layout.collection_list_header, null), null, false);
+        setListAdapter(collectionsAdapter);
         if (application.getCollections() == null) {
             application.setCollections(new HashMap<Account, List<Collection>>(application.getAccounts().size()));
             for (Account account : application.getAccounts()) {

@@ -26,9 +26,9 @@
             android:orientation="vertical"
             android:background="@color/back_blue"
             android:gravity="center_horizontal"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="20dp">
+            android:layout_marginLeft="@dimen/inner_content_margin"
+            android:layout_marginRight="@dimen/inner_content_margin"
+            android:layout_marginTop="@dimen/inner_content_margin">
 
         <Button
                 android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                 android:text="@string/newCollection"
                 android:id="@+id/btnNewCollection"
                 android:onClick="onNewCollection"
-                android:layout_margin="20dp"/>
+                android:layout_margin="@dimen/inner_content_margin"/>
     </LinearLayout>
 
     <ProgressBar
@@ -66,8 +66,8 @@
             android:background="@color/for_white"
             android:headerDividersEnabled="true"
             android:footerDividersEnabled="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"/>
+            android:layout_marginLeft="@dimen/inner_content_margin"
+            android:layout_marginRight="@dimen/inner_content_margin"/>
 
 
 </LinearLayout>
