@@ -177,7 +177,7 @@ public class CollectionsActivity extends FbAwareListActivity {
                         participant.setId(jparticipant.getLong("id"));
                         participant.setFbUserId(jparticipant.getString("fbUserId"));
                         participant.setFbUserName(jparticipant.getString("fbUserName"));
-                        if (jparticipant.has("amount")) participant.setAmount(new BigDecimal(jparticipant.getString("amount")));
+                        if (!jparticipant.isNull("amount")) participant.setAmount(new BigDecimal(jparticipant.getString("amount")));
                         participant.setStatus(CollectionParticipant.Status.valueOf(jparticipant.getInt("status")));
                         participants.add(participant);
                     }
@@ -192,7 +192,7 @@ public class CollectionsActivity extends FbAwareListActivity {
                         EmailCollectionParticipant participant = new EmailCollectionParticipant();
                         participant.setId(jparticipant.getLong("id"));
                         participant.setEmail(jparticipant.getString("email"));
-                        if (jparticipant.has("amount")) participant.setAmount(new BigDecimal(jparticipant.getString("amount")));
+                        if (!jparticipant.isNull("amount")) participant.setAmount(new BigDecimal(jparticipant.getString("amount")));
                         participant.setStatus(CollectionParticipant.Status.valueOf(jparticipant.getInt("status")));
                         participants.add(participant);
                     }

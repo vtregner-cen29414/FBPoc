@@ -119,6 +119,30 @@ public class NewCollectionActivity extends FbAwareActivity {
         initSmack();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onRseume");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause");
+    }
+
     public void addLink(View view) {
         TextView addLinkView = (TextView) findViewById(R.id.addLink);
         EditText collectionLinkView = (EditText) findViewById(R.id.collectionLinkEdit);

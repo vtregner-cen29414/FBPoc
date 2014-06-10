@@ -1,12 +1,16 @@
 package cz.csas.startup.FBPoc;
 
 import android.app.Application;
+import android.content.SharedPreferences;
+import android.util.Log;
 import com.facebook.model.GraphUser;
 import cz.csas.startup.FBPoc.model.Account;
 import cz.csas.startup.FBPoc.model.Collection;
 import cz.csas.startup.FBPoc.model.Payment;
 import cz.csas.startup.FBPoc.utils.FontsOverride;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +18,9 @@ import java.util.Map;
  * Created by cen29414 on 18.4.2014.
  */
 public class Friends24Application extends Application {
+    private static final String TAG = "Friends24";
+
+    /*
     private List<GraphUser> selectedFrieds;
     private List<GraphUser> newlySelectedFrieds;
     private List<Account> accounts;
@@ -22,85 +29,88 @@ public class Friends24Application extends Application {
     private Map<Account, List<Payment>> payments;
     private Map<Account, List<Collection>> collections;
     private String authHeader;
+    */
 
     public List<GraphUser> getSelectedFrieds() {
-        return selectedFrieds;
+        return Friends24Context.getInstance().getSelectedFrieds();
     }
 
     public void setSelectedFrieds(List<GraphUser> selectedFrieds) {
-        this.selectedFrieds = selectedFrieds;
+        Friends24Context.getInstance().setSelectedFrieds(selectedFrieds);
     }
 
     public List<GraphUser> getNewlySelectedFrieds() {
-        return newlySelectedFrieds;
+        return Friends24Context.getInstance().getNewlySelectedFrieds();
     }
 
     public void setNewlySelectedFrieds(List<GraphUser> newlySelectedFrieds) {
-        this.newlySelectedFrieds = newlySelectedFrieds;
+        Friends24Context.getInstance().setNewlySelectedFrieds(newlySelectedFrieds);
     }
 
     public List<Account> getAccounts() {
-        return accounts;
+        return Friends24Context.getInstance().getAccounts();
     }
 
     public void setAccounts(List<Account> accounts) {
-        this.accounts = accounts;
+        Friends24Context.getInstance().setAccounts(accounts);
     }
 
     public GraphUser getFbUser() {
-        return fbUser;
+        return Friends24Context.getInstance().getFbUser();
     }
 
     public void setFbUser(GraphUser fbUser) {
-        this.fbUser = fbUser;
+        Friends24Context.getInstance().setFbUser(fbUser);
     }
 
     public boolean isAppLogged() {
-        return appLogged;
+        return Friends24Context.getInstance().isAppLogged();
     }
 
     public void setAppLogged(boolean appLogged) {
-        this.appLogged = appLogged;
+        Friends24Context.getInstance().setAppLogged(appLogged);
     }
 
     public Map<Account, List<Payment>> getPayments() {
-        return payments;
+        return Friends24Context.getInstance().getPayments();
     }
 
     public void setPayments(Map<Account, List<Payment>> payments) {
-        this.payments = payments;
+        Friends24Context.getInstance().setPayments(payments);
     }
 
     public String getAuthHeader() {
-        return authHeader;
+        return Friends24Context.getInstance().getAuthHeader();
     }
 
     public void setAuthHeader(String authHeader) {
-        this.authHeader = authHeader;
+        Friends24Context.getInstance().setAuthHeader(authHeader);
     }
 
     public Account getAccount(Long id) {
-        if (accounts != null) {
-            for (Account account : accounts) {
-                if (account.getId().equals(id)) return account;
-            }
-        }
-        return null;
+        return Friends24Context.getInstance().getAccount(id);
     }
 
     public Map<Account, List<Collection>> getCollections() {
-        return collections;
+        return Friends24Context.getInstance().getCollections();
     }
 
     public void setCollections(Map<Account, List<Collection>> collections) {
-        this.collections = collections;
+        Friends24Context.getInstance().setCollections(collections);
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
+        Log.d(TAG, "app:onCreate");
         FontsOverride.setDefaultFont(this, "MONOSPACE", "fonts/Gotham-Light.otf");
         FontsOverride.setDefaultFont(this, "DEFAULT", "fonts/Gotham-Light.otf");
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        Log.d(TAG, "app:onLowMemory");
     }
 
     public void clearSession() {
