@@ -53,6 +53,7 @@ public abstract class FbAwareActivity extends Activity {
 
     protected void initSmack() {
         smackAndroid = SmackAndroid.init(this);
+        Log.d(TAG, "smack library initilized for activity " + this.getClass().getSimpleName());
     }
 
     @Override

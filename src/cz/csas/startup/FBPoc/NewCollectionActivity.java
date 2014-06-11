@@ -116,12 +116,12 @@ public class NewCollectionActivity extends FbAwareActivity {
         });
 
         ensureOpenFacebookSession();
-        initSmack();
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        initSmack();
         Log.d(TAG, "onResume");
     }
 

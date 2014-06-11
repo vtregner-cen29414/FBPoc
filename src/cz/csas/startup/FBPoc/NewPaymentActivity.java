@@ -104,8 +104,8 @@ public class NewPaymentActivity extends FbAwareActivity {
             Friends24Application application = (Friends24Application) getApplication();
             CreatePayment createPayment = new CreatePayment();
             createPayment.setAmount(new BigDecimal(amountView.getText().toString()));
-            createPayment.setRecipientId(application.getFriends24Context().getSelectedFriends().get(0).getId());
-            createPayment.setRecipientName(application.getFriends24Context().getSelectedFriends().get(0).getName());
+            createPayment.setRecipientId(application.getFriends24Context().getNewlySelectedFrieds().get(0).getId());
+            createPayment.setRecipientName(application.getFriends24Context().getNewlySelectedFrieds().get(0).getName());
             createPayment.setNote(messageForRecipientView.getText().toString());
             createPayment.setSenderAccount(((Account) accountSelector.getSelectedItem()).getId());
             new CreatePaymentTask(this, createPayment).execute();

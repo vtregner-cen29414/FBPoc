@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import com.facebook.*;
 import com.facebook.model.GraphUser;
+import com.facebook.widget.FacebookDialog;
 import cz.csas.startup.FBPoc.model.Account;
 import cz.csas.startup.FBPoc.service.AsyncTask;
 import cz.csas.startup.FBPoc.service.AsyncTaskResult;
@@ -42,6 +43,7 @@ public class LoginActivity extends Activity {
 
     private boolean isFetching=false;
     private UiLifecycleHelper uiHelper;
+    int fbRetryCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,6 +158,20 @@ public class LoginActivity extends Activity {
             }).executeAsync();
 
         } else if (state.isClosed()) {
+            if (exception != null) {
+               /* AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Chyba přihlášení na Facebook")
+                        .setMessage(exception.getMessage());
+                AlertDialog errDialog = builder.create();
+                errDialog.show();*/
+                Log.e(TAG, exception.toString());
+                if (exception instanceof FacebookOperationCanceledException) {
+                    if (fbRetryCount++ < 1) {
+                        Log.d(TAG, "FacebookOperationCanceledException: retry open session again");
+                        ensureOpenSession();
+                    }
+                }
+            }
             Log.i(TAG, "Logged out...");
         }
     }
@@ -163,7 +179,17 @@ public class LoginActivity extends Activity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        uiHelper.onActivityResult(requestCode, resultCode, data);
+        uiHelper.onActivityResult(requestCode, resultCode, data, new FacebookDialog.Callback() {
+            @Override
+            public void onComplete(FacebookDialog.PendingCall pendingCall, Bundle data) {
+                Log.d(TAG, "uiHelper.onActivityResult onComplete");
+            }
+
+            @Override
+            public void onError(FacebookDialog.PendingCall pendingCall, Exception error, Bundle data) {
+                Log.d(TAG, "uiHelper.onActivityResult onError "+ error.toString());
+            }
+        });
     }
 
     @Override
@@ -175,7 +201,7 @@ public class LoginActivity extends Activity {
         Session session = Session.getActiveSession();
         if (session != null &&
                 (session.isOpened() || session.isClosed()) ) {
-            onSessionStateChange(session, session.getState(), null);
+           // onSessionStateChange(session, session.getState(), null);
         }
 
         uiHelper.onResume();

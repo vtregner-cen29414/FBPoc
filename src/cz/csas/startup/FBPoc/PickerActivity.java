@@ -35,9 +35,10 @@ public class PickerActivity extends FragmentActivity {
         Uri intentUri = getIntent().getData();
 
         if (FRIEND_PICKER.equals(intentUri)) {
+            final boolean multiSelect = args.getBoolean(MULTI_SELECTION, false);
             if (savedInstanceState == null) {
                 friendPickerFragment = new FriendPickerFragment(args);
-                friendPickerFragment.setMultiSelect(args.getBoolean(MULTI_SELECTION, false));
+                friendPickerFragment.setMultiSelect(multiSelect);
                 friendPickerFragment.setDoneButtonText(getResources().getString(R.string.OK));
                 friendPickerFragment.setTitleText(args.getString(TITLE, getResources().getString(R.string.choose_friend)));
             } else {
@@ -61,7 +62,12 @@ public class PickerActivity extends FragmentActivity {
                             if (application.getFriends24Context().getSelectedFriends() == null) {
                                 application.getFriends24Context().setSelectedFrieds(new ArrayList<GraphUser>());
                             }
-                            application.getFriends24Context().getSelectedFriends().addAll(friendPickerFragment.getSelection());
+                            if (multiSelect) {
+                                application.getFriends24Context().getSelectedFriends().addAll(friendPickerFragment.getSelection());
+                            }
+                            else {
+                                application.getFriends24Context().setSelectedFrieds(friendPickerFragment.getSelection());
+                            }
                             application.getFriends24Context().setNewlySelectedFrieds(friendPickerFragment.getSelection());
                             application.saveSessionToPreferences();
                             finishActivity();

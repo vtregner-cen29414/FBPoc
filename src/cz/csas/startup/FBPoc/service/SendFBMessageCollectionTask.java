@@ -82,8 +82,9 @@ public class SendFBMessageCollectionTask extends AsyncTask<Collection, Void, Voi
         message.setBody(body.toString());
         try {
             newChat.sendMessage(message);
+            Log.d(TAG, "Message for " + recipient.getFbUserId() + " sent!");
         } catch (XMPPException e) {
-            e.printStackTrace();
+            Log.d(TAG, "Error sending Message for " + recipient.getFbUserId(), e);
             ex = e;
         }
     }
