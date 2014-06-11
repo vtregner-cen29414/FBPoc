@@ -61,7 +61,7 @@ public class NewPaymentActivity extends FbAwareActivity {
         /*AccountsAdapter adapter = new AccountsAdapter(this, R.layout.account_selector);
         accountSelector.setAdapter(adapter);
         adapter.setData(application.getAccounts());*/
-        accountSelector.setAccounts(R.layout.account_selector, application.getAccounts());
+        accountSelector.setAccounts(R.layout.account_selector, application.getFriends24Context().getAccounts());
         Intent intent = getIntent();
         accountSelector.setSelection(intent.getIntExtra("account", 0));
 
@@ -92,7 +92,7 @@ public class NewPaymentActivity extends FbAwareActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_FRIENDS_ACTIVITY && resultCode == Activity.RESULT_OK) {
-            List<GraphUser> selectedFrieds = ((Friends24Application) getApplication()).getNewlySelectedFrieds();
+            List<GraphUser> selectedFrieds = ((Friends24Application) getApplication()).getFriends24Context().getNewlySelectedFrieds();
             recipientName.setText(selectedFrieds.get(0).getName());
             recipientPicture.setProfileId(selectedFrieds.get(0).getId());
             recipientName.setError(null);
@@ -104,8 +104,8 @@ public class NewPaymentActivity extends FbAwareActivity {
             Friends24Application application = (Friends24Application) getApplication();
             CreatePayment createPayment = new CreatePayment();
             createPayment.setAmount(new BigDecimal(amountView.getText().toString()));
-            createPayment.setRecipientId(application.getSelectedFrieds().get(0).getId());
-            createPayment.setRecipientName(application.getSelectedFrieds().get(0).getName());
+            createPayment.setRecipientId(application.getFriends24Context().getSelectedFriends().get(0).getId());
+            createPayment.setRecipientName(application.getFriends24Context().getSelectedFriends().get(0).getName());
             createPayment.setNote(messageForRecipientView.getText().toString());
             createPayment.setSenderAccount(((Account) accountSelector.getSelectedItem()).getId());
             new CreatePaymentTask(this, createPayment).execute();
@@ -179,7 +179,8 @@ public class NewPaymentActivity extends FbAwareActivity {
                 SendFBMessagePaymentTask sendFBMessageTask = new SendFBMessagePaymentTask(getContext(), progressDialog, new OnTaskCompleteListener<Void>() {
                     @Override
                     public void onTaskComplete(Void aVoid) {
-                        getFriendsApplication().getPayments().put((Account) accountSelector.getSelectedItem(), null); // clear cached data
+                        getFriendsApplication().getFriends24Context().getPayments().put((Account) accountSelector.getSelectedItem(), null); // clear cached data
+                        getFriendsApplication().saveSessionToPreferences();
                         Intent intent = new Intent(getContext(), PaymentConfirmationActivity.class);
                         intent.putExtra("data", result.getResult());
                         startActivity(intent);

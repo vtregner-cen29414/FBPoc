@@ -50,6 +50,8 @@ public class LoginActivity extends Activity {
         final Typeface mFont = Typeface.createFromAsset(getAssets(), "fonts/Gotham-Light.otf");
         final ViewGroup mContainer = (ViewGroup) findViewById(android.R.id.content).getRootView();
         Utils.setAppFont(mContainer, mFont, false);
+        ((Friends24Application) getApplication()).getFriends24Context().clearSession();
+        ((Friends24Application) getApplication()).invalidateSessionInPreferences();
 
         final EditText username = (EditText) findViewById(R.id.loginUsername);
         final EditText password = (EditText) findViewById(R.id.loginPassword);
@@ -97,7 +99,7 @@ public class LoginActivity extends Activity {
         Log.d(TAG, "onLogin");
         Friends24Application application = (Friends24Application) getApplication();
         String authorizationString = "Basic " + Base64.encodeToString((username.getText().toString().trim() + ":" + password.getText().toString().trim()).getBytes(), Base64.NO_WRAP);
-        application.setAuthHeader(authorizationString);
+        application.getFriends24Context().setAuthHeader(authorizationString);
 
         new GetAccountsTask(this).execute();
     }
@@ -141,8 +143,9 @@ public class LoginActivity extends Activity {
                         //profilePictureView.setProfileId(user.getId());
                         //userNameView.setText(user.getName());
                         Friends24Application application = (Friends24Application) getApplication();
-                        application.setFbUser(user);
-                        if (application.isAppLogged()) {
+                        application.getFriends24Context().setFbUser(user);
+                        if (application.getFriends24Context().isAppLogged()) {
+                            application.saveSessionToPreferences();
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             // home screen is always on the top
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -242,13 +245,14 @@ public class LoginActivity extends Activity {
             super.onPostExecute(result);
             progressDialog.dismiss();
             if (result.getStatus().equals(AsyncTaskResult.Status.OK)) {
-                getApplication().setAccounts(result.getResult());
-                getApplication().setAppLogged(true);
+                getApplication().getFriends24Context().setAccounts(result.getResult());
+                getApplication().getFriends24Context().setAppLogged(true);
+                getApplication().saveSessionToPreferences();
                 final EditText username = (EditText) findViewById(R.id.loginUsername);
                 SharedPreferences preferences = getSharedPreferences(PREFERENCES_NAME, MODE_PRIVATE);
                 preferences.edit().putString(USERNAME_PREF_KEY, username.getText().toString().trim()).commit();
                 // login to FB
-                if (LoginActivity.this.ensureOpenSession() && getApplication().getFbUser() != null) {
+                if (LoginActivity.this.ensureOpenSession() && getApplication().getFriends24Context().getFbUser() != null) {
                     Intent intent = new Intent(getContext(), HomeActivity.class);
                     // home screen is always on the top
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

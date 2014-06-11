@@ -27,7 +27,7 @@ public abstract class FbAwareListActivity extends ListActivity {
         super.onCreate(savedInstanceState);
 
         Friends24Application application = (Friends24Application) getApplication();
-        if (application.getAccounts() == null || application.getAuthHeader() == null) {
+        if (application.getFriends24Context().getAccounts() == null || application.getFriends24Context().getAuthHeader() == null) {
             Utils.redirectToLogin(this);
             return;
         }

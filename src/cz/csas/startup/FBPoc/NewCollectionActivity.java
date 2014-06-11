@@ -71,7 +71,7 @@ public class NewCollectionActivity extends FbAwareActivity {
         /*AccountsAdapter adapter = new AccountsAdapter(this, R.layout.account_selector);
         accountSpinner.setAdapter(adapter);
         adapter.setData(application.getAccounts());*/
-        accountSpinner.setAccounts(R.layout.account_selector, application.getAccounts());
+        accountSpinner.setAccounts(R.layout.account_selector, application.getFriends24Context().getAccounts());
         Intent intent = getIntent();
         accountSpinner.setSelection(intent.getIntExtra("account", 0));
 
@@ -122,7 +122,7 @@ public class NewCollectionActivity extends FbAwareActivity {
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG, "onRseume");
+        Log.d(TAG, "onResume");
     }
 
     @Override
@@ -215,7 +215,7 @@ public class NewCollectionActivity extends FbAwareActivity {
                 setCollectionImage(isCamera, selectedImageUri);
             }
             else if (requestCode == PICK_FRIENDS_ACTIVITY) {
-                appendNewFbRow(getFriendsApplication().getNewlySelectedFrieds());
+                appendNewFbRow(getFriendsApplication().getFriends24Context().getNewlySelectedFrieds());
             }
         }
     }
@@ -384,7 +384,8 @@ public class NewCollectionActivity extends FbAwareActivity {
         View amountView = rowToDelete.findViewById(R.id.amount);
         collection.getFbParticipants().remove((FacebookCollectionParticipant)amountView.getTag());
         participants.removeView(rowToDelete);
-        getFriendsApplication().getSelectedFrieds().remove((GraphUser)rowToDelete.getTag());
+        getFriendsApplication().getFriends24Context().getSelectedFriends().remove((GraphUser)rowToDelete.getTag());
+        getFriendsApplication().saveSessionToPreferences();
         refreshCurrentProgress();
     }
 
@@ -839,7 +840,7 @@ public class NewCollectionActivity extends FbAwareActivity {
             }
 
             // clear cached data
-            getFriendsApplication().getCollections().put((Account)accountSpinner.getSelectedItem(), null);
+            getFriendsApplication().getFriends24Context().getCollections().put((Account)accountSpinner.getSelectedItem(), null);
 
             Intent intent = new Intent(getContext(), CollectionConfirmationActivity.class);
             intent.putExtra("data", result.getResult());

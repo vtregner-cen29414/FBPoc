@@ -41,12 +41,6 @@ public class HomeActivity extends FbAwareActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
 
-        Friends24Application application = (Friends24Application) getApplication();
-        if (application.getAccounts() == null || application.getAuthHeader() == null) {
-            Utils.redirectToLogin(this);
-            return;
-        }
-
         // Find the user's profile picture custom view
         profilePictureView = (RoundedProfilePictureView) findViewById(R.id.currentUser_profile_pic);
         profilePictureView.setCropped(true);
@@ -59,8 +53,8 @@ public class HomeActivity extends FbAwareActivity {
 
         //adapter = new AccountsAdapter(this, R.layout.account_row);
 
-        if (application.getAccounts() != null) {
-            appendAccountsView(application.getAccounts());
+        if (getFriendsApplication().getFriends24Context().getAccounts() != null) {
+            appendAccountsView(getFriendsApplication().getFriends24Context().getAccounts());
         }
     }
 
@@ -86,7 +80,7 @@ public class HomeActivity extends FbAwareActivity {
 
                 StringBuilder a = new StringBuilder();
                 if (account.getPrefix() != null) a.append(account.getPrefix()).append("-");
-                a.append(account.getNumber()).append("/0800");
+                a.append(account.getNumber());
                 aView.setText(a.toString());
                 aType.setText(account.getType());
                 aBalance.setText(Utils.getFormattedAmount(account.getBalance(), account.getCurrency()));
@@ -108,7 +102,7 @@ public class HomeActivity extends FbAwareActivity {
     protected void onSessionStateChange(Session session, SessionState state, Exception exception) {
         super.onSessionStateChange(session, state, exception);
         if (state.isOpened()) {
-            GraphUser fbUser = ((Friends24Application) getApplication()).getFbUser();
+            GraphUser fbUser = ((Friends24Application) getApplication()).getFriends24Context().getFbUser();
             profilePictureView.setProfileId(fbUser.getId());
             userNameView.setText(fbUser.getName().toUpperCase());
         }
@@ -116,13 +110,13 @@ public class HomeActivity extends FbAwareActivity {
 
 
     public void onPayments(View view) {
-        ((Friends24Application) getApplication()).setPayments(null);
+        ((Friends24Application) getApplication()).getFriends24Context().setPayments(null);
         Intent intent = new Intent(this, PaymentsActivity.class);
         startActivity(intent);
     }
 
     public void onCollections(View view) {
-        ((Friends24Application) getApplication()).setCollections(null);
+        ((Friends24Application) getApplication()).getFriends24Context().setCollections(null);
         Intent intent = new Intent(this, CollectionsActivity.class);
         startActivity(intent);
     }
@@ -130,6 +124,8 @@ public class HomeActivity extends FbAwareActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        getFriendsApplication().clearSession();
+        getFriendsApplication().getFriends24Context().clearSession();
+        getFriendsApplication().invalidateSessionInPreferences();
+        finish();
     }
 }

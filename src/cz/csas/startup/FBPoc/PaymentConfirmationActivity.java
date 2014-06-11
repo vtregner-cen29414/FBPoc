@@ -1,16 +1,11 @@
 package cz.csas.startup.FBPoc;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import com.facebook.Session;
-import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
-import com.facebook.widget.ProfilePictureView;
 import cz.csas.startup.FBPoc.model.Account;
 import cz.csas.startup.FBPoc.model.Payment;
 import cz.csas.startup.FBPoc.widget.RoundedProfilePictureView;
@@ -38,7 +33,7 @@ public class PaymentConfirmationActivity extends FbAwareActivity {
         TextView accountRow1 = (TextView) findViewById(R.id.accountRow1);
         TextView accountRow2 = (TextView) findViewById(R.id.accountRow2);
         Friends24Application application = (Friends24Application) getApplication();
-        Account account = application.getAccount(payment.getSenderAccount());
+        Account account = application.getFriends24Context().getAccount(payment.getSenderAccount());
         accountRow1.setText(AccountsAdapter.getAccountRow1(account));
         accountRow2.setText(AccountsAdapter.getAccountRow2(account));
 

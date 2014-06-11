@@ -64,7 +64,7 @@ public class HomeActivityOld extends Activity {
         selectedFriendName = (TextView) findViewById(R.id.selected_friend_name);
         selectedFriendProfilePictureView = (ProfilePictureView) findViewById(R.id.selected_friend_profile_pic);
 
-        List<GraphUser> selectedFrieds = ((Friends24Application) getApplication()).getSelectedFrieds();
+        List<GraphUser> selectedFrieds = ((Friends24Application) getApplication()).getFriends24Context().getSelectedFriends();
         if (selectedFrieds != null) {
             fillSelectedFriend(selectedFrieds);
         }
@@ -98,7 +98,7 @@ public class HomeActivityOld extends Activity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_FRIENDS_ACTIVITY && resultCode == Activity.RESULT_OK) {
-            List<GraphUser> selectedFrieds = ((Friends24Application) getApplication()).getSelectedFrieds();
+            List<GraphUser> selectedFrieds = ((Friends24Application) getApplication()).getFriends24Context().getSelectedFriends();
             fillSelectedFriend(selectedFrieds);
         }
         else {
@@ -237,9 +237,9 @@ public class HomeActivityOld extends Activity {
 
     public void onSendMoney(View view) {
         Friends24Application application = (Friends24Application) getApplication();
-        if (application.getSelectedFrieds() != null && application.getSelectedFrieds().size() > 0) {
+        if (application.getFriends24Context().getSelectedFriends() != null && application.getFriends24Context().getSelectedFriends().size() > 0) {
             SendMessageTask task = new SendMessageTask();
-            task.execute(application.getSelectedFrieds().get(0));
+            task.execute(application.getFriends24Context().getSelectedFriends().get(0));
         }
 
 

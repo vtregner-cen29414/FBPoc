@@ -58,11 +58,12 @@ public class PickerActivity extends FragmentActivity {
                         @Override
                         public void onDoneButtonClicked(PickerFragment<?> fragment) {
                             Friends24Application application = (Friends24Application) getApplication();
-                            if (application.getSelectedFrieds() == null) {
-                                application.setSelectedFrieds(new ArrayList<GraphUser>());
+                            if (application.getFriends24Context().getSelectedFriends() == null) {
+                                application.getFriends24Context().setSelectedFrieds(new ArrayList<GraphUser>());
                             }
-                            application.getSelectedFrieds().addAll(friendPickerFragment.getSelection());
-                            application.setNewlySelectedFrieds(friendPickerFragment.getSelection());
+                            application.getFriends24Context().getSelectedFriends().addAll(friendPickerFragment.getSelection());
+                            application.getFriends24Context().setNewlySelectedFrieds(friendPickerFragment.getSelection());
+                            application.saveSessionToPreferences();
                             finishActivity();
                         }
                     });

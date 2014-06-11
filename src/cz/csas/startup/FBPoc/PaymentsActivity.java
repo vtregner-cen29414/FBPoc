@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.*;
+import android.widget.ExpandableListView;
+import android.widget.ListView;
+import android.widget.ProgressBar;
 import cz.csas.startup.FBPoc.model.Account;
 import cz.csas.startup.FBPoc.model.Payment;
 import cz.csas.startup.FBPoc.service.AsyncTask;
@@ -42,18 +44,18 @@ public class PaymentsActivity extends FbAwareActivity {
 
 
         accountSelector = (SwipeAccountSelector) findViewById(R.id.accountSelector);
-        accountSelector.setAccounts(R.layout.account_selector, application.getAccounts());
+        accountSelector.setAccounts(R.layout.account_selector, application.getFriends24Context().getAccounts());
         accountSelector.setOnItemSelectedListener(new SwipeAccountSelector.OnItemSelectedListener() {
             @Override
             public void onItemSelected(Account account, View view, int position) {
                 if (account != null) {
-                    if (application.getPayments().get(account) == null) {
+                    if (application.getFriends24Context().getPayments().get(account) == null) {
                         new GetPaymentsTask(PaymentsActivity.this, account, paymentsAdapter).execute();
                     } else {
                         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
                         progressBar.setVisibility(View.GONE);
                         ListView listView = (ListView) findViewById(android.R.id.list);
-                        paymentsAdapter.setData(application.getPayments().get(account));
+                        paymentsAdapter.setData(application.getFriends24Context().getPayments().get(account));
                         paymentsAdapter.notifyDataSetChanged();
                         listView.setVisibility(View.VISIBLE);
                     }
@@ -67,11 +69,12 @@ public class PaymentsActivity extends FbAwareActivity {
         listView.addHeaderView(getLayoutInflater().inflate(R.layout.payment_list_header, null));
         listView.setAdapter(paymentsAdapter);
 
-        if (application.getPayments() == null) {
-            application.setPayments(new HashMap<Account, List<Payment>>(application.getAccounts().size()));
-            for (Account account : application.getAccounts()) {
-                application.getPayments().put(account, null);
+        if (application.getFriends24Context().getPayments() == null) {
+            application.getFriends24Context().setPayments(new HashMap<Account, List<Payment>>(application.getFriends24Context().getAccounts().size()));
+            for (Account account : application.getFriends24Context().getAccounts()) {
+                application.getFriends24Context().getPayments().put(account, null);
             }
+            application.saveSessionToPreferences();
         }
     }
 
@@ -80,7 +83,7 @@ public class PaymentsActivity extends FbAwareActivity {
     public void onResume() {
         super.onResume();
         Account account = (Account) accountSelector.getSelectedItem();
-        if (account != null && getFriendsApplication().getPayments() != null && getFriendsApplication().getPayments().get(account) == null) {
+        if (account != null && getFriendsApplication().getFriends24Context().getPayments() != null && getFriendsApplication().getFriends24Context().getPayments().get(account) == null) {
             new GetPaymentsTask(PaymentsActivity.this, account, paymentsAdapter).execute();
         }
     }
@@ -143,9 +146,14 @@ public class PaymentsActivity extends FbAwareActivity {
             progressBar.setVisibility(View.GONE);
             listView.setVisibility(View.VISIBLE);
             if (result.getStatus().equals(AsyncTaskResult.Status.OK)) {
-                getApplication().getPayments().put(account, result.getResult());
+                getApplication().getFriends24Context().getPayments().put(account, result.getResult());
                 paymentsAdapter.setData(result.getResult());
                 paymentsAdapter.notifyDataSetChanged();
+                getApplication().saveSessionToPreferences();
+                //String msg = getApplication().getFriends24Context().toJson();
+                //Log.d(TAG, msg);
+                //Friends24Context friends24Context = Friends24Context.fromJson(msg);
+                //Log.d(TAG, friends24Context.toJson());
             }
             else {
                 Utils.showErrorDialog(getContext(), result);

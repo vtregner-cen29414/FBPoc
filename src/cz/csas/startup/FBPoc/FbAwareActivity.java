@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
@@ -24,9 +25,11 @@ public abstract class FbAwareActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, getClass().getSimpleName() + ":onCreate");
 
         Friends24Application application = (Friends24Application) getApplication();
-        if (application.getAccounts() == null || application.getAuthHeader() == null) {
+        if (!application.getFriends24Context().isAppLogged() || application.getFriends24Context().getAccounts() == null || application.getFriends24Context().getAuthHeader() == null) {
+            finish();
             Utils.redirectToLogin(this);
             return;
         }
@@ -61,6 +64,7 @@ public abstract class FbAwareActivity extends Activity {
     @Override
     public void onResume() {
         super.onResume();
+        Log.d(TAG, getClass().getSimpleName() + ":onResume");
         // For scenarios where the main activity is launched and user
         // session is not null, the session state change notification
         // may not be triggered. Trigger it if it's open/closed.
@@ -112,7 +116,7 @@ public abstract class FbAwareActivity extends Activity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        uiHelper.onDestroy();
+        if (uiHelper != null) uiHelper.onDestroy();
         if (smackAndroid != null) smackAndroid.onDestroy();
     }
 

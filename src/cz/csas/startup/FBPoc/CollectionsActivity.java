@@ -8,10 +8,8 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Base64;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import cz.csas.startup.FBPoc.model.*;
 import cz.csas.startup.FBPoc.service.AsyncTask;
 import cz.csas.startup.FBPoc.service.AsyncTaskResult;
@@ -73,19 +71,19 @@ public class CollectionsActivity extends FbAwareListActivity {
         });*/
 
         accountSelector = (SwipeAccountSelector) findViewById(R.id.accountSelector);
-        accountSelector.setAccounts(R.layout.account_selector, application.getAccounts());
+        accountSelector.setAccounts(R.layout.account_selector, application.getFriends24Context().getAccounts());
         accountSelector.setOnItemSelectedListener(new SwipeAccountSelector.OnItemSelectedListener() {
             @Override
             public void onItemSelected(Account account, View view, int position) {
                 if (account != null) {
-                    if (application.getCollections().get(account) == null) {
+                    if (application.getFriends24Context().getCollections().get(account) == null) {
                         new GetCollectionsTask(CollectionsActivity.this, account, collectionsAdapter).execute();
                     } else {
                         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
                         progressBar.setVisibility(View.GONE);
                         ListView listView = (ListView) findViewById(android.R.id.list);
                         listView.setVisibility(View.VISIBLE);
-                        collectionsAdapter.setData(application.getCollections().get(account));
+                        collectionsAdapter.setData(application.getFriends24Context().getCollections().get(account));
                         collectionsAdapter.notifyDataSetChanged();
                     }
                 }
@@ -96,10 +94,10 @@ public class CollectionsActivity extends FbAwareListActivity {
         collectionsAdapter = new CollectionsAdapter(this, R.layout.collection_row);
         getListView().addHeaderView(getLayoutInflater().inflate(R.layout.collection_list_header, null), null, false);
         setListAdapter(collectionsAdapter);
-        if (application.getCollections() == null) {
-            application.setCollections(new HashMap<Account, List<Collection>>(application.getAccounts().size()));
-            for (Account account : application.getAccounts()) {
-                application.getCollections().put(account, null);
+        if (application.getFriends24Context().getCollections() == null) {
+            application.getFriends24Context().setCollections(new HashMap<Account, List<Collection>>(application.getFriends24Context().getAccounts().size()));
+            for (Account account : application.getFriends24Context().getAccounts()) {
+                application.getFriends24Context().getCollections().put(account, null);
             }
         }
     }
@@ -108,7 +106,7 @@ public class CollectionsActivity extends FbAwareListActivity {
     public void onResume() {
         super.onResume();
         Account account = (Account) accountSelector.getSelectedItem();
-        if (account != null && getFriendsApplication().getCollections() != null && getFriendsApplication().getCollections().get(account) == null) {
+        if (account != null && getFriendsApplication().getFriends24Context().getCollections() != null && getFriendsApplication().getFriends24Context().getCollections().get(account) == null) {
             new GetCollectionsTask(this, account, collectionsAdapter).execute();
         }
     }
@@ -122,7 +120,8 @@ public class CollectionsActivity extends FbAwareListActivity {
 
     public void onNewCollection(View view) {
         final Friends24Application application = (Friends24Application) getApplication();
-        application.setSelectedFrieds(null);
+        application.getFriends24Context().setSelectedFrieds(null);
+        application.saveSessionToPreferences();
         Intent intent = new Intent(this, NewCollectionActivity.class);
         intent.putExtra("account", accountSelector.getSelectedItemPosition());
         startActivity(intent);
@@ -219,7 +218,7 @@ public class CollectionsActivity extends FbAwareListActivity {
             progressBar.setVisibility(View.GONE);
             listView.setVisibility(View.VISIBLE);
             if (result.getStatus().equals(AsyncTaskResult.Status.OK)) {
-                getApplication().getCollections().put(account, result.getResult());
+                getApplication().getFriends24Context().getCollections().put(account, result.getResult());
                 collectionsAdapter.setData(result.getResult());
                 collectionsAdapter.notifyDataSetChanged();
             }

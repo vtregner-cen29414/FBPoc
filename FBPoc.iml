@@ -18,6 +18,7 @@
     <orderEntry type="module" module-name="facebook" />
     <orderEntry type="library" name="android-support-v4" level="project" />
     <orderEntry type="library" name="asmack-android-16-0.8.10" level="project" />
+    <orderEntry type="library" name="gson-2.2.4" level="project" />
   </component>
 </module>
 

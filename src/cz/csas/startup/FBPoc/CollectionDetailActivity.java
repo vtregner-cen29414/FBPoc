@@ -46,7 +46,7 @@ public class CollectionDetailActivity extends FbAwareActivity {
 
         TextView accountRow1 = (TextView) findViewById(R.id.accountRow1);
         TextView accountRow2 = (TextView) findViewById(R.id.accountRow2);
-        Account account = ((Friends24Application) getApplication()).getAccount(collection.getCollectionAccount());
+        Account account = ((Friends24Application) getApplication()).getFriends24Context().getAccount(collection.getCollectionAccount());
         accountRow1.setText(AccountsAdapter.getAccountRow1(account));
         accountRow2.setText(AccountsAdapter.getAccountRow2(account));
 

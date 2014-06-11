@@ -50,7 +50,7 @@ public class UploadImageService extends IntentService {
         HttpClient httpClient = Friends24HttpClient.getNewHttpClient();
         Friends24Application application = (Friends24Application) getApplicationContext();
         HttpPost method = new HttpPost(getBaseUri()+"collections/"+collectionId+"/image");
-        method.addHeader("Authorization", application.getAuthHeader());
+        method.addHeader("Authorization", application.getFriends24Context().getAuthHeader());
 
         SimpleMultipartEntity entity = new SimpleMultipartEntity(new UploadProgressListener() {
             @Override

@@ -111,8 +111,8 @@ public class Friends24HttpClient<REQ, RES> {
 
             if (doAuthorization) {
                 Friends24Application application = (Friends24Application) context.getApplicationContext();
-                if (application.getAuthHeader() != null) {
-                    httpReq.addHeader("Authorization", application.getAuthHeader());
+                if (application.getFriends24Context().getAuthHeader() != null) {
+                    httpReq.addHeader("Authorization", application.getFriends24Context().getAuthHeader());
                 }
                 else {
                     Intent intent = new Intent(context, LoginActivity.class);
