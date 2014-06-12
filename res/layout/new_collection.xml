@@ -307,26 +307,26 @@
                             android:textColor="@color/gray_input_text"/>
                 </RelativeLayout>
 
-                <RelativeLayout
+                <!--<RelativeLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_span="2"
                         android:layout_marginRight="10dp">
-
-                    <LinearLayout
+-->
+                   <!-- <LinearLayout
                             android:id="@+id/fbParticipants"
                             android:orientation="vertical"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:animateLayoutChanges="true">
-                    </LinearLayout>
+                    </LinearLayout>-->
 
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/addParticipant"
-                            android:layout_below="@id/fbParticipants"
                             android:layout_marginRight="10dp"
+                            android:layout_span="2"
                             android:textSize="12sp"
                             android:clickable="true"
                             android:onClick="onAddFbParticipant"
@@ -335,8 +335,20 @@
                             android:drawableLeft="@drawable/im_addparticipant"
                             android:drawablePadding="4dp"/>
 
-                 </RelativeLayout>
+                <!-- </RelativeLayout>-->
 
+            </TableRow>
+                <LinearLayout
+                        android:id="@+id/fbParticipants"
+                        android:orientation="vertical"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_span="3"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="15dp"
+                        android:animateLayoutChanges="true">
+                </LinearLayout>
+            <TableRow>
 
             </TableRow>
 

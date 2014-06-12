@@ -152,7 +152,7 @@ public class CollectionsActivity extends FbAwareListActivity {
                 collection.setCreated(new Date(jcollection.getLong("created")));
                 collection.setDueDate(new Date(jcollection.getLong("dueDate")));
                 collection.setCollectionAccount(jcollection.getLong("collectionAccount"));
-                collection.setTargetAmount(new BigDecimal(jcollection.getString("targetAmount")));
+                if (!jcollection.isNull("targetAmount")) collection.setTargetAmount(new BigDecimal(jcollection.getString("targetAmount")));
                 collection.setCurrency(jcollection.getString("currency"));
                 collection.setName(jcollection.getString("name"));
                 if (!jcollection.isNull("description")) collection.setDescription(jcollection.getString("description"));

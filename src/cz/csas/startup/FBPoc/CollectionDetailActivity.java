@@ -77,7 +77,7 @@ public class CollectionDetailActivity extends FbAwareActivity {
         }
 
         final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        progressBar.setMax(collection.getTargetAmount().intValue());
+        progressBar.setMax(collection.getTargetAmount() != null ? collection.getTargetAmount().intValue() : 0);
         BigDecimal currentCollectedAmount = collection.getCurrentCollectedAmount();
         progressBar.setProgress(currentCollectedAmount.intValue());
 

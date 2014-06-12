@@ -207,16 +207,18 @@ public class Utils {
 
 
     public static String getFormattedAmount(BigDecimal amount, String currency) {
-        NumberFormat nf = NumberFormat.getCurrencyInstance();
-        nf.setCurrency(Currency.getInstance(currency));
-        if (amount.compareTo(new BigDecimal(100)) < 0) {
-            nf.setMaximumFractionDigits(2);
-        }
-        else {
-            nf.setMaximumFractionDigits(0);
-        }
+        if (amount != null) {
+            NumberFormat nf = NumberFormat.getCurrencyInstance();
+            nf.setCurrency(Currency.getInstance(currency));
+            if (amount.compareTo(new BigDecimal(100)) < 0) {
+                nf.setMaximumFractionDigits(2);
+            } else {
+                nf.setMaximumFractionDigits(0);
+            }
 
-        return nf.format(amount);
+            return nf.format(amount);
+        }
+        else return "";
     }
 
     public static Bitmap scaleBitmapToView(String imagePath, ImageView imageView) {
