@@ -42,24 +42,24 @@ public class SendFBMessageCollectionTask extends AsyncTask<Collection, Void, Voi
         config.setSASLAuthenticationEnabled(true);
         config.setSecurityMode(ConnectionConfiguration.SecurityMode.required);
         config.setSendPresence(false);
-        XMPPConnection xmpp = new XMPPConnection(config);
-        try {
-            xmpp.connect();
-            xmpp.login(Session.getActiveSession().getApplicationId(), Session.getActiveSession().getAccessToken(), "Application");
 
-            //send a chat message
-            ChatManager chatmanager = xmpp.getChatManager();
+        for (FacebookCollectionParticipant participant : collection.getFbParticipants()) {
+            XMPPConnection xmpp = new XMPPConnection(config);
+            try {
+                xmpp.connect();
+                xmpp.login(Session.getActiveSession().getApplicationId(), Session.getActiveSession().getAccessToken(), "Application");
 
-            for (FacebookCollectionParticipant participant : collection.getFbParticipants()) {
+                //send a chat message
+                ChatManager chatmanager = xmpp.getChatManager();
                 sendMessage(chatmanager, collection, participant);
-            }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            ex = e;
-        }
-        finally {
-            xmpp.disconnect();
+            } catch (Exception e) {
+                e.printStackTrace();
+                ex = e;
+            }
+            finally {
+                xmpp.disconnect();
+            }
         }
         return null;
     }
@@ -82,7 +82,7 @@ public class SendFBMessageCollectionTask extends AsyncTask<Collection, Void, Voi
         message.setBody(body.toString());
         try {
             newChat.sendMessage(message);
-            Log.d(TAG, "Message for " + recipient.getFbUserId() + " sent!");
+            Log.d(TAG, "Message for " + recipient.getFbUserId() + "/" + recipient.getFbUserName() + " sent!");
         } catch (XMPPException e) {
             Log.d(TAG, "Error sending Message for " + recipient.getFbUserId(), e);
             ex = e;

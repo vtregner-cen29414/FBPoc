@@ -218,6 +218,9 @@ public class NewCollectionActivity extends FbAwareActivity {
                 appendNewFbRow(getFriendsApplication().getFriends24Context().getNewlySelectedFrieds());
             }
         }
+        else if (requestCode == SELECT_PICTURE_REQUEST_CODE) {
+            outputPhotoFileUri = null;
+        }
     }
 
     @Override

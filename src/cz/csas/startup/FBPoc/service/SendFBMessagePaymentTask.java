@@ -79,8 +79,10 @@ public class SendFBMessagePaymentTask extends AsyncTask<Payment, Void, Void> {
 
             message.setBody(body.toString());
             newChat.sendMessage(message);
+            Log.d(TAG, "Message for " + payment.getRecipientId() + " sent!");
 
         } catch (Exception e) {
+            Log.e(TAG, "Erorr while sending Message for " + payment.getRecipientId());
             e.printStackTrace();
             ex = e;
         }

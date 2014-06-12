@@ -40,33 +40,32 @@ public class SendFBMessageNotifyCollectionTask extends AsyncTask<Collection, Voi
     @Override
     protected Void doInBackground(Collection... params) {
         Collection collection = params[0];
-        ConnectionConfiguration config = new ConnectionConfiguration("chat.facebook.com", 5222);
-        SASLAuthentication.registerSASLMechanism("X-FACEBOOK-PLATFORM", SASLXFacebookPlatformMechanism.class);
-        SASLAuthentication.supportSASLMechanism("X-FACEBOOK-PLATFORM", 0);
-        config.setSASLAuthenticationEnabled(true);
-        config.setSecurityMode(ConnectionConfiguration.SecurityMode.required);
-        config.setSendPresence(false);
-        XMPPConnection xmpp = new XMPPConnection(config);
-        try {
-            xmpp.connect();
-            xmpp.login(Session.getActiveSession().getApplicationId(), Session.getActiveSession().getAccessToken(), "Application");
+        for (FacebookCollectionParticipant participant : collection.getFbParticipants()) {
+            ConnectionConfiguration config = new ConnectionConfiguration("chat.facebook.com", 5222);
+            SASLAuthentication.registerSASLMechanism("X-FACEBOOK-PLATFORM", SASLXFacebookPlatformMechanism.class);
+            SASLAuthentication.supportSASLMechanism("X-FACEBOOK-PLATFORM", 0);
+            config.setSASLAuthenticationEnabled(true);
+            config.setSecurityMode(ConnectionConfiguration.SecurityMode.required);
+            config.setSendPresence(false);
+            XMPPConnection xmpp = new XMPPConnection(config);
+            try {
+                xmpp.connect();
+                xmpp.login(Session.getActiveSession().getApplicationId(), Session.getActiveSession().getAccessToken(), "Application");
 
-            //send a chat message
-            ChatManager chatmanager = xmpp.getChatManager();
+                //send a chat message
+                ChatManager chatmanager = xmpp.getChatManager();
 
-            for (FacebookCollectionParticipant participant : collection.getFbParticipants()) {
                 if (participant.getStatus() == CollectionParticipant.Status.PENDING
-                 || participant.getStatus() == CollectionParticipant.Status.ACCEPTED ) {
+                        || participant.getStatus() == CollectionParticipant.Status.ACCEPTED) {
                     sendMessage(chatmanager, collection, participant);
                 }
-            }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            ex = e;
-        }
-        finally {
-            xmpp.disconnect();
+            } catch (Exception e) {
+                e.printStackTrace();
+                ex = e;
+            } finally {
+                xmpp.disconnect();
+            }
         }
         return null;
     }
@@ -95,7 +94,7 @@ public class SendFBMessageNotifyCollectionTask extends AsyncTask<Collection, Voi
         message.setBody(body.toString());
         try {
             newChat.sendMessage(message);
-            Log.d(TAG, "Message for " + participant.getFbUserId() + " sent!");
+            Log.d(TAG, "Message for " + participant.getFbUserId() + "/"+participant.getFbUserName() + " sent!");
         } catch (XMPPException e) {
             e.printStackTrace();
             Log.d(TAG, "Error sending Message for " + participant.getFbUserId(), e);
