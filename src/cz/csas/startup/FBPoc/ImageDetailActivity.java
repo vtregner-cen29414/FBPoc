@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import cz.csas.startup.FBPoc.service.AsyncTaskResult;
 import cz.csas.startup.FBPoc.service.GetCollectionImageTask;
+import cz.csas.startup.FBPoc.utils.Utils;
 
 /**
  * Created by cen29414 on 20.5.2014.
@@ -18,6 +19,11 @@ public class ImageDetailActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (!((Friends24Application) getApplication()).getFriends24Context().isAppLogged()) {
+            finish();
+            Utils.redirectToLogin(this);
+            return;
+        }
         setContentView(R.layout.imagedetail);
         final ImageView imageView = (ImageView) findViewById(R.id.imageView);
         final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);

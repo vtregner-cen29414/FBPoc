@@ -126,6 +126,7 @@ public class HomeActivity extends FbAwareActivity {
         super.onBackPressed();
         getFriendsApplication().getFriends24Context().clearSession();
         getFriendsApplication().invalidateSessionInPreferences();
+        getFriendsApplication().onApplicationExit();
         finish();
     }
 }

@@ -40,6 +40,8 @@ public class CollectionDetailActivity extends FbAwareActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (!getFriendsApplication().getFriends24Context().isAppLogged()) return;
+
         setContentView(R.layout.collection_detail);
         collection = getIntent().getParcelableExtra("data");
 

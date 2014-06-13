@@ -20,7 +20,7 @@ import java.util.List;
 public abstract class FbAwareActivity extends Activity {
     protected UiLifecycleHelper uiHelper;
     private static final String TAG = "Friends24";
-    protected SmackAndroid smackAndroid;
+    //protected SmackAndroid smackAndroid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +52,10 @@ public abstract class FbAwareActivity extends Activity {
     }
 
     protected void initSmack() {
-        smackAndroid = SmackAndroid.init(this);
-        Log.d(TAG, "smack library initilized for activity " + this.getClass().getSimpleName());
+       /* if (smackAndroid == null) {
+            smackAndroid = SmackAndroid.init(this);
+            Log.d(TAG, "smack library initilized for activity " + this.getClass().getSimpleName());
+        }*/
     }
 
     @Override
@@ -111,14 +113,28 @@ public abstract class FbAwareActivity extends Activity {
     @Override
     public void onPause() {
         super.onPause();
+        Log.d(TAG, getClass().getSimpleName() + ":onPause");
         uiHelper.onPause();
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, getClass().getSimpleName() + ":onStop");
+        uiHelper.onStop();
+    }
+
+
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
+        Log.d(TAG, getClass().getSimpleName() + ":onDestroy");
         if (uiHelper != null) uiHelper.onDestroy();
-        if (smackAndroid != null) smackAndroid.onDestroy();
+        /*if (smackAndroid != null) {
+            smackAndroid.onDestroy();
+            smackAndroid = null;
+        }*/
     }
 
     @Override

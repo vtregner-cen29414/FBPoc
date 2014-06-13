@@ -11,6 +11,7 @@ import com.facebook.FacebookException;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.FriendPickerFragment;
 import com.facebook.widget.PickerFragment;
+import cz.csas.startup.FBPoc.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -27,6 +28,11 @@ public class PickerActivity extends FragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (!((Friends24Application) getApplication()).getFriends24Context().isAppLogged()) {
+            finish();
+            Utils.redirectToLogin(this);
+            return;
+        }
         setContentView(R.layout.pickers);
 
         Bundle args = getIntent().getExtras();

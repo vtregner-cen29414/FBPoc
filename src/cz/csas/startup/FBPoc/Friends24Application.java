@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.SharedPreferences;
 import android.util.Log;
 import cz.csas.startup.FBPoc.utils.FontsOverride;
+import org.jivesoftware.smack.SmackAndroid;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -18,6 +19,7 @@ public class Friends24Application extends Application {
     public static final String TIMESTAMP_KEY = "TIMESTAMP_KEY";
 
     Friends24Context friends24Context;
+    private SmackAndroid smackAndroid;
 
 
     @Override
@@ -32,6 +34,7 @@ public class Friends24Application extends Application {
             Log.d(TAG, "Friends24 session context restored from preferences!");
         }
         else friends24Context = new Friends24Context();
+        smackAndroid = SmackAndroid.init(this);
     }
 
     private Friends24Context loadSessionFromPreferences() {
@@ -73,6 +76,14 @@ public class Friends24Application extends Application {
     public void onLowMemory() {
         super.onLowMemory();
         Log.d(TAG, "app:onLowMemory");
+    }
+
+    public void onApplicationExit() {
+        try {
+            if (smackAndroid != null) smackAndroid.onDestroy();
+        } catch (Throwable e) {
+            Log.w(TAG, e);
+        }
     }
 
 

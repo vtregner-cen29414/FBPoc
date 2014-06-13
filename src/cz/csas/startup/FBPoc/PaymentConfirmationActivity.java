@@ -23,6 +23,7 @@ public class PaymentConfirmationActivity extends FbAwareActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (!getFriendsApplication().getFriends24Context().isAppLogged()) return;
         setContentView(R.layout.payment_confirmation);
         TextView newPayment = (TextView) findViewById(R.id.btnNewPayment);
         newPayment.setText(Html.fromHtml(getString(R.string.new_payment_link)));

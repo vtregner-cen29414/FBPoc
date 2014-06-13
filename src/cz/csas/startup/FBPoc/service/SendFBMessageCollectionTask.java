@@ -36,14 +36,14 @@ public class SendFBMessageCollectionTask extends AsyncTask<Collection, Void, Voi
     @Override
     protected Void doInBackground(Collection... params) {
         Collection collection = params[0];
-        ConnectionConfiguration config = new ConnectionConfiguration("chat.facebook.com", 5222);
-        SASLAuthentication.registerSASLMechanism("X-FACEBOOK-PLATFORM", SASLXFacebookPlatformMechanism.class);
-        SASLAuthentication.supportSASLMechanism("X-FACEBOOK-PLATFORM", 0);
-        config.setSASLAuthenticationEnabled(true);
-        config.setSecurityMode(ConnectionConfiguration.SecurityMode.required);
-        config.setSendPresence(false);
 
         for (FacebookCollectionParticipant participant : collection.getFbParticipants()) {
+            ConnectionConfiguration config = new ConnectionConfiguration("chat.facebook.com", 5222);
+            SASLAuthentication.registerSASLMechanism("X-FACEBOOK-PLATFORM", SASLXFacebookPlatformMechanism.class);
+            SASLAuthentication.supportSASLMechanism("X-FACEBOOK-PLATFORM", 0);
+            config.setSASLAuthenticationEnabled(true);
+            config.setSecurityMode(ConnectionConfiguration.SecurityMode.required);
+            config.setSendPresence(false);
             XMPPConnection xmpp = new XMPPConnection(config);
             try {
                 xmpp.connect();

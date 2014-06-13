@@ -26,6 +26,7 @@ public class CollectionConfirmationActivity extends FbAwareActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (!getFriendsApplication().getFriends24Context().isAppLogged()) return;
         setContentView(R.layout.collection_confirmation);
         TextView newPayment = (TextView) findViewById(R.id.btnNewCollection);
         newPayment.setText(Html.fromHtml(getString(R.string.new_collection_link)));

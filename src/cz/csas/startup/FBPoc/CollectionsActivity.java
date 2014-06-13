@@ -39,6 +39,7 @@ public class CollectionsActivity extends FbAwareListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (!getFriendsApplication().getFriends24Context().isAppLogged()) return;
         setContentView(R.layout.collection_list);
 
         //Spinner accountSpinner = (Spinner) findViewById(R.id.accountSelector);

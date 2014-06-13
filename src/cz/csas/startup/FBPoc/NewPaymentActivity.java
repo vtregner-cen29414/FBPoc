@@ -48,6 +48,7 @@ public class NewPaymentActivity extends FbAwareActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (!getFriendsApplication().getFriends24Context().isAppLogged()) return;
         setContentView(R.layout.new_payment);
 
         recipientName = (TextView) findViewById(R.id.recipent_name);

@@ -38,6 +38,7 @@ public class PaymentsActivity extends FbAwareActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (!getFriendsApplication().getFriends24Context().isAppLogged()) return;
         setContentView(R.layout.payment_list);
 
         final Friends24Application application = (Friends24Application) getApplication();

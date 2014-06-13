@@ -64,6 +64,7 @@ public class NewCollectionActivity extends FbAwareActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (!getFriendsApplication().getFriends24Context().isAppLogged()) return;
         setContentView(R.layout.new_collection);
 
         accountSpinner = (SwipeAccountSelector) findViewById(R.id.accountSelector);
