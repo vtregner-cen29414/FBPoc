@@ -135,6 +135,7 @@ public class LoginActivity extends Activity {
         if (state.isOpened() && !isFetching) {
             Log.i(TAG, "FB Logged in...");
             isFetching = true;
+            AppEventsLogger.activateApp(this);
             // Request user data and show the results
             Request.newMeRequest(session, new Request.GraphUserCallback() {
                 @Override
@@ -159,11 +160,6 @@ public class LoginActivity extends Activity {
 
         } else if (state.isClosed()) {
             if (exception != null) {
-               /* AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Chyba přihlášení na Facebook")
-                        .setMessage(exception.getMessage());
-                AlertDialog errDialog = builder.create();
-                errDialog.show();*/
                 Log.e(TAG, exception.toString());
                 if (exception instanceof FacebookOperationCanceledException) {
                     if (fbRetryCount++ < 1) {

@@ -44,32 +44,6 @@ public class CollectionsActivity extends FbAwareListActivity {
 
         //Spinner accountSpinner = (Spinner) findViewById(R.id.accountSelector);
         final Friends24Application application = (Friends24Application) getApplication();
-        /*AccountsAdapter adapter = new AccountsAdapter(this, R.layout.account_selector);
-        accountSpinner.setAdapter(adapter);
-        adapter.setData(application.getAccounts());
-
-        accountSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Account account = (Account) parent.getItemAtPosition(position);
-                if (account != null) {
-                    if (application.getCollections().get(account) == null) {
-                        new GetCollectionsTask(CollectionsActivity.this, account, collectionsAdapter).execute();
-                    } else {
-                        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
-                        progressBar.setVisibility(View.GONE);
-                        ListView listView = (ListView) findViewById(android.R.id.list);
-                        listView.setVisibility(View.VISIBLE);
-                        collectionsAdapter.setData(application.getCollections().get(account));
-                    }
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });*/
 
         accountSelector = (SwipeAccountSelector) findViewById(R.id.accountSelector);
         accountSelector.setAccounts(R.layout.account_selector, application.getFriends24Context().getAccounts());
@@ -80,12 +54,7 @@ public class CollectionsActivity extends FbAwareListActivity {
                     if (application.getFriends24Context().getCollections().get(account) == null) {
                         new GetCollectionsTask(CollectionsActivity.this, account, collectionsAdapter).execute();
                     } else {
-                        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
-                        progressBar.setVisibility(View.GONE);
-                        ListView listView = (ListView) findViewById(android.R.id.list);
-                        listView.setVisibility(View.VISIBLE);
-                        collectionsAdapter.setData(application.getFriends24Context().getCollections().get(account));
-                        collectionsAdapter.notifyDataSetChanged();
+                        appendCollections(account);
                     }
                 }
             }
@@ -103,12 +72,24 @@ public class CollectionsActivity extends FbAwareListActivity {
         }
     }
 
+    private void appendCollections(Account account) {
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.GONE);
+        ListView listView = (ListView) findViewById(android.R.id.list);
+        listView.setVisibility(View.VISIBLE);
+        collectionsAdapter.setData(getFriendsApplication().getFriends24Context().getCollections().get(account));
+        collectionsAdapter.notifyDataSetChanged();
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         Account account = (Account) accountSelector.getSelectedItem();
-        if (account != null && getFriendsApplication().getFriends24Context().getCollections() != null && getFriendsApplication().getFriends24Context().getCollections().get(account) == null) {
-            new GetCollectionsTask(this, account, collectionsAdapter).execute();
+        if (account != null ) {
+            if (getFriendsApplication().getFriends24Context().getCollections() != null && getFriendsApplication().getFriends24Context().getCollections().get(account) == null) {
+                new GetCollectionsTask(this, account, collectionsAdapter).execute();
+            }
+            else appendCollections(account);
         }
     }
 

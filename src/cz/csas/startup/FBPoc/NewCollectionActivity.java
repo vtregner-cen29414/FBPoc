@@ -53,6 +53,9 @@ public class NewCollectionActivity extends FbAwareActivity {
     public static final int SELECT_PICTURE_REQUEST_CODE = 500;
     public static final String COLLECTION = "COLLECTION";
     public static final String PHOTO_FILE_NAME = "cphoto.jpg";
+    public static final String CAMERA_PHOTO_PATH = "CAMERA_PHOTO_PATH";
+    public static final String IS_FROM_CAMERA = "IS_FROM_CAMERA";
+    public static final String NUM_OF_EMAIL_PARTICIPANTS = "numOfEmailParticipants";
 
     private SwipeAccountSelector accountSpinner;
     private Uri outputPhotoFileUri;
@@ -120,28 +123,13 @@ public class NewCollectionActivity extends FbAwareActivity {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        initSmack();
-        Log.d(TAG, "onResume");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "onDestroy");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d(TAG, "onStop");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d(TAG, "onPause");
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState.containsKey(CAMERA_PHOTO_PATH)) {
+            outputPhotoFileUri = savedInstanceState.getParcelable(CAMERA_PHOTO_PATH);
+        }
+        isFromCamera = savedInstanceState.getBoolean(IS_FROM_CAMERA, false);
+        numOfEmailParticipants= savedInstanceState.getInt(NUM_OF_EMAIL_PARTICIPANTS, 0);
     }
 
     public void addLink(View view) {
@@ -228,6 +216,9 @@ public class NewCollectionActivity extends FbAwareActivity {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(COLLECTION, collection);
+        outState.putParcelable(CAMERA_PHOTO_PATH, outputPhotoFileUri);
+        outState.putBoolean(IS_FROM_CAMERA, isFromCamera);
+        outState.putInt(NUM_OF_EMAIL_PARTICIPANTS, numOfEmailParticipants);
     }
 
     private void setCollectionImage(boolean isCamera, Uri selectedImageUri) {
@@ -485,8 +476,21 @@ public class NewCollectionActivity extends FbAwareActivity {
             SimpleDateFormat sfd = new SimpleDateFormat("dd.MM.yyyy");
             sfd.setLenient(false);
             try {
-                collection.setDueDate(sfd.parse(collectionDueDateView.getText().toString()));
-                collectionDueDateView.setError(null);
+                Date dueDate = sfd.parse(collectionDueDateView.getText().toString());
+                Calendar tomorrow = Calendar.getInstance();
+                tomorrow.add(Calendar.DATE, 1);
+                tomorrow.set(Calendar.HOUR, 0);
+                tomorrow.set(Calendar.MINUTE, 0);
+                tomorrow.set(Calendar.SECOND, 0);
+                tomorrow.set(Calendar.MILLISECOND, 0);
+                if (dueDate.before(tomorrow.getTime())) {
+                    collectionDueDateView.setError(getString(R.string.invalidDueDate));
+                    valid = false;
+                }
+                else {
+                    collection.setDueDate(dueDate);
+                    collectionDueDateView.setError(null);
+                }
             } catch (ParseException e) {
                 collectionDueDateView.setError(getString(R.string.invalidDate));
                 valid = false;
@@ -740,12 +744,20 @@ public class NewCollectionActivity extends FbAwareActivity {
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the current date as the default date in the picker
             final Calendar c = Calendar.getInstance();
+            c.add(Calendar.DATE, 1);
+            c.set(Calendar.HOUR, 0);
+            c.set(Calendar.MINUTE, 0);
+            c.set(Calendar.SECOND, 0);
+            c.set(Calendar.MILLISECOND, 0);
             int year = c.get(Calendar.YEAR);
             int month = c.get(Calendar.MONTH);
             int day = c.get(Calendar.DAY_OF_MONTH);
 
             // Create a new instance of DatePickerDialog and return it
-            return new DatePickerDialog(NewCollectionActivity.this, this, year, month, day);
+            DatePickerDialog datePickerDialog = new DatePickerDialog(NewCollectionActivity.this, this, year, month, day);
+            datePickerDialog.getDatePicker().setMinDate(c.getTime().getTime());
+
+            return datePickerDialog;
         }
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
@@ -844,7 +856,7 @@ public class NewCollectionActivity extends FbAwareActivity {
             }
 
             // clear cached data
-            getFriendsApplication().getFriends24Context().getCollections().put((Account)accountSpinner.getSelectedItem(), null);
+            if (getFriendsApplication().getFriends24Context().getCollections() != null) getFriendsApplication().getFriends24Context().getCollections().put((Account)accountSpinner.getSelectedItem(), null);
 
             Intent intent = new Intent(getContext(), CollectionConfirmationActivity.class);
             intent.putExtra("data", result.getResult());

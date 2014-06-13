@@ -94,4 +94,5 @@
     <string name="notifyParticipantsConfirmText">Chcete zaslat na Facebook a email připomenutí sbírky jednotlivým účastníkům?</string>
     <string name="collectionNotificationSuccess">Připomenutí účastníkům bylo zasláno.</string>
     <string name="collectionNotificationError">Došlo k chybě při zasílání připomenutí účastníkům.</string>
+    <string name="invalidDueDate">Ukončení sbírky musí být nejdříve zítra</string>
 </resources>

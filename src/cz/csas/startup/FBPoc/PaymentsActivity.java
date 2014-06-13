@@ -53,12 +53,7 @@ public class PaymentsActivity extends FbAwareActivity {
                     if (application.getFriends24Context().getPayments().get(account) == null) {
                         new GetPaymentsTask(PaymentsActivity.this, account, paymentsAdapter).execute();
                     } else {
-                        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
-                        progressBar.setVisibility(View.GONE);
-                        ListView listView = (ListView) findViewById(android.R.id.list);
-                        paymentsAdapter.setData(application.getFriends24Context().getPayments().get(account));
-                        paymentsAdapter.notifyDataSetChanged();
-                        listView.setVisibility(View.VISIBLE);
+                        appendPayments(account);
                     }
                 }
             }
@@ -79,13 +74,25 @@ public class PaymentsActivity extends FbAwareActivity {
         }
     }
 
+    private void appendPayments(Account account) {
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.GONE);
+        ListView listView = (ListView) findViewById(android.R.id.list);
+        paymentsAdapter.setData(getFriendsApplication().getFriends24Context().getPayments().get(account));
+        paymentsAdapter.notifyDataSetChanged();
+        listView.setVisibility(View.VISIBLE);
+    }
+
 
     @Override
     public void onResume() {
         super.onResume();
         Account account = (Account) accountSelector.getSelectedItem();
-        if (account != null && getFriendsApplication().getFriends24Context().getPayments() != null && getFriendsApplication().getFriends24Context().getPayments().get(account) == null) {
-            new GetPaymentsTask(PaymentsActivity.this, account, paymentsAdapter).execute();
+        if (account != null) {
+            if (getFriendsApplication().getFriends24Context().getPayments() != null && getFriendsApplication().getFriends24Context().getPayments().get(account) == null) {
+                new GetPaymentsTask(PaymentsActivity.this, account, paymentsAdapter).execute();
+            }
+            else appendPayments(account);
         }
     }
 
