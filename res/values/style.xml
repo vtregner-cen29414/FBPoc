@@ -34,14 +34,15 @@
     <style name="DrawerItem" parent="android:Theme.Holo.Light">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/for_white</item>
-        <item name="android:layout_marginLeft">12dp</item>
-        <item name="android:layout_marginBottom">6dp</item>
-        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:paddingTop">6dp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:drawablePadding">5dp</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="android:onClick">onDrawerItemClick</item>
+        <item name="android:background">@drawable/dr_item</item>
     </style>
 
 </resources>
