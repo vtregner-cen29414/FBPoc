@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -56,6 +57,8 @@ public class HomeActivity extends FbAwareActivity {
         if (getFriendsApplication().getFriends24Context().getAccounts() != null) {
             appendAccountsView(getFriendsApplication().getFriends24Context().getAccounts());
         }
+
+        setupDrawer();
     }
 
     @Override
@@ -105,6 +108,12 @@ public class HomeActivity extends FbAwareActivity {
             GraphUser fbUser = ((Friends24Application) getApplication()).getFriends24Context().getFbUser();
             profilePictureView.setProfileId(fbUser.getId());
             userNameView.setText(fbUser.getName().toUpperCase());
+
+            FrameLayout drawerContainer = (FrameLayout) findViewById(R.id.left_drawer);
+            RoundedProfilePictureView drawerUserPic = (RoundedProfilePictureView) drawerContainer.findViewById(R.id.dr_currentUser_profile_pic);
+            drawerUserPic.setProfileId(fbUser.getId());
+            TextView drUsername = (TextView) drawerContainer.findViewById(R.id.dr_currentUser);
+            drUsername.setText(fbUser.getName().toUpperCase());
         }
     }
 
@@ -129,4 +138,7 @@ public class HomeActivity extends FbAwareActivity {
         getFriendsApplication().onApplicationExit();
         finish();
     }
+
+
+
 }

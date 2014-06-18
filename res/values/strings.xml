@@ -23,8 +23,8 @@
     <string name="recipent">Příjemce</string>
     <string name="messageForRecipient">Poznámka</string>
     <string name="notif_email">Email notifikace</string>
-    <string name="friends24_server_url">http://friends24.apiary-proxy.com/Friends24Server/rest/</string>
-    <!--<string name="friends24_server_url">http://friends24.apiary-mock.com/Friends24Server/rest/</string>-->
+    <!--<string name="friends24_server_url">http://friends24.apiary-proxy.com/Friends24Server/rest/</string>-->
+    <string name="friends24_server_url">http://friends24.apiary-mock.com/Friends24Server/rest/</string>
     <string name="error">Chyba</string>
     <string name="info">Info</string>
     <string name="error_common">V aplikace došlo k chybě. Prosím kontaktujte správce aplikace.</string>
@@ -95,4 +95,6 @@
     <string name="collectionNotificationSuccess">Připomenutí účastníkům bylo zasláno.</string>
     <string name="collectionNotificationError">Došlo k chybě při zasílání připomenutí účastníkům.</string>
     <string name="invalidDueDate">Ukončení sbírky musí být nejdříve zítra</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 </resources>
