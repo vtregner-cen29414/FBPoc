@@ -24,7 +24,9 @@
     <string name="messageForRecipient">Poznámka</string>
     <string name="notif_email">Email notifikace</string>
     <!--<string name="friends24_server_url">http://friends24.apiary-proxy.com/Friends24Server/rest/</string>-->
-    <string name="friends24_server_url">http://friends24.apiary-mock.com/Friends24Server/rest/</string>
+    <!--<string name="friends24_server_url">http://friends24.apiary-mock.com/Friends24Server/rest/</string>-->
+    <string name="friends24_server_url">http://startup.cloudapp.net:8080/Friends24Server/rest/</string>
+
     <string name="error">Chyba</string>
     <string name="info">Info</string>
     <string name="error_common">V aplikace došlo k chybě. Prosím kontaktujte správce aplikace.</string>

@@ -71,6 +71,7 @@ public class NewPaymentActivity extends FbAwareActivity {
         amountView = (EditText) findViewById(R.id.amount);
         messageForRecipientView = (EditText) findViewById(R.id.messageForRecipient);
         initSmack();
+        setupDrawer();
 
     }
 

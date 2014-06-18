@@ -12,10 +12,13 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
+import com.facebook.model.GraphUser;
 import cz.csas.startup.FBPoc.utils.Utils;
+import cz.csas.startup.FBPoc.widget.RoundedProfilePictureView;
 
 import java.util.Arrays;
 import java.util.List;
@@ -174,7 +177,16 @@ public abstract class FbAwareActivity extends Activity {
     }
 
     protected void onSessionStateChange(Session session, SessionState state, Exception exception) {
-
+        if (session.isOpened()) {
+            GraphUser fbUser = ((Friends24Application) getApplication()).getFriends24Context().getFbUser();
+            FrameLayout drawerContainer = (FrameLayout) findViewById(R.id.left_drawer);
+            if (fbUser != null && drawerContainer != null) {
+                RoundedProfilePictureView drawerUserPic = (RoundedProfilePictureView) drawerContainer.findViewById(R.id.dr_currentUser_profile_pic);
+                drawerUserPic.setProfileId(fbUser.getId());
+                TextView drUsername = (TextView) drawerContainer.findViewById(R.id.dr_currentUser);
+                drUsername.setText(fbUser.getName().toUpperCase());
+            }
+        }
     }
 
 
@@ -223,6 +235,8 @@ public abstract class FbAwareActivity extends Activity {
             launchPlayApplication("at.spardat.netbanking");
         }
         else if (view.getId() == R.id.dr_logout) {
+            getFriendsApplication().getFriends24Context().clearSession();
+            getFriendsApplication().invalidateSessionInPreferences();
             finish();
             Utils.redirectToLogin(this);
         }

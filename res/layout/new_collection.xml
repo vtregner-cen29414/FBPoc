@@ -1,325 +1,337 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:facebook="http://schemas.android.com/apk/res-auto"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:background="@color/homepage_background"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:background="@color/homepage_background"
             >
 
-    <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <cz.csas.startup.FBPoc.widget.SwipeAccountSelector
-                android:id="@+id/accountSelector"
-                android:layout_width="match_parent"
-                android:layout_height="89dp"
-                android:layout_gravity="center_horizontal"/>
-
-        <!--<Spinner
-                android:layout_width="match_parent"
-                android:layout_height="89dp"
-                android:id="@+id/accountSelector"
-                android:layout_gravity="center_horizontal"
-                android:padding="0dp"
-                android:spinnerMode="dropdown"/>-->
-
-        <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+        <LinearLayout
                 android:orientation="vertical"
-                android:gravity="center_horizontal"
-                android:layout_marginLeft="24dp"
-                android:layout_marginRight="24dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
-                android:background="@color/for_white"
-                android:measureWithLargestChild="false"
-                android:stretchColumns="1"
-                android:shrinkColumns="2"
-                >
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TableRow
-                    android:layout_height="wrap_content"
+            <cz.csas.startup.FBPoc.widget.SwipeAccountSelector
+                    android:id="@+id/accountSelector"
                     android:layout_width="match_parent"
-                    android:background="@color/back_blue">
-                <TextView
+                    android:layout_height="89dp"
+                    android:layout_gravity="center_horizontal"/>
+
+            <!--<Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="89dp"
+                    android:id="@+id/accountSelector"
+                    android:layout_gravity="center_horizontal"
+                    android:padding="0dp"
+                    android:spinnerMode="dropdown"/>-->
+
+            <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="24dp"
+                    android:background="@color/for_white"
+                    android:measureWithLargestChild="false"
+                    android:stretchColumns="1"
+                    android:shrinkColumns="2"
+                    >
+
+                <TableRow
+                        android:layout_height="wrap_content"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:textSize="18sp"
-                        android:text="@string/newCollectionUpper"
-                        android:layout_gravity="center"
-                        android:gravity="center"
+                        android:background="@color/back_blue">
 
-                        android:textColor="@color/for_white"
-                        android:layout_span="3"
-                        android:layout_column="0"
-                        android:layout_margin="12dp"/>
-            </TableRow>
-
-
-            <TableRow
-                    android:layout_marginTop="18dp">
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:textSize="16sp"
-                        android:text="@string/collectionName"
-                        />
-
-                <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/collectionName"
-                        android:hint="@string/collectionNameFull"
-                        style="@style/AppEditText.GrayBorder"
-                        android:layout_span="2"
-                        android:layout_column="1"
-                        android:layout_marginRight="10dp"
-                        />
-            </TableRow>
-
-            <TableRow>
-                <View
-                        android:layout_width="match_parent"
-                        android:layout_span="3"
-                        android:layout_height="2dp"
-                        android:layout_margin="20dp"
-                        android:layerType="software"
-                        android:background="@drawable/dashed_line_1"
-                        />
-            </TableRow>
-
-            <TableRow
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:text="@string/amount"
-                        android:layout_marginLeft="10dp"/>
-
-                <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/AppEditText.GrayBorder"
-                        android:inputType="numberDecimal"
-                        android:id="@+id/amount"
-                        android:layout_column="1"/>
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:text="@string/CZK"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginLeft="5dp"/>
-            </TableRow>
-
-            <TableRow>
-                <View
-                        android:layout_width="match_parent"
-                        android:layout_span="3"
-                        android:layout_height="2dp"
-                        android:layout_margin="20dp"
-                        android:layerType="software"
-                        android:background="@drawable/dashed_line_1"
-                        />
-            </TableRow>
-
-            <TableRow
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:text="@string/description"
-                        android:layout_marginLeft="10dp"/>
-
-                <RelativeLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_span="2"
-                        android:layout_marginRight="10dp">
-
-                    <EditText
+                    <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="80dp"
-                            style="@style/AppEditText.GrayBorder"
-                            android:inputType="textMultiLine"
-                            android:id="@+id/collectionDescription"
-                            android:lines="3"
-                            android:layout_marginBottom="10dp"/>
-                    <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            style="@style/AppEditText.GrayBorder"
-                            android:id="@+id/collectionLinkEdit"
-                            android:drawableRight="@drawable/im_web"
-                            android:drawablePadding="4dp"
-                            android:visibility="gone"
-                            android:layout_below="@id/collectionDescription"
-                            android:layout_marginBottom="10dp"
-                            android:inputType="textUri"/>
-                    <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/collectionImageWrapper"
-                            android:layout_below="@id/collectionLinkEdit"
-                            android:visibility="gone">
+                            android:layout_height="match_parent"
+                            android:textSize="18sp"
+                            android:text="@string/newCollectionUpper"
+                            android:layout_gravity="center"
+                            android:gravity="center"
 
-                        <ImageView
-                                android:layout_width="185dp"
-                                android:layout_height="185dp"
-                                android:id="@+id/collectionImage"
-                                android:scaleType="centerCrop"/>
-                        <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:src="@drawable/im_delete"
-                                android:layout_marginRight="5dp"
-                                android:layout_marginTop="5dp"
-                                android:onClick="onImageDelete"
-                                android:clickable="true"
-                                android:scaleType="center"
-                                android:layout_alignRight="@id/collectionImage"/>
-                        </RelativeLayout>
+                            android:textColor="@color/for_white"
+                            android:layout_span="3"
+                            android:layout_column="0"
+                            android:layout_margin="12dp"/>
+                </TableRow>
+
+
+                <TableRow
+                        android:layout_marginTop="18dp">
 
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/addPhoto"
-                            android:textSize="12sp"
-                            android:clickable="true"
-                            android:onClick="addPhoto"
-                            android:id="@+id/addPhoto"
-                            android:layout_below="@id/collectionImageWrapper"
-                            android:textColor="@color/back_blue"
-                            android:drawableLeft="@drawable/im_camera"
-                            android:drawablePadding="4dp"
-                            android:layout_marginTop="5dp"/>
+                            android:layout_marginLeft="10dp"
+                            android:textSize="16sp"
+                            android:text="@string/collectionName"
+                            />
 
-                    <TextView
-                            android:layout_width="wrap_content"
+                    <EditText
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/addLink"
-                            android:textSize="12sp"
-                            android:clickable="true"
-                            android:id="@+id/addLink"
-                            android:onClick="addLink"
-                            android:layout_below="@+id/collectionImageWrapper"
-                            android:layout_alignParentRight="true"
-                            android:textColor="@color/back_blue"
-                            android:drawableLeft="@drawable/im_web"
-                            android:drawablePadding="4dp"
-                            android:layout_marginTop="5dp"/>
+                            android:id="@+id/collectionName"
+                            android:hint="@string/collectionNameFull"
+                            style="@style/AppEditText.GrayBorder"
+                            android:layout_span="2"
+                            android:layout_column="1"
+                            android:layout_marginRight="10dp"
+                            />
+                </TableRow>
 
-                </RelativeLayout>
-            </TableRow>
+                <TableRow>
 
-            <TableRow>
-                <View
-                        android:layout_width="match_parent"
-                        android:layout_span="3"
-                        android:layout_height="2dp"
-                        android:layout_margin="20dp"
-                        android:layerType="software"
-                        android:background="@drawable/dashed_line_1"
-                        />
-            </TableRow>
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_span="3"
+                            android:layout_height="2dp"
+                            android:layout_margin="20dp"
+                            android:layerType="software"
+                            android:background="@drawable/dashed_line_1"
+                            />
+                </TableRow>
 
-            <TableRow
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:text="@string/collectionEndDate"
-                        android:layout_marginLeft="10dp"/>
-
-                <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/AppEditText.GrayBorder"
-                        android:inputType="date"
-                        android:id="@+id/collectionDueDate"
-                        android:layout_column="1"
-                        />
-
-                <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:id="@+id/calendatPicker"
-                        android:src="@drawable/im_calendar"
-                        android:layout_marginRight="10dp"
-                        android:layout_gravity="center"
-                        android:scaleType="center"
-                        android:onClick="onCalendarPick"
-                        />
-
-            </TableRow>
-
-            <TableRow>
-                <View
-                        android:layout_width="match_parent"
-                        android:layout_span="3"
-                        android:layout_height="2dp"
-                        android:layout_margin="20dp"
-                        android:layerType="software"
-                        android:background="@drawable/dashed_line_1"
-                        />
-            </TableRow>
-
-            <TableRow
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
-
-                <RelativeLayout
+                <TableRow
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp">
+                        android:layout_height="fill_parent">
 
                     <TextView
-                            android:id="@+id/fbParticipantLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="16sp"
-                            android:text="@string/participant"
-                            />
+                            android:text="@string/amount"
+                            android:layout_marginLeft="10dp"/>
+
+                    <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/AppEditText.GrayBorder"
+                            android:inputType="numberDecimal"
+                            android:id="@+id/amount"
+                            android:layout_column="1"/>
 
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="12sp"
-                            android:text="@string/fromFacebook"
-                            android:layout_below="@id/fbParticipantLabel"
-                            android:textColor="@color/gray_input_text"/>
-                </RelativeLayout>
+                            android:textSize="16sp"
+                            android:text="@string/CZK"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="5dp"/>
+                </TableRow>
 
-                <!--<RelativeLayout
+                <TableRow>
+
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_span="3"
+                            android:layout_height="2dp"
+                            android:layout_margin="20dp"
+                            android:layerType="software"
+                            android:background="@drawable/dashed_line_1"
+                            />
+                </TableRow>
+
+                <TableRow
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_span="2"
-                        android:layout_marginRight="10dp">
--->
-                   <!-- <LinearLayout
-                            android:id="@+id/fbParticipants"
-                            android:orientation="vertical"
+                        android:layout_height="fill_parent">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:text="@string/description"
+                            android:layout_marginLeft="10dp"/>
+
+                    <RelativeLayout
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:animateLayoutChanges="true">
-                    </LinearLayout>-->
+                            android:layout_span="2"
+                            android:layout_marginRight="10dp">
+
+                        <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="80dp"
+                                style="@style/AppEditText.GrayBorder"
+                                android:inputType="textMultiLine"
+                                android:id="@+id/collectionDescription"
+                                android:lines="3"
+                                android:layout_marginBottom="10dp"/>
+
+                        <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                style="@style/AppEditText.GrayBorder"
+                                android:id="@+id/collectionLinkEdit"
+                                android:drawableRight="@drawable/im_web"
+                                android:drawablePadding="4dp"
+                                android:visibility="gone"
+                                android:layout_below="@id/collectionDescription"
+                                android:layout_marginBottom="10dp"
+                                android:inputType="textUri"/>
+
+                        <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/collectionImageWrapper"
+                                android:layout_below="@id/collectionLinkEdit"
+                                android:visibility="gone">
+
+                            <ImageView
+                                    android:layout_width="185dp"
+                                    android:layout_height="185dp"
+                                    android:id="@+id/collectionImage"
+                                    android:scaleType="centerCrop"/>
+
+                            <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:src="@drawable/im_delete"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginTop="5dp"
+                                    android:onClick="onImageDelete"
+                                    android:clickable="true"
+                                    android:scaleType="center"
+                                    android:layout_alignRight="@id/collectionImage"/>
+                        </RelativeLayout>
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/addPhoto"
+                                android:textSize="12sp"
+                                android:clickable="true"
+                                android:onClick="addPhoto"
+                                android:id="@+id/addPhoto"
+                                android:layout_below="@id/collectionImageWrapper"
+                                android:textColor="@color/back_blue"
+                                android:drawableLeft="@drawable/im_camera"
+                                android:drawablePadding="4dp"
+                                android:layout_marginTop="5dp"/>
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/addLink"
+                                android:textSize="12sp"
+                                android:clickable="true"
+                                android:id="@+id/addLink"
+                                android:onClick="addLink"
+                                android:layout_below="@+id/collectionImageWrapper"
+                                android:layout_alignParentRight="true"
+                                android:textColor="@color/back_blue"
+                                android:drawableLeft="@drawable/im_web"
+                                android:drawablePadding="4dp"
+                                android:layout_marginTop="5dp"/>
+
+                    </RelativeLayout>
+                </TableRow>
+
+                <TableRow>
+
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_span="3"
+                            android:layout_height="2dp"
+                            android:layout_margin="20dp"
+                            android:layerType="software"
+                            android:background="@drawable/dashed_line_1"
+                            />
+                </TableRow>
+
+                <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:text="@string/collectionEndDate"
+                            android:layout_marginLeft="10dp"/>
+
+                    <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/AppEditText.GrayBorder"
+                            android:inputType="date"
+                            android:id="@+id/collectionDueDate"
+                            android:layout_column="1"
+                            />
+
+                    <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:id="@+id/calendatPicker"
+                            android:src="@drawable/im_calendar"
+                            android:layout_marginRight="10dp"
+                            android:layout_gravity="center"
+                            android:scaleType="center"
+                            android:onClick="onCalendarPick"
+                            />
+
+                </TableRow>
+
+                <TableRow>
+
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_span="3"
+                            android:layout_height="2dp"
+                            android:layout_margin="20dp"
+                            android:layerType="software"
+                            android:background="@drawable/dashed_line_1"
+                            />
+                </TableRow>
+
+                <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                    <RelativeLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp">
+
+                        <TextView
+                                android:id="@+id/fbParticipantLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="16sp"
+                                android:text="@string/participant"
+                                />
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="@string/fromFacebook"
+                                android:layout_below="@id/fbParticipantLabel"
+                                android:textColor="@color/gray_input_text"/>
+                    </RelativeLayout>
+
+                    <!--<RelativeLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_span="2"
+                            android:layout_marginRight="10dp">
+    -->
+                    <!-- <LinearLayout
+                             android:id="@+id/fbParticipants"
+                             android:orientation="vertical"
+                             android:layout_width="fill_parent"
+                             android:layout_height="wrap_content"
+                             android:animateLayoutChanges="true">
+                     </LinearLayout>-->
 
                     <TextView
                             android:layout_width="wrap_content"
@@ -335,9 +347,10 @@
                             android:drawableLeft="@drawable/im_addparticipant"
                             android:drawablePadding="4dp"/>
 
-                <!-- </RelativeLayout>-->
+                    <!-- </RelativeLayout>-->
 
-            </TableRow>
+                </TableRow>
+
                 <LinearLayout
                         android:id="@+id/fbParticipants"
                         android:orientation="vertical"
@@ -348,167 +361,180 @@
                         android:layout_marginTop="15dp"
                         android:animateLayoutChanges="true">
                 </LinearLayout>
-            <TableRow>
 
-            </TableRow>
+                <TableRow>
 
-            <TableRow>
-                <View
-                        android:layout_width="match_parent"
-                        android:layout_span="3"
-                        android:layout_height="2dp"
-                        android:layout_margin="20dp"
-                        android:layerType="software"
-                        android:background="@drawable/dashed_line_1"
-                        />
-            </TableRow>
+                </TableRow>
 
-            <TableRow
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
+                <TableRow>
 
-                <RelativeLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp">
-
-                    <TextView
-                            android:id="@+id/emailParticipantLabel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:text="@string/participant"
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_span="3"
+                            android:layout_height="2dp"
+                            android:layout_margin="20dp"
+                            android:layerType="software"
+                            android:background="@drawable/dashed_line_1"
                             />
+                </TableRow>
+
+                <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                    <RelativeLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp">
+
+                        <TextView
+                                android:id="@+id/emailParticipantLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="16sp"
+                                android:text="@string/participant"
+                                />
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:text="@string/fromEmail"
+                                android:layout_below="@id/emailParticipantLabel"
+                                android:textColor="@color/gray_input_text"/>
+                    </RelativeLayout>
+
 
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="12sp"
-                            android:text="@string/fromEmail"
-                            android:layout_below="@id/emailParticipantLabel"
-                            android:textColor="@color/gray_input_text"/>
-                </RelativeLayout>
-
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_span="2"
-                        android:layout_marginRight="10dp"
-                        android:text="@string/addParticipant"
-                        android:textSize="12sp"
-                        android:clickable="true"
-                        android:onClick="onAddEmailParticipant"
-                        android:id="@+id/addEmailParticipantLink"
-                        android:textColor="@color/back_blue"
-                        android:drawableLeft="@drawable/im_addparticipant"
-                        android:drawablePadding="4dp"/>
-            </TableRow>
-
-            <TableRow>
-                <LinearLayout
-                        android:id="@+id/emailParticipants"
-                        android:orientation="vertical"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="15dp"
-                        android:animateLayoutChanges="true"
-                        android:layout_span="3">
-                </LinearLayout>
-            </TableRow>
-
-            <TableRow>
-                <View
-                        android:layout_width="match_parent"
-                        android:layout_span="3"
-                        android:layout_height="2dp"
-                        android:layout_margin="20dp"
-                        android:layerType="software"
-                        android:background="@drawable/dashed_line_1"
-                        />
-            </TableRow>
-
-            <TableRow
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
-
-                <RelativeLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_span="3"
-                        android:layout_marginLeft="10dp">
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:text="Přerozděleno"
-                            android:id="@+id/splittedAmountLabel"/>
-
-                    <ProgressBar
-                            style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="12dp"
-                            android:progressDrawable="@drawable/greenprogressbar"
-                            android:background="@drawable/gray_rect_1"
-                            android:id="@+id/progressBar"
-                            android:layout_marginLeft="12dp"
+                            android:layout_span="2"
                             android:layout_marginRight="10dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:max="100"
-                            android:progress="40"
-                            android:indeterminate="false"
-                            android:layout_toRightOf="@id/splittedAmountLabel"/>
+                            android:text="@string/addParticipant"
+                            android:textSize="12sp"
+                            android:clickable="true"
+                            android:onClick="onAddEmailParticipant"
+                            android:id="@+id/addEmailParticipantLink"
+                            android:textColor="@color/back_blue"
+                            android:drawableLeft="@drawable/im_addparticipant"
+                            android:drawablePadding="4dp"/>
+                </TableRow>
 
-                    <TextView
-                            android:layout_width="match_parent"
+                <TableRow>
+
+                    <LinearLayout
+                            android:id="@+id/emailParticipants"
+                            android:orientation="vertical"
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:text="4045 Kč z 7000 Kč"
-                            android:id="@+id/splittedAmountLabelView"
-                            android:textColor="@color/gray_input_text"
-                            android:layout_below="@id/progressBar"
-                            android:layout_centerHorizontal="true"
-                            android:layout_alignLeft="@id/progressBar"
-                            android:gravity="center_horizontal"/>
-                </RelativeLayout>
-            </TableRow>
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="15dp"
+                            android:animateLayoutChanges="true"
+                            android:layout_span="3">
+                    </LinearLayout>
+                </TableRow>
 
-            <TableRow>
-                <View
-                        android:layout_width="match_parent"
-                        android:layout_span="3"
-                        android:layout_height="2dp"
-                        android:layout_margin="20dp"
-                        android:layerType="software"
-                        android:background="@drawable/dashed_line_1"
-                        />
-            </TableRow>
+                <TableRow>
 
-            <TableRow
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_span="3"
+                            android:layout_height="2dp"
+                            android:layout_margin="20dp"
+                            android:layerType="software"
+                            android:background="@drawable/dashed_line_1"
+                            />
+                </TableRow>
 
-                <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_span="3"
-                        android:text="@string/createCollection"
-                        android:id="@+id/btnSend"
-                        style="@style/RedButton"
-                        android:padding="10dp"
-                        android:layout_marginBottom="20dp"
-                        android:onClick="onCreteCollection"
-                        android:layout_gravity="center_horizontal"
-                        />
-            </TableRow>
+                <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                    <RelativeLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_span="3"
+                            android:layout_marginLeft="10dp">
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="16sp"
+                                android:text="Přerozděleno"
+                                android:id="@+id/splittedAmountLabel"/>
+
+                        <ProgressBar
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="12dp"
+                                android:progressDrawable="@drawable/greenprogressbar"
+                                android:background="@drawable/gray_rect_1"
+                                android:id="@+id/progressBar"
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:max="100"
+                                android:progress="40"
+                                android:indeterminate="false"
+                                android:layout_toRightOf="@id/splittedAmountLabel"/>
+
+                        <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:text="4045 Kč z 7000 Kč"
+                                android:id="@+id/splittedAmountLabelView"
+                                android:textColor="@color/gray_input_text"
+                                android:layout_below="@id/progressBar"
+                                android:layout_centerHorizontal="true"
+                                android:layout_alignLeft="@id/progressBar"
+                                android:gravity="center_horizontal"/>
+                    </RelativeLayout>
+                </TableRow>
+
+                <TableRow>
+
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_span="3"
+                            android:layout_height="2dp"
+                            android:layout_margin="20dp"
+                            android:layerType="software"
+                            android:background="@drawable/dashed_line_1"
+                            />
+                </TableRow>
+
+                <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                    <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_span="3"
+                            android:text="@string/createCollection"
+                            android:id="@+id/btnSend"
+                            style="@style/RedButton"
+                            android:padding="10dp"
+                            android:layout_marginBottom="20dp"
+                            android:onClick="onCreteCollection"
+                            android:layout_gravity="center_horizontal"
+                            />
+                </TableRow>
 
 
-        </TableLayout>
+            </TableLayout>
 
 
-    </LinearLayout>
+        </LinearLayout>
 
-</ScrollView>
+    </ScrollView>
+    <!-- The navigation drawer -->
+    <FrameLayout
+            android:id="@+id/left_drawer"
+            android:layout_width="270dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"/>
+</android.support.v4.widget.DrawerLayout>
+

@@ -120,6 +120,7 @@ public class NewCollectionActivity extends FbAwareActivity {
         });
 
         ensureOpenFacebookSession();
+        setupDrawer();
     }
 
     @Override

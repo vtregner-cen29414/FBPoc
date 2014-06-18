@@ -1,204 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:facebook="http://schemas.android.com/apk/res-auto"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:background="@color/homepage_background">
-
-    <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <!--<Spinner
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:facebook="http://schemas.android.com/apk/res-auto"
+                android:layout_height="match_parent"
                 android:layout_width="match_parent"
-                android:layout_height="89dp"
-                android:id="@+id/accountSelector"
-                android:layout_gravity="center_horizontal"
-                android:padding="0dp"
-                android:spinnerMode="dropdown"/>-->
-
-        <cz.csas.startup.FBPoc.widget.SwipeAccountSelector
-                android:id="@+id/accountSelector"
-                android:layout_width="match_parent"
-                android:layout_height="89dp"
-                android:layout_gravity="center_horizontal"/>
+                android:background="@color/homepage_background">
 
         <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:gravity="center_horizontal"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/for_white">
-            >
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
+            <!--<Spinner
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="@string/new_payment"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:padding="12dp"
-                    android:background="@color/back_blue"
-                    android:textColor="@color/for_white"/>
+                    android:layout_height="89dp"
+                    android:id="@+id/accountSelector"
+                    android:layout_gravity="center_horizontal"
+                    android:padding="0dp"
+                    android:spinnerMode="dropdown"/>-->
+
+            <cz.csas.startup.FBPoc.widget.SwipeAccountSelector
+                    android:id="@+id/accountSelector"
+                    android:layout_width="match_parent"
+                    android:layout_height="89dp"
+                    android:layout_gravity="center_horizontal"/>
 
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:weightSum="1">
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/for_white">
+                >
 
                 <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/amount"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:layout_weight="0.18"
-                        android:textIsSelectable="false"/>
-
-                <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:inputType="numberDecimal"
-                        android:ems="6"
-                        android:id="@+id/amount"
-                        style="@style/AppEditText.GrayBorder"
-                        android:hint="@string/amountHint"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"/>
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/CZK"
-                        />
-
-            </LinearLayout>
-
-            <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_margin="20dp"
-                    android:layerType="software"
-                    android:background="@drawable/dashed_line_1"
-                    />
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="10dp">
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:layout_gravity="center_vertical"
-                        android:text="@string/recipent"
-                        />
-
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="@string/new_payment"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:padding="12dp"
+                        android:background="@color/back_blue"
+                        android:textColor="@color/for_white"/>
 
                 <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:onClick="onSelectRecipient"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
                         android:layout_marginLeft="10dp"
-                        android:clickable="true">
-
-                    <!--<ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@id/pickFriend"
-                            android:src="@drawable/pick_friend"/>-->
-
-                    <cz.csas.startup.FBPoc.widget.RoundedProfilePictureView
-                            android:id="@+id/recipient_pic"
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center_horizontal"
-                            facebook:preset_size="small"
-                            />
+                        android:weightSum="1">
 
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/recipent_name"
-                            android:text="@string/new_payment_link"
-                            android:textColor="@color/gray_input_text"
+                            android:text="@string/amount"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:layout_weight="0.18"
+                            android:textIsSelectable="false"/>
+
+                    <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:ems="6"
+                            android:id="@+id/amount"
+                            style="@style/AppEditText.GrayBorder"
+                            android:hint="@string/amountHint"
                             android:layout_marginLeft="5dp"
-                            android:layout_gravity="center_vertical"/>
+                            android:layout_marginRight="5dp"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="@string/CZK"
+                            />
+
                 </LinearLayout>
 
-            </LinearLayout>
-
-            <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_margin="20dp"
-                    android:layerType="software"
-                    android:background="@drawable/dashed_line_1"
-                    />
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="10dp">
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/messageForRecipient"
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_margin="20dp"
+                        android:layerType="software"
+                        android:background="@drawable/dashed_line_1"
                         />
 
-                <EditText
+                <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="72dp"
-                        android:inputType="textMultiLine"
-                        android:id="@+id/messageForRecipient"
-                        android:lines="3"
-                        style="@style/AppEditText.GrayBorder"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="10dp"/>
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="10dp">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:layout_gravity="center_vertical"
+                            android:text="@string/recipent"
+                            />
+
+
+                    <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:onClick="onSelectRecipient"
+                            android:layout_marginLeft="10dp"
+                            android:clickable="true">
+
+                        <!--<ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@id/pickFriend"
+                                android:src="@drawable/pick_friend"/>-->
+
+                        <cz.csas.startup.FBPoc.widget.RoundedProfilePictureView
+                                android:id="@+id/recipient_pic"
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center_horizontal"
+                                facebook:preset_size="small"
+                                />
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/recipent_name"
+                                android:text="@string/new_payment_link"
+                                android:textColor="@color/gray_input_text"
+                                android:layout_marginLeft="5dp"
+                                android:layout_gravity="center_vertical"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_margin="20dp"
+                        android:layerType="software"
+                        android:background="@drawable/dashed_line_1"
+                        />
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="10dp">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="@string/messageForRecipient"
+                            />
+
+                    <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="72dp"
+                            android:inputType="textMultiLine"
+                            android:id="@+id/messageForRecipient"
+                            android:lines="3"
+                            style="@style/AppEditText.GrayBorder"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="10dp"/>
+
+                </LinearLayout>
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_margin="20dp"
+                        android:layerType="software"
+                        android:background="@drawable/dashed_line_1"
+                        />
+
+
+                <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/send"
+                        android:id="@+id/btnSend"
+                        style="@style/RedButton"
+                        android:padding="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:onClick="onCretePayment"
+                        android:layout_gravity="center_horizontal"/>
 
             </LinearLayout>
 
-            <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_margin="20dp"
-                    android:layerType="software"
-                    android:background="@drawable/dashed_line_1"
-                    />
-
-
-            <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/send"
-                    android:id="@+id/btnSend"
-                    style="@style/RedButton"
-                    android:padding="10dp"
-                    android:layout_marginBottom="20dp"
-                    android:onClick="onCretePayment"
-                    android:layout_gravity="center_horizontal"/>
 
         </LinearLayout>
 
+    </ScrollView>
+    <!-- The navigation drawer -->
+    <FrameLayout
+            android:id="@+id/left_drawer"
+            android:layout_width="270dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"/>
+</android.support.v4.widget.DrawerLayout>
 
-
-
-    </LinearLayout>
-
-</ScrollView>

@@ -134,6 +134,8 @@ public class CollectionDetailActivity extends FbAwareActivity {
             sfd = new SimpleDateFormat("dd.MM.");
             collectionExpiredView.setText(collectionExpiredView.getText() + " " + sfd.format(collection.getDueDate()));
         }
+
+        setupDrawer();
     }
 
     private boolean canNotifyParticipants(List<? extends CollectionParticipant> participants) {

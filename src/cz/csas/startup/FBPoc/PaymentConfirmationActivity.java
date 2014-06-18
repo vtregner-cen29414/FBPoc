@@ -46,6 +46,8 @@ public class PaymentConfirmationActivity extends FbAwareActivity {
 
         recipientName.setText(payment.getRecipientName());
         recipientPicture.setProfileId(payment.getRecipientId());
+
+        setupDrawer();
     }
 
     public void onNewPayment(View view) {

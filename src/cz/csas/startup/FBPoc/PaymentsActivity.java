@@ -72,6 +72,8 @@ public class PaymentsActivity extends FbAwareActivity {
             }
             application.saveSessionToPreferences();
         }
+
+        setupDrawer();
     }
 
     private void appendPayments(Account account) {

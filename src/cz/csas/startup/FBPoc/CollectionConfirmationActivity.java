@@ -70,6 +70,8 @@ public class CollectionConfirmationActivity extends FbAwareActivity {
             }
         }
 
+        setupDrawer();
+
     }
 
     public void onNewCollection(View view) {

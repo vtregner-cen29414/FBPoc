@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Base64;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import cz.csas.startup.FBPoc.model.*;
@@ -29,7 +30,7 @@ import java.util.List;
 /**
  * Created by cen29414 on 9.5.2014.
  */
-public class CollectionsActivity extends FbAwareListActivity {
+public class CollectionsActivity extends FbAwareActivity {
     private static final String TAG = "Friends24";
 
     private CollectionsAdapter collectionsAdapter;
@@ -62,14 +63,23 @@ public class CollectionsActivity extends FbAwareListActivity {
 
 
         collectionsAdapter = new CollectionsAdapter(this, R.layout.collection_row);
-        getListView().addHeaderView(getLayoutInflater().inflate(R.layout.collection_list_header, null), null, false);
-        setListAdapter(collectionsAdapter);
+        final ListView listView = (ListView) findViewById(android.R.id.list);
+        listView.addHeaderView(getLayoutInflater().inflate(R.layout.collection_list_header, null), null, false);
+        listView.setAdapter(collectionsAdapter);
         if (application.getFriends24Context().getCollections() == null) {
             application.getFriends24Context().setCollections(new HashMap<Account, List<Collection>>(application.getFriends24Context().getAccounts().size()));
             for (Account account : application.getFriends24Context().getAccounts()) {
                 application.getFriends24Context().getCollections().put(account, null);
             }
         }
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                onListItemClick(listView, view, position, id);
+            }
+        });
+        setupDrawer();
+
     }
 
     private void appendCollections(Account account) {
@@ -93,10 +103,9 @@ public class CollectionsActivity extends FbAwareListActivity {
         }
     }
 
-    @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         Intent intent = new Intent(this, CollectionDetailActivity.class);
-        intent.putExtra("data", (Parcelable) getListView().getItemAtPosition(position));
+        intent.putExtra("data", (Parcelable) l.getItemAtPosition(position));
         startActivity(intent);
     }
 
