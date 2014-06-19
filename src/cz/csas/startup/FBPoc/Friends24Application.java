@@ -3,9 +3,11 @@ package cz.csas.startup.FBPoc;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.view.ViewConfiguration;
 import cz.csas.startup.FBPoc.utils.FontsOverride;
 import org.jivesoftware.smack.SmackAndroid;
 
+import java.lang.reflect.Field;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -35,6 +37,19 @@ public class Friends24Application extends Application {
         }
         else friends24Context = new Friends24Context();
         smackAndroid = SmackAndroid.init(this);
+
+        try {
+            ViewConfiguration config = ViewConfiguration.get(this);
+            Field menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
+
+            if (menuKeyField != null) {
+                menuKeyField.setAccessible(true);
+                menuKeyField.setBoolean(config, false);
+            }
+        }
+        catch (Exception e) {
+            // presumably, not relevant
+        }
     }
 
     private Friends24Context loadSessionFromPreferences() {

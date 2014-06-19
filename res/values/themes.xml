@@ -11,5 +11,7 @@
     <style name="MyActionBar"
            parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
         <item name="android:background">#222222</item>
+        <item name="android:icon">@android:color/transparent</item>
+        <item name="android:logo">@android:color/transparent</item>
     </style>
 </resources>

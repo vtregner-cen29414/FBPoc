@@ -49,7 +49,9 @@ public abstract class FbAwareActivity extends Activity {
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayUseLogoEnabled(false);
-        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
 
         uiHelper = new UiLifecycleHelper(this, new Session.StatusCallback() {
             @Override
@@ -71,8 +73,7 @@ public abstract class FbAwareActivity extends Activity {
         if (drawerContainer != null) {
             drawerContainer.addView(drawerView);
             // enable ActionBar app icon to behave as action to toggle nav drawer
-            getActionBar().setDisplayHomeAsUpEnabled(true);
-            getActionBar().setHomeButtonEnabled(true);
+
 
             // ActionBarDrawerToggle ties together the the proper interactions
             // between the sliding drawer and the action bar app icon
@@ -85,12 +86,12 @@ public abstract class FbAwareActivity extends Activity {
             ) {
                 public void onDrawerClosed(View view) {
                    // getActionBar().setTitle(mTitle);
-                   // invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+                    invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
                 }
 
                 public void onDrawerOpened(View drawerView) {
                   //  getActionBar().setTitle(mDrawerTitle);
-                  //  invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+                    invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
                 }
             };
             mDrawerLayout.setDrawerListener(mDrawerToggle);
