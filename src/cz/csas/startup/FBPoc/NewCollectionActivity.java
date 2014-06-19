@@ -4,10 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.ProgressDialog;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
+import android.content.*;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
@@ -17,6 +14,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.Html;
@@ -50,6 +48,7 @@ public class NewCollectionActivity extends FbAwareActivity {
 
     private static final String TAG = "Friends24";
     private static final int PICK_FRIENDS_ACTIVITY = 1;
+    private static final int PICK_EMAILS_ACTIVITY = 2;
     public static final int SELECT_PICTURE_REQUEST_CODE = 500;
     public static final String COLLECTION = "COLLECTION";
     public static final String PHOTO_FILE_NAME = "cphoto.jpg";
@@ -207,6 +206,9 @@ public class NewCollectionActivity extends FbAwareActivity {
             else if (requestCode == PICK_FRIENDS_ACTIVITY) {
                 appendNewFbRow(getFriendsApplication().getFriends24Context().getNewlySelectedFrieds());
             }
+            else if (requestCode == PICK_EMAILS_ACTIVITY) {
+                addEmailRow(getEmailFromContact(data.getData()));
+            }
         }
         else if (requestCode == SELECT_PICTURE_REQUEST_CODE) {
             outputPhotoFileUri = null;
@@ -302,7 +304,83 @@ public class NewCollectionActivity extends FbAwareActivity {
         outputPhotoFileUri = null;
     }
 
+    protected String getEmailFromContact(Uri contactUri) {
+        ContentResolver cr = getContentResolver();
+        String[] PROJECTION = new String[] { ContactsContract.CommonDataKinds.Email.DATA};
+        Cursor cur =null;
+        try {
+            cur = cr.query(contactUri, PROJECTION, null, null, null);
+            if (cur.moveToFirst()) {
+                // names comes in hand sometimes
+                return cur.getString(0);
+            }
+        } finally {
+            if (cur != null) cur.close();
+        }
+        return null;
+    }
+
+    public ArrayList<String> getNameEmailDetails() {
+        ArrayList<String> emlRecs = new ArrayList<String>();
+        HashSet<String> emlRecsHS = new HashSet<String>();
+        Context context = this;
+        ContentResolver cr = context.getContentResolver();
+        String[] PROJECTION = new String[] { ContactsContract.RawContacts._ID,
+                ContactsContract.Contacts.DISPLAY_NAME,
+                ContactsContract.Contacts.PHOTO_ID,
+                ContactsContract.CommonDataKinds.Email.DATA,
+                ContactsContract.CommonDataKinds.Photo.CONTACT_ID };
+        String order = "CASE WHEN "
+                + ContactsContract.Contacts.DISPLAY_NAME
+                + " NOT LIKE '%@%' THEN 1 ELSE 2 END, "
+                + ContactsContract.Contacts.DISPLAY_NAME
+                + ", "
+                + ContactsContract.CommonDataKinds.Email.DATA
+                + " COLLATE NOCASE";
+        String filter = ContactsContract.CommonDataKinds.Email.DATA + " NOT LIKE ''";
+        Cursor cur = cr.query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, PROJECTION, filter, null, order);
+        if (cur.moveToFirst()) {
+            do {
+                // names comes in hand sometimes
+                String name = cur.getString(1);
+                String emlAddr = cur.getString(3);
+
+                // keep unique only
+                if (emlRecsHS.add(emlAddr.toLowerCase())) {
+                    emlRecs.add(emlAddr);
+                    Log.d(TAG, name + "/" + emlAddr);
+                }
+            } while (cur.moveToNext());
+        }
+
+        cur.close();
+        return emlRecs;
+    }
+
     public void onAddEmailParticipant(View view) {
+
+        Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Email.CONTENT_URI);
+        startActivityForResult(contactPickerIntent, PICK_EMAILS_ACTIVITY);
+
+
+        /*LayoutInflater inflater = LayoutInflater.from(this);
+        ViewGroup row = (ViewGroup) inflater.inflate(R.layout.email_participants_row, null);
+        TextView index = (TextView) row.findViewById(R.id.pIndex);
+        View deleteIcon = row.findViewById(R.id.deleteEmailParticipant);
+        EditText amountView = (EditText) row.findViewById(R.id.amount);
+        addTextChangeLister(amountView);
+        if (collection.getEmailParticipants() == null) collection.setEmailParticipants(new ArrayList<EmailCollectionParticipant>());
+        EmailCollectionParticipant participant = new EmailCollectionParticipant();
+        collection.getEmailParticipants().add(participant);
+        amountView.setTag(participant);
+        deleteIcon.setTag(row);
+        index.setText(++numOfEmailParticipants+".");
+        LinearLayout participants = (LinearLayout) findViewById(R.id.emailParticipants);
+        participants.addView(row);
+        row.findViewById(R.id.pEmail).requestFocus();*/
+    }
+
+    private void addEmailRow(String email) {
         LayoutInflater inflater = LayoutInflater.from(this);
         ViewGroup row = (ViewGroup) inflater.inflate(R.layout.email_participants_row, null);
         TextView index = (TextView) row.findViewById(R.id.pIndex);
@@ -317,7 +395,13 @@ public class NewCollectionActivity extends FbAwareActivity {
         index.setText(++numOfEmailParticipants+".");
         LinearLayout participants = (LinearLayout) findViewById(R.id.emailParticipants);
         participants.addView(row);
-        row.findViewById(R.id.pEmail).requestFocus();
+        EditText emailView = (EditText) row.findViewById(R.id.pEmail);
+        emailView.requestFocus();
+        if (email != null) {
+            emailView.setText(email);
+            amountView.requestFocus();
+        }
+        else emailView.requestFocus();
     }
 
     public void onPEmailDelete(View view) {
@@ -378,9 +462,9 @@ public class NewCollectionActivity extends FbAwareActivity {
         ViewGroup rowToDelete  = (ViewGroup) view.getTag();
         LinearLayout participants = (LinearLayout) findViewById(R.id.fbParticipants);
         View amountView = rowToDelete.findViewById(R.id.amount);
-        collection.getFbParticipants().remove((FacebookCollectionParticipant)amountView.getTag());
+        collection.getFbParticipants().remove((FacebookCollectionParticipant) amountView.getTag());
         participants.removeView(rowToDelete);
-        getFriendsApplication().getFriends24Context().getSelectedFriends().remove((GraphUser)rowToDelete.getTag());
+        getFriendsApplication().getFriends24Context().getSelectedFriends().remove((GraphUser) rowToDelete.getTag());
         getFriendsApplication().saveSessionToPreferences();
         refreshCurrentProgress();
     }
@@ -402,8 +486,7 @@ public class NewCollectionActivity extends FbAwareActivity {
                 CollectionParticipant participant = (CollectionParticipant) amountView.getTag();
                 if (s.toString() != null && s.toString().length() > 0) {
                     participant.setAmount(new BigDecimal(s.toString()));
-                }
-                else participant.setAmount(null);
+                } else participant.setAmount(null);
 
                 refreshCurrentProgress();
             }
