@@ -11,10 +11,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TableLayout;
 import cz.csas.startup.FBPoc.model.*;
 import cz.csas.startup.FBPoc.service.AsyncTask;
 import cz.csas.startup.FBPoc.service.AsyncTaskResult;
 import cz.csas.startup.FBPoc.utils.Utils;
+import cz.csas.startup.FBPoc.widget.AdapterTableLayout;
 import cz.csas.startup.FBPoc.widget.SwipeAccountSelector;
 import org.apache.http.client.methods.HttpGet;
 import org.json.JSONArray;
@@ -63,8 +65,9 @@ public class CollectionsActivity extends FbAwareActivity {
 
 
         collectionsAdapter = new CollectionsAdapter(this, R.layout.collection_row);
-        final ListView listView = (ListView) findViewById(android.R.id.list);
-        listView.addHeaderView(getLayoutInflater().inflate(R.layout.collection_list_header, null), null, false);
+        //final ListView listView = (ListView) findViewById(android.R.id.list);
+        final AdapterTableLayout listView = (AdapterTableLayout) findViewById(android.R.id.list);
+        listView.addHeaderView(getLayoutInflater().inflate(R.layout.collection_list_header, null));
         listView.setAdapter(collectionsAdapter);
         if (application.getFriends24Context().getCollections() == null) {
             application.getFriends24Context().setCollections(new HashMap<Account, List<Collection>>(application.getFriends24Context().getAccounts().size()));
@@ -72,10 +75,10 @@ public class CollectionsActivity extends FbAwareActivity {
                 application.getFriends24Context().getCollections().put(account, null);
             }
         }
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterTableLayout.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                onListItemClick(listView, view, position, id);
+            public void onItemClick(View view, int position) {
+                onListItemClick(listView, view, position);
             }
         });
         setupDrawer();
@@ -85,7 +88,7 @@ public class CollectionsActivity extends FbAwareActivity {
     private void appendCollections(Account account) {
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
-        ListView listView = (ListView) findViewById(android.R.id.list);
+        View listView = findViewById(android.R.id.list);
         listView.setVisibility(View.VISIBLE);
         collectionsAdapter.setData(getFriendsApplication().getFriends24Context().getCollections().get(account));
         collectionsAdapter.notifyDataSetChanged();
@@ -103,7 +106,7 @@ public class CollectionsActivity extends FbAwareActivity {
         }
     }
 
-    public void onListItemClick(ListView l, View v, int position, long id) {
+    public void onListItemClick(AdapterTableLayout l, View v, int position) {
         Intent intent = new Intent(this, CollectionDetailActivity.class);
         intent.putExtra("data", (Parcelable) l.getItemAtPosition(position));
         startActivity(intent);
@@ -124,7 +127,7 @@ public class CollectionsActivity extends FbAwareActivity {
         Account account;
         ProgressBar progressBar;
         CollectionsAdapter collectionsAdapter;
-        ListView listView;
+        View listView;
 
         private GetCollectionsTask(Context context, Account account, CollectionsAdapter collectionsAdapter) {
             super(context, URI+account.getId(), HttpGet.METHOD_NAME, null, true, true);
@@ -199,7 +202,7 @@ public class CollectionsActivity extends FbAwareActivity {
             super.onPreExecute();
             progressBar = (ProgressBar) ((Activity)getContext()).findViewById(R.id.progressBar);
             progressBar.setVisibility(View.VISIBLE);
-            listView = (ListView) ((Activity)getContext()).findViewById(android.R.id.list);
+            listView = ((Activity)getContext()).findViewById(android.R.id.list);
             listView.setVisibility(View.GONE);
         }
 

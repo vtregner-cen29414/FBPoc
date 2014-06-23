@@ -9,7 +9,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import cz.csas.startup.FBPoc.model.Collection;
+import cz.csas.startup.FBPoc.utils.Utils;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -43,6 +45,8 @@ public class CollectionsAdapter extends ArrayAdapter<Collection> {
             convertView = layoutInflater.inflate(layoutResourceId, parent, false);
             holder = new CollectionHolder();
             holder.name = (TextView) convertView.findViewById(R.id.collectionName);
+            holder.amount = (TextView) convertView.findViewById(R.id.amount);
+            holder.date = (TextView) convertView.findViewById(R.id.collectionDueDate);
             holder.progressView = (ImageView) convertView.findViewById(R.id.collectionProgress);
             holder.rowMarker  = convertView.findViewById(R.id.rowMarkColor);
             convertView.setTag(holder);
@@ -52,6 +56,9 @@ public class CollectionsAdapter extends ArrayAdapter<Collection> {
 
         Collection collection = getItem(position);
         holder.name.setText(collection.getName());
+        if (collection.getTargetAmount() != null) holder.amount.setText(Utils.getFormattedAmount(collection.getTargetAmount(), collection.getCurrency()));
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.");
+        holder.date.setText(sdf.format(collection.getDueDate()));
 
         int progressDrawableRes;
         Collection.Status collectionProgress = collection.getCurrentCollectionProgress();
@@ -77,6 +84,8 @@ public class CollectionsAdapter extends ArrayAdapter<Collection> {
 
     static class CollectionHolder {
         TextView name;
+        TextView amount;
+        TextView date;
         View rowMarker;
         ImageView progressView;
     }

@@ -4,12 +4,16 @@
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+<ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/homepage_background">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:orientation="vertical"
                   android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:background="@color/homepage_background">
+                  android:layout_height="wrap_content"
+                  >
 
         <!--<Spinner
                 android:layout_width="match_parent"
@@ -50,19 +54,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/progressBar"
                 android:layout_gravity="center"/>
-        <!--<ListView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@android:id/list"
-                android:layout_gravity="center_horizontal"
-                android:choiceMode="none"
-                android:background="@color/for_white"
-                android:headerDividersEnabled="true"
-                android:footerDividersEnabled="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"/>-->
 
-        <ListView
+       <!-- <ListView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@android:id/list"
@@ -72,10 +65,26 @@
                 android:headerDividersEnabled="true"
                 android:footerDividersEnabled="true"
                 android:layout_marginLeft="@dimen/inner_content_margin"
-                android:layout_marginRight="@dimen/inner_content_margin"/>
+                android:layout_marginRight="@dimen/inner_content_margin"/>-->
+
+        <cz.csas.startup.FBPoc.widget.AdapterTableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@android:id/list"
+                android:layout_gravity="center_horizontal"
+                android:choiceMode="none"
+                android:background="@color/for_white"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_marginLeft="@dimen/inner_content_margin"
+                android:layout_marginRight="@dimen/inner_content_margin"
+                android:layout_marginBottom="@dimen/inner_content_margin"/>
+
+
 
 
     </LinearLayout>
+</ScrollView>
     <!-- The navigation drawer -->
     <FrameLayout
             android:id="@+id/left_drawer"
