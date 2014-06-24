@@ -55,6 +55,8 @@ public class NewCollectionActivity extends FbAwareActivity {
     public static final String CAMERA_PHOTO_PATH = "CAMERA_PHOTO_PATH";
     public static final String IS_FROM_CAMERA = "IS_FROM_CAMERA";
     public static final String NUM_OF_EMAIL_PARTICIPANTS = "numOfEmailParticipants";
+    public static final BigDecimal MIN_AMOUNT = new BigDecimal("0.11");
+    public static final BigDecimal MAX_AMOUNT = new BigDecimal("2000000");
 
     private SwipeAccountSelector accountSpinner;
     private Uri outputPhotoFileUri;
@@ -101,7 +103,6 @@ public class NewCollectionActivity extends FbAwareActivity {
         targetAmount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
@@ -532,7 +533,14 @@ public class NewCollectionActivity extends FbAwareActivity {
             collection.setName(collectionNameView.getText().toString());
         }
 
-        collection.setTargetAmount(amountView.length() > 0 ? new BigDecimal(amountView.getText().toString()) : null);
+        BigDecimal targetAmount = amountView.length() > 0 ? new BigDecimal(amountView.getText().toString()) : null;
+        if (targetAmount != null) {
+            valid = validateAmount(valid, amountView, targetAmount);
+        }
+        else amountView.setError(null);
+
+        collection.setTargetAmount(targetAmount);
+
         collection.setDescription(collectionDescriptionView.length() > 0 ? collectionDescriptionView.getText().toString() : null);
 
         if (collectionLinkView.length() > 0) {
@@ -588,6 +596,9 @@ public class NewCollectionActivity extends FbAwareActivity {
                 ViewGroup row = (ViewGroup) fbParticipants.getChildAt(i);
                 EditText participantAmountView = (EditText) row.findViewById(R.id.amount);
                 FacebookCollectionParticipant participant = (FacebookCollectionParticipant) participantAmountView.getTag();
+                if (participant.getAmount() != null) {
+                    valid = validateAmount(valid, participantAmountView, participant.getAmount());
+                }
                 GraphUser fbGraphUser = (GraphUser) row.getTag();
                 participant.setFbUserId(fbGraphUser.getId());
                 participant.setFbUserName(fbGraphUser.getName());
@@ -603,6 +614,9 @@ public class NewCollectionActivity extends FbAwareActivity {
                 ViewGroup row = (ViewGroup) emailParticipants.getChildAt(i);
                 EditText participantAmountView = (EditText) row.findViewById(R.id.amount);
                 EmailCollectionParticipant participant = (EmailCollectionParticipant) participantAmountView.getTag();
+                if (participant.getAmount() != null) {
+                    valid = validateAmount(valid, participantAmountView, participant.getAmount());
+                }
                 EditText emailView = (EditText) row.findViewById(R.id.pEmail);
                 if (emailView.length() > 0) {
                     String email = emailView.getText().toString();
@@ -646,6 +660,21 @@ public class NewCollectionActivity extends FbAwareActivity {
             collection.setHasImage(outputPhotoFileUri != null);
         }
 
+        return valid;
+    }
+
+    private boolean validateAmount(boolean valid, EditText amountView, BigDecimal targetAmount) {
+        if (targetAmount.compareTo(MIN_AMOUNT) < 0) {
+            amountView.setError(getString(R.string.minAmountErr));
+            valid = false;
+        }
+        else if (targetAmount.compareTo(MAX_AMOUNT) > 0) {
+            amountView.setError(getString(R.string.maxAmountErr));
+            valid = false;
+        }
+        else {
+            amountView.setError(null);
+        }
         return valid;
     }
 

@@ -156,14 +156,12 @@ public class PaymentsActivity extends FbAwareActivity {
             progressBar.setVisibility(View.GONE);
             listView.setVisibility(View.VISIBLE);
             if (result.getStatus().equals(AsyncTaskResult.Status.OK)) {
-                getApplication().getFriends24Context().getPayments().put(account, result.getResult());
-                paymentsAdapter.setData(result.getResult());
-                paymentsAdapter.notifyDataSetChanged();
-                getApplication().saveSessionToPreferences();
-                //String msg = getApplication().getFriends24Context().toJson();
-                //Log.d(TAG, msg);
-                //Friends24Context friends24Context = Friends24Context.fromJson(msg);
-                //Log.d(TAG, friends24Context.toJson());
+                if (getApplication().getFriends24Context().getPayments() != null) {
+                    getApplication().getFriends24Context().getPayments().put(account, result.getResult());
+                    paymentsAdapter.setData(result.getResult());
+                    paymentsAdapter.notifyDataSetChanged();
+                    getApplication().saveSessionToPreferences();
+                }
             }
             else {
                 Utils.showErrorDialog(getContext(), result);

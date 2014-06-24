@@ -56,7 +56,7 @@ public class CollectionsAdapter extends ArrayAdapter<Collection> {
 
         Collection collection = getItem(position);
         holder.name.setText(collection.getName());
-        if (collection.getTargetAmount() != null) holder.amount.setText(Utils.getFormattedAmount(collection.getTargetAmount(), collection.getCurrency()));
+        holder.amount.setText(collection.getTargetAmount() != null ? Utils.getFormattedAmount(collection.getTargetAmount(), collection.getCurrency()): "");
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.");
         holder.date.setText(sdf.format(collection.getDueDate()));
 

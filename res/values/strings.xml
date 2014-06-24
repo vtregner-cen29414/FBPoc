@@ -99,4 +99,6 @@
     <string name="invalidDueDate">Ukončení sbírky musí být nejdříve zítra</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="minAmountErr">Minimální částka je 0,11 Kč</string>
+    <string name="maxAmountErr">Maximální částka je 2 mil. Kč</string>
 </resources>

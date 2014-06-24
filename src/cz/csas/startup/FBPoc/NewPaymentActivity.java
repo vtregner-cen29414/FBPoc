@@ -95,9 +95,11 @@ public class NewPaymentActivity extends FbAwareActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_FRIENDS_ACTIVITY && resultCode == Activity.RESULT_OK) {
             List<GraphUser> selectedFrieds = ((Friends24Application) getApplication()).getFriends24Context().getNewlySelectedFrieds();
-            recipientName.setText(selectedFrieds.get(0).getName());
-            recipientPicture.setProfileId(selectedFrieds.get(0).getId());
-            recipientName.setError(null);
+            if (selectedFrieds != null && selectedFrieds.size() > 0) {
+                recipientName.setText(selectedFrieds.get(0).getName());
+                recipientPicture.setProfileId(selectedFrieds.get(0).getId());
+                recipientName.setError(null);
+            }
         }
     }
 

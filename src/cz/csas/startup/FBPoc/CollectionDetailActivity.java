@@ -202,9 +202,7 @@ public class CollectionDetailActivity extends FbAwareActivity {
 
     private int appendParticipantCommonValues(Collection collection, int row, CollectionParticipant participant, View view) {
         TextView amount = (TextView) view.findViewById(R.id.amount);
-        if (participant.getAmount() != null) {
-            amount.setText(Utils.getFormattedAmount(participant.getAmount(),collection.getCurrency()));
-        }
+        amount.setText(participant.getAmount() != null ? Utils.getFormattedAmount(participant.getAmount(),collection.getCurrency()) : "");
 
         ImageView status = (ImageView) view.findViewById(R.id.participantStatus);
         if (participant.getStatus().equals(CollectionParticipant.Status.DONE)) {
