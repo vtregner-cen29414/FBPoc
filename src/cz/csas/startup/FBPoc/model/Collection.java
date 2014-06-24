@@ -201,7 +201,7 @@ public class Collection implements Parcelable {
                 participant.setId(jparticipant.getLong("id"));
                 participant.setFbUserId(jparticipant.getString("fbUserId"));
                 participant.setFbUserName(jparticipant.getString("fbUserName"));
-                if (jparticipant.has("amount")) participant.setAmount(new BigDecimal(jparticipant.getString("amount")));
+                if (!jparticipant.isNull("amount")) participant.setAmount(new BigDecimal(jparticipant.getString("amount")));
                 participant.setStatus(CollectionParticipant.Status.valueOf(jparticipant.getInt("status")));
                 participants.add(participant);
             }
@@ -216,7 +216,7 @@ public class Collection implements Parcelable {
                 EmailCollectionParticipant participant = new EmailCollectionParticipant();
                 participant.setId(jparticipant.getLong("id"));
                 participant.setEmail(jparticipant.getString("email"));
-                if (jparticipant.has("amount")) participant.setAmount(new BigDecimal(jparticipant.getString("amount")));
+                if (!jparticipant.isNull("amount")) participant.setAmount(new BigDecimal(jparticipant.getString("amount")));
                 participant.setStatus(CollectionParticipant.Status.valueOf(jparticipant.getInt("status")));
                 participants.add(participant);
             }
@@ -251,19 +251,24 @@ public class Collection implements Parcelable {
 
     public Status getCurrentCollectionProgress() {
         boolean allPaid = true;
+        boolean allRefused = true;
         if (getEmailParticipants() != null) {
             for (CollectionParticipant participant : emailParticipants) {
+                if (participant.getStatus() != CollectionParticipant.Status.REFUSED) {
+                    allRefused = false;
+                }
                 if (participant.getStatus() != CollectionParticipant.Status.DONE) {
                     allPaid = false;
-                    break;
                 }
             }
         }
         if (allPaid && getFbParticipants() != null) {
             for (CollectionParticipant participant : fbParticipants) {
+                if (participant.getStatus() != CollectionParticipant.Status.REFUSED) {
+                    allRefused = false;
+                }
                 if (participant.getStatus() != CollectionParticipant.Status.DONE) {
                     allPaid = false;
-                    break;
                 }
             }
         }
@@ -273,7 +278,7 @@ public class Collection implements Parcelable {
             return allPaid ? Status.DONE : Status.EXPIRED;
         }
         else {
-            return allPaid ? Status.DONE : Status.INPROGRESS;
+            return allPaid ? Status.DONE : (allRefused ? Status.EXPIRED : Status.INPROGRESS);
         }
     }
 
