@@ -84,6 +84,7 @@
                             style="@style/AppEditText.GrayBorder"
                             android:layout_span="2"
                             android:layout_column="1"
+                            android:maxLength="50"
                             android:layout_marginRight="10dp"
                             />
                 </TableRow>
@@ -164,6 +165,7 @@
                                 style="@style/AppEditText.GrayBorder"
                                 android:inputType="textMultiLine"
                                 android:id="@+id/collectionDescription"
+                                android:maxLength="255"
                                 android:lines="3"
                                 android:layout_marginBottom="10dp"/>
 
@@ -177,6 +179,7 @@
                                 android:visibility="gone"
                                 android:layout_below="@id/collectionDescription"
                                 android:layout_marginBottom="10dp"
+                                android:maxLength="255"
                                 android:inputType="textUri"/>
 
                         <RelativeLayout
@@ -264,6 +267,7 @@
                             android:layout_height="wrap_content"
                             style="@style/AppEditText.GrayBorder"
                             android:inputType="date"
+                            android:maxLength="10"
                             android:id="@+id/collectionDueDate"
                             android:layout_column="1"
                             />

@@ -6,6 +6,7 @@
     <style name="LoginTitle1" parent="android:Theme.Holo.Light">
         <item name="android:textSize">30sp</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/for_white</item>
     </style>
     <style name="LoginTitle2" parent="android:Theme.Holo.Light">
         <item name="android:textSize">25sp</item>

@@ -73,6 +73,7 @@
                             android:layout_height="wrap_content"
                             android:inputType="numberDecimal"
                             android:ems="6"
+                            android:maxLength="7"
                             android:id="@+id/amount"
                             style="@style/AppEditText.GrayBorder"
                             android:hint="@string/amountHint"
@@ -173,6 +174,7 @@
                             android:inputType="textMultiLine"
                             android:id="@+id/messageForRecipient"
                             android:lines="3"
+                            android:maxLength="1000"
                             style="@style/AppEditText.GrayBorder"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="10dp"/>

@@ -21,6 +21,7 @@ import cz.csas.startup.FBPoc.service.AsyncTaskResult;
 import cz.csas.startup.FBPoc.service.OnTaskCompleteListener;
 import cz.csas.startup.FBPoc.service.SendFBMessagePaymentTask;
 import cz.csas.startup.FBPoc.utils.Utils;
+import cz.csas.startup.FBPoc.utils.ValidatorUtils;
 import cz.csas.startup.FBPoc.widget.RoundedProfilePictureView;
 import cz.csas.startup.FBPoc.widget.SwipeAccountSelector;
 import org.apache.http.client.methods.HttpPost;
@@ -122,7 +123,9 @@ public class NewPaymentActivity extends FbAwareActivity {
             amountView.setError(getString(R.string.amountError));
             valid = false;
         }
-        else amountView.setError(null);
+        else {
+            valid = ValidatorUtils.validateAmount(this, valid, amountView);
+        }
 
         if (messageForRecipientView.getText() == null || messageForRecipientView.getText().toString().trim().length() == 0) {
             messageForRecipientView.setError(getString(R.string.noteError));

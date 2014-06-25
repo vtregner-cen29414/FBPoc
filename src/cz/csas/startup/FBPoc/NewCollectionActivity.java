@@ -27,6 +27,7 @@ import cz.csas.startup.FBPoc.model.*;
 import cz.csas.startup.FBPoc.model.Collection;
 import cz.csas.startup.FBPoc.service.*;
 import cz.csas.startup.FBPoc.utils.Utils;
+import cz.csas.startup.FBPoc.utils.ValidatorUtils;
 import cz.csas.startup.FBPoc.widget.RoundedProfilePictureView;
 import cz.csas.startup.FBPoc.widget.SwipeAccountSelector;
 import org.apache.http.client.methods.HttpPost;
@@ -55,8 +56,7 @@ public class NewCollectionActivity extends FbAwareActivity {
     public static final String CAMERA_PHOTO_PATH = "CAMERA_PHOTO_PATH";
     public static final String IS_FROM_CAMERA = "IS_FROM_CAMERA";
     public static final String NUM_OF_EMAIL_PARTICIPANTS = "numOfEmailParticipants";
-    public static final BigDecimal MIN_AMOUNT = new BigDecimal("0.11");
-    public static final BigDecimal MAX_AMOUNT = new BigDecimal("2000000");
+
 
     private SwipeAccountSelector accountSpinner;
     private Uri outputPhotoFileUri;
@@ -535,7 +535,7 @@ public class NewCollectionActivity extends FbAwareActivity {
 
         BigDecimal targetAmount = amountView.length() > 0 ? new BigDecimal(amountView.getText().toString()) : null;
         if (targetAmount != null) {
-            valid = validateAmount(valid, amountView, targetAmount);
+            valid = ValidatorUtils.validateAmount(this, valid, amountView);
         }
         else amountView.setError(null);
 
@@ -597,7 +597,7 @@ public class NewCollectionActivity extends FbAwareActivity {
                 EditText participantAmountView = (EditText) row.findViewById(R.id.amount);
                 FacebookCollectionParticipant participant = (FacebookCollectionParticipant) participantAmountView.getTag();
                 if (participant.getAmount() != null) {
-                    valid = validateAmount(valid, participantAmountView, participant.getAmount());
+                    valid = ValidatorUtils.validateAmount(this, valid, participantAmountView);
                 }
                 GraphUser fbGraphUser = (GraphUser) row.getTag();
                 participant.setFbUserId(fbGraphUser.getId());
@@ -615,7 +615,7 @@ public class NewCollectionActivity extends FbAwareActivity {
                 EditText participantAmountView = (EditText) row.findViewById(R.id.amount);
                 EmailCollectionParticipant participant = (EmailCollectionParticipant) participantAmountView.getTag();
                 if (participant.getAmount() != null) {
-                    valid = validateAmount(valid, participantAmountView, participant.getAmount());
+                    valid = ValidatorUtils.validateAmount(this, valid, participantAmountView);
                 }
                 EditText emailView = (EditText) row.findViewById(R.id.pEmail);
                 if (emailView.length() > 0) {
@@ -663,20 +663,7 @@ public class NewCollectionActivity extends FbAwareActivity {
         return valid;
     }
 
-    private boolean validateAmount(boolean valid, EditText amountView, BigDecimal targetAmount) {
-        if (targetAmount.compareTo(MIN_AMOUNT) < 0) {
-            amountView.setError(getString(R.string.minAmountErr));
-            valid = false;
-        }
-        else if (targetAmount.compareTo(MAX_AMOUNT) > 0) {
-            amountView.setError(getString(R.string.maxAmountErr));
-            valid = false;
-        }
-        else {
-            amountView.setError(null);
-        }
-        return valid;
-    }
+
 
 
     public void onCalendarPick(View view) {
@@ -727,6 +714,9 @@ public class NewCollectionActivity extends FbAwareActivity {
                 BigDecimal amount = collection.getTargetAmount().divide(new BigDecimal(numOfParticipants), 0, BigDecimal.ROUND_HALF_DOWN);
                 setAmountToParticipants(false, numOfParticipants, amount);
                 refreshCurrentProgress();
+            }
+            else {
+                Utils.showMessage(this, R.string.noParticipants, R.string.warning);
             }
         }
         else {
@@ -816,6 +806,12 @@ public class NewCollectionActivity extends FbAwareActivity {
                     }
                 }
             }
+            else {
+                Utils.showMessage(this, R.string.noParticipants, R.string.warning);
+            }
+        }
+        else {
+            Utils.showMessage(this, R.string.targetAmmountNotSet, R.string.warning);
         }
     }
 

@@ -1,5 +1,6 @@
 package cz.csas.startup.FBPoc;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -93,6 +94,15 @@ public class LoginActivity extends Activity {
         });
 
         uiHelper.onCreate(savedInstanceState);
+
+        final ActionBar actionBar = getActionBar();
+        actionBar.setCustomView(R.layout.actionbar);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayUseLogoEnabled(false);
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setHomeButtonEnabled(false);
     }
 
     public void onLogin(View view) {
