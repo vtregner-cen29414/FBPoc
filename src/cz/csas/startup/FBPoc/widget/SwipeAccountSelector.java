@@ -8,6 +8,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.*;
 import cz.csas.startup.FBPoc.R;
 import cz.csas.startup.FBPoc.model.Account;
+import cz.csas.startup.FBPoc.utils.GothamFont;
 import cz.csas.startup.FBPoc.utils.Utils;
 
 import java.util.List;
@@ -90,6 +91,7 @@ public class SwipeAccountSelector extends RelativeLayout {
             convertView = layoutInflater.inflate(layoutResourceId, parent, false);
             holder = new AccountHolder();
             holder.accountRow1 = (TextView) convertView.findViewById(R.id.accountRow1);
+            holder.accountRow1.setTypeface(GothamFont.BOLD);
             holder.accountRow2 = (TextView) convertView.findViewById(R.id.accountRow2);
             convertView.setTag(holder);
 

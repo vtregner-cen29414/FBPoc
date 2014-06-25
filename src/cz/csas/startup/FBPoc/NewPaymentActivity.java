@@ -60,9 +60,7 @@ public class NewPaymentActivity extends FbAwareActivity {
 
         accountSelector = (SwipeAccountSelector) findViewById(R.id.accountSelector);
         final Friends24Application application = (Friends24Application) getApplication();
-        /*AccountsAdapter adapter = new AccountsAdapter(this, R.layout.account_selector);
-        accountSelector.setAdapter(adapter);
-        adapter.setData(application.getAccounts());*/
+
         accountSelector.setAccounts(R.layout.account_selector, application.getFriends24Context().getAccounts());
         Intent intent = getIntent();
         accountSelector.setSelection(intent.getIntExtra("account", 0));

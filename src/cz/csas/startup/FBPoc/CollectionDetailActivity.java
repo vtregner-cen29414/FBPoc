@@ -18,8 +18,10 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import cz.csas.startup.FBPoc.model.*;
 import cz.csas.startup.FBPoc.service.*;
+import cz.csas.startup.FBPoc.utils.GothamFont;
 import cz.csas.startup.FBPoc.utils.Utils;
 import cz.csas.startup.FBPoc.widget.RoundedProfilePictureView;
+import cz.csas.startup.FBPoc.widget.SwipeAccountSelector;
 import org.apache.http.client.methods.HttpPost;
 
 import java.math.BigDecimal;
@@ -47,10 +49,11 @@ public class CollectionDetailActivity extends FbAwareActivity {
 
 
         TextView accountRow1 = (TextView) findViewById(R.id.accountRow1);
+        accountRow1.setTypeface(GothamFont.BOLD);
         TextView accountRow2 = (TextView) findViewById(R.id.accountRow2);
         Account account = ((Friends24Application) getApplication()).getFriends24Context().getAccount(collection.getCollectionAccount());
-        accountRow1.setText(AccountsAdapter.getAccountRow1(account));
-        accountRow2.setText(AccountsAdapter.getAccountRow2(account));
+        accountRow1.setText(SwipeAccountSelector.getAccountRow1(account));
+        accountRow2.setText(SwipeAccountSelector.getAccountRow2(account));
 
         final TextView collectionHeader1 = (TextView) findViewById(R.id.collectionHeader1);
         TextView collectionHeader2 = (TextView) findViewById(R.id.collectionHeader2);

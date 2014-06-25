@@ -8,7 +8,9 @@ import android.widget.TextView;
 import com.facebook.UiLifecycleHelper;
 import cz.csas.startup.FBPoc.model.Account;
 import cz.csas.startup.FBPoc.model.Payment;
+import cz.csas.startup.FBPoc.utils.GothamFont;
 import cz.csas.startup.FBPoc.widget.RoundedProfilePictureView;
+import cz.csas.startup.FBPoc.widget.SwipeAccountSelector;
 
 /**
  * Created by cen29414 on 16.5.2014.
@@ -32,11 +34,12 @@ public class PaymentConfirmationActivity extends FbAwareActivity {
         Payment payment = (Payment) intent.getSerializableExtra("data");
 
         TextView accountRow1 = (TextView) findViewById(R.id.accountRow1);
+        accountRow1.setTypeface(GothamFont.BOLD);
         TextView accountRow2 = (TextView) findViewById(R.id.accountRow2);
         Friends24Application application = (Friends24Application) getApplication();
         Account account = application.getFriends24Context().getAccount(payment.getSenderAccount());
-        accountRow1.setText(AccountsAdapter.getAccountRow1(account));
-        accountRow2.setText(AccountsAdapter.getAccountRow2(account));
+        accountRow1.setText(SwipeAccountSelector.getAccountRow1(account));
+        accountRow2.setText(SwipeAccountSelector.getAccountRow2(account));
 
 
         recipientName = (TextView) findViewById(R.id.recipent_name);

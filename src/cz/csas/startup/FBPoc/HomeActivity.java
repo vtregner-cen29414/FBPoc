@@ -14,6 +14,7 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.model.GraphUser;
 import cz.csas.startup.FBPoc.model.Account;
+import cz.csas.startup.FBPoc.utils.GothamFont;
 import cz.csas.startup.FBPoc.utils.Utils;
 import cz.csas.startup.FBPoc.widget.RoundedProfilePictureView;
 
@@ -26,15 +27,9 @@ public class HomeActivity extends FbAwareActivity {
 
     private static final String TAG = "Friends24";
 
-    private static final int REAUTH_ACTIVITY_CODE = 100;
-    private static final int PICK_FRIENDS_ACTIVITY = 1;
-    private static final String FRIENDS_KEY = "friends";
-
     private RoundedProfilePictureView profilePictureView;
     //private ImageView profilePictureView;
     private TextView userNameView;
-    //AccountsAdapter adapter;
-    private boolean isFetching=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +43,9 @@ public class HomeActivity extends FbAwareActivity {
         profilePictureView.setBorderWidth(5f);
 
 
-// Find the user's name view
+        // Find the user's name view
         userNameView = (TextView) findViewById(R.id.currentUser);
-
-        //adapter = new AccountsAdapter(this, R.layout.account_row);
+        userNameView.setTypeface(GothamFont.BOLD);
 
         if (getFriendsApplication().getFriends24Context().getAccounts() != null) {
             appendAccountsView(getFriendsApplication().getFriends24Context().getAccounts());

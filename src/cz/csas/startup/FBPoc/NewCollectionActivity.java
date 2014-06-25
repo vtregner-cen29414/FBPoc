@@ -73,9 +73,7 @@ public class NewCollectionActivity extends FbAwareActivity {
 
         accountSpinner = (SwipeAccountSelector) findViewById(R.id.accountSelector);
         final Friends24Application application = (Friends24Application) getApplication();
-        /*AccountsAdapter adapter = new AccountsAdapter(this, R.layout.account_selector);
-        accountSpinner.setAdapter(adapter);
-        adapter.setData(application.getAccounts());*/
+
         accountSpinner.setAccounts(R.layout.account_selector, application.getFriends24Context().getAccounts());
         Intent intent = getIntent();
         accountSpinner.setSelection(intent.getIntExtra("account", 0));

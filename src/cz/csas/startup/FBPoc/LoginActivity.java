@@ -23,11 +23,13 @@ import com.facebook.widget.FacebookDialog;
 import cz.csas.startup.FBPoc.model.Account;
 import cz.csas.startup.FBPoc.service.AsyncTask;
 import cz.csas.startup.FBPoc.service.AsyncTaskResult;
+import cz.csas.startup.FBPoc.utils.GothamFont;
 import cz.csas.startup.FBPoc.utils.Utils;
 import org.apache.http.client.methods.HttpGet;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -51,8 +53,13 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         final Typeface mFont = Typeface.createFromAsset(getAssets(), "fonts/Gotham-Light.otf");
+        //final Typeface boldFont = Typeface.createFromAsset(getAssets(), "fonts/Gotham-Medium.otf");
         final ViewGroup mContainer = (ViewGroup) findViewById(android.R.id.content).getRootView();
         Utils.setAppFont(mContainer, mFont, false);
+
+        TextView loginLogo1 = (TextView) findViewById(R.id.login_logo1);
+        loginLogo1.setTypeface(GothamFont.MEDIUM);
+
         ((Friends24Application) getApplication()).getFriends24Context().clearSession();
         ((Friends24Application) getApplication()).invalidateSessionInPreferences();
 

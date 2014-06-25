@@ -12,8 +12,10 @@ import cz.csas.startup.FBPoc.model.Account;
 import cz.csas.startup.FBPoc.model.Collection;
 import cz.csas.startup.FBPoc.model.EmailCollectionParticipant;
 import cz.csas.startup.FBPoc.model.FacebookCollectionParticipant;
+import cz.csas.startup.FBPoc.utils.GothamFont;
 import cz.csas.startup.FBPoc.utils.Utils;
 import cz.csas.startup.FBPoc.widget.RoundedProfilePictureView;
+import cz.csas.startup.FBPoc.widget.SwipeAccountSelector;
 
 import java.text.MessageFormat;
 
@@ -35,11 +37,12 @@ public class CollectionConfirmationActivity extends FbAwareActivity {
         Collection collection = (Collection) intent.getParcelableExtra("data");
 
         TextView accountRow1 = (TextView) findViewById(R.id.accountRow1);
+        accountRow1.setTypeface(GothamFont.BOLD);
         TextView accountRow2 = (TextView) findViewById(R.id.accountRow2);
         Friends24Application application = (Friends24Application) getApplication();
         Account account = application.getFriends24Context().getAccount(collection.getCollectionAccount());
-        accountRow1.setText(AccountsAdapter.getAccountRow1(account));
-        accountRow2.setText(AccountsAdapter.getAccountRow2(account));
+        accountRow1.setText(SwipeAccountSelector.getAccountRow1(account));
+        accountRow2.setText(SwipeAccountSelector.getAccountRow2(account));
 
         TextView count = (TextView) findViewById(R.id.participantCount);
         count.setText(MessageFormat.format(getString(R.string.collection_confirm_1), collection.getNumberOfParticipants()));

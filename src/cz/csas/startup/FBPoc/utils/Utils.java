@@ -306,5 +306,4 @@ public class Utils {
         // Convert the dps to pixels, based on density scale
         return (int) (dp * scale + 0.5f);
     }
-
 }

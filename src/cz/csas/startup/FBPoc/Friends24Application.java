@@ -1,6 +1,7 @@
 package cz.csas.startup.FBPoc;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.ViewConfiguration;
@@ -23,11 +24,14 @@ public class Friends24Application extends Application {
     Friends24Context friends24Context;
     private SmackAndroid smackAndroid;
 
+    private static Context baseContext;
+
 
     @Override
     public void onCreate() {
         super.onCreate();
         Log.d(TAG, "app:onCreate");
+        baseContext = getBaseContext();
         FontsOverride.setDefaultFont(this, "MONOSPACE", "fonts/Gotham-Light.otf");
         FontsOverride.setDefaultFont(this, "DEFAULT", "fonts/Gotham-Light.otf");
         Friends24Context ctx = loadSessionFromPreferences();
@@ -50,6 +54,10 @@ public class Friends24Application extends Application {
         catch (Exception e) {
             // presumably, not relevant
         }
+    }
+
+    public static Context getApplicationBaseContext() {
+        return baseContext;
     }
 
     private Friends24Context loadSessionFromPreferences() {
