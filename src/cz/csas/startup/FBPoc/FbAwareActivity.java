@@ -17,6 +17,7 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
+import cz.csas.startup.FBPoc.utils.GothamFont;
 import cz.csas.startup.FBPoc.utils.Utils;
 import cz.csas.startup.FBPoc.widget.RoundedProfilePictureView;
 
@@ -185,6 +186,7 @@ public abstract class FbAwareActivity extends Activity {
                 RoundedProfilePictureView drawerUserPic = (RoundedProfilePictureView) drawerContainer.findViewById(R.id.dr_currentUser_profile_pic);
                 drawerUserPic.setProfileId(fbUser.getId());
                 TextView drUsername = (TextView) drawerContainer.findViewById(R.id.dr_currentUser);
+                drUsername.setTypeface(GothamFont.BOLD);
                 drUsername.setText(fbUser.getName().toUpperCase());
             }
         }
