@@ -2,6 +2,7 @@ package cz.csas.startup.FBPoc;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -20,17 +21,24 @@ import android.widget.TextView;
 import com.facebook.*;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.FacebookDialog;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 import cz.csas.startup.FBPoc.model.Account;
 import cz.csas.startup.FBPoc.service.AsyncTask;
 import cz.csas.startup.FBPoc.service.AsyncTaskResult;
+import cz.csas.startup.FBPoc.utils.Constants;
 import cz.csas.startup.FBPoc.utils.GothamFont;
+import cz.csas.startup.FBPoc.utils.RegistrationUtils;
 import cz.csas.startup.FBPoc.utils.Utils;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPut;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,12 +49,13 @@ import java.util.List;
  */
 public class LoginActivity extends Activity {
     private static final String TAG = "Friends24";
-    public static final String PREFERENCES_NAME = "friends24";
+    public static final String PREFERENCES_NAME = Constants.FRIENDS24_SHARED_PREFERENCES;
     public static final String USERNAME_PREF_KEY = "username";
 
     private boolean isFetching=false;
     private UiLifecycleHelper uiHelper;
     int fbRetryCount = 0;
+    private boolean googlePlayServicesAvailable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +131,21 @@ public class LoginActivity extends Activity {
 
         new GetAccountsTask(this).execute();
     }
+
+    public void checkGooglePlayServicesAvailability()
+    {
+        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        googlePlayServicesAvailable = resultCode == ConnectionResult.SUCCESS;
+        if(resultCode != ConnectionResult.SUCCESS)
+        {
+            Dialog dialog = GooglePlayServicesUtil.getErrorDialog(resultCode, this, 69);
+            dialog.setCancelable(false);
+            dialog.show();
+        }
+
+        Log.d(TAG, "Result of checking of google play services is: " + resultCode);
+    }
+
 
     private boolean ensureOpenSession() {
         if (Session.getActiveSession() == null ||
@@ -218,6 +242,26 @@ public class LoginActivity extends Activity {
         }
 
         uiHelper.onResume();
+        checkGooglePlayServicesAvailability();
+    }
+
+    /**
+     * Stores the registration ID and app versionCode in the application's
+     * {@code SharedPreferences}.
+     *
+     * @param context application's context.
+     * @param gcmid GCM id
+     * @param username current user
+     */
+    private void storeRegistrationData(Context context, String gcmid, String username) {
+        final SharedPreferences prefs = RegistrationUtils.getGCMPreferences(context);
+        int appVersion = RegistrationUtils.getAppVersion(context);
+        Log.i(TAG, "Saving gcmRegId on app version " + appVersion);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(Constants.USERNAME, username);
+        editor.putString(Constants.GCM_REGISTRATION_ID, gcmid);
+        editor.putInt(Constants.PROPERTY_APP_VERSION, appVersion);
+        editor.commit();
     }
 
 
@@ -289,7 +333,15 @@ public class LoginActivity extends Activity {
                 getApplication().saveSessionToPreferences();
                 final EditText username = (EditText) findViewById(R.id.loginUsername);
                 SharedPreferences preferences = getSharedPreferences(PREFERENCES_NAME, MODE_PRIVATE);
-                preferences.edit().putString(USERNAME_PREF_KEY, username.getText().toString().trim()).commit();
+                String user = username.getText().toString().trim();
+                preferences.edit().putString(USERNAME_PREF_KEY, user).commit();
+
+                String gcmRegistrationId = RegistrationUtils.getGcmRegistrationId(getContext(), user);
+                if (gcmRegistrationId == null) {
+                    UpdateGcmIdTask updateGcmIdTask = new UpdateGcmIdTask(getContext(), user);
+                    updateGcmIdTask.execute();
+                }
+
                 // login to FB
                 if (LoginActivity.this.ensureOpenSession() && getApplication().getFriends24Context().getFbUser() != null) {
                     Intent intent = new Intent(getContext(), HomeActivity.class);
@@ -301,6 +353,55 @@ public class LoginActivity extends Activity {
             else {
                 Utils.showErrorDialog(getContext(), result);
             }
+
+        }
+    }
+
+    private class UpdateGcmIdTask extends AsyncTask<JSONObject, Void, Void> {
+        private static final String uri = "device";
+        private String user;
+        private String gcmRegistrationId;
+
+        private UpdateGcmIdTask(Context context, String user) {
+            super(context, uri, HttpPut.METHOD_NAME, null, false, false);
+            this.user = user;
+        }
+
+        @Override
+        protected AsyncTaskResult<Void> doInBackground(JSONObject... params) {
+            if (googlePlayServicesAvailable) {
+                GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(getContext());
+                JSONObject o = new JSONObject();
+                try {
+                    gcmRegistrationId = gcm.register(getContext().getString(R.string.sender_id));
+                    Log.d(TAG, "Device registered on GCM: " + gcmRegistrationId);
+                    o.put("gcmid", gcmRegistrationId);
+                    getHttpClient().setJsonReq(o);
+                } catch (JSONException e) {
+                    Log.e(TAG, e.toString());
+                    return new AsyncTaskResult<Void>(AsyncTaskResult.Status.OTHER_ERROR);
+                } catch (IOException e) {
+                    Log.e(TAG, e.toString());
+                    return new AsyncTaskResult<Void>(AsyncTaskResult.Status.OTHER_ERROR);
+                }
+                return super.doInBackground(params);
+            }
+            else return new AsyncTaskResult<Void>(AsyncTaskResult.Status.OK);
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult<Void> result) {
+            if (gcmRegistrationId != null) {
+                if (result.getStatus() == AsyncTaskResult.Status.OK){
+                    Log.d(TAG, "Device registred in Friends24 server with id:" + gcmRegistrationId);
+                    storeRegistrationData(getContext(), gcmRegistrationId, user);
+                }
+                else {
+                    Log.e(TAG, "Error while registering device on GCM/Friends24");
+                    Utils.showToast(getContext(), result);
+                }
+            }
+
 
         }
     }

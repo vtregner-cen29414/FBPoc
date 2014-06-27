@@ -102,4 +102,5 @@
     <string name="minAmountErr">Minimální částka je 0,11 Kč</string>
     <string name="maxAmountErr">Maximální částka je 2 mil. Kč</string>
     <string name="invalidAmountFormat">Nevalidní částka</string>
+    <string name="sender_id">40497491311</string>
 </resources>

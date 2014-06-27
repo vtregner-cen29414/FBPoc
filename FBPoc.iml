@@ -7,6 +7,7 @@
           <file>file://C:/Program Files/Java/jdk1.7.0_60/tools/proguard/proguard-android.txt</file>
         </proGuardCfgFiles>
         <option name="UPDATE_PROPERTY_FILES" value="true" />
+        <includeAssetsFromLibraries>true</includeAssetsFromLibraries>
       </configuration>
     </facet>
   </component>
@@ -22,6 +23,8 @@
     <orderEntry type="library" name="android-support-v4" level="project" />
     <orderEntry type="library" name="asmack-android-16-0.8.10" level="project" />
     <orderEntry type="library" name="gson-2.2.4" level="project" />
+    <orderEntry type="module" module-name="google-play-services_lib" />
+    <orderEntry type="library" name="google-play-services" level="project" />
   </component>
 </module>
 

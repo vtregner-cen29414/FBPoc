@@ -13,9 +13,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.HttpVersion;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.client.methods.*;
 import org.apache.http.client.params.ClientPNames;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.scheme.PlainSocketFactory;
@@ -98,14 +96,18 @@ public class Friends24HttpClient<REQ, RES> {
             }
             else if (HttpPost.METHOD_NAME.equals(httpMethod)) {
                 httpReq = new HttpPost(uri);
-                if (jsonReq != null) {
-                    ByteArrayEntity entity = new ByteArrayEntity(jsonReq.toString().getBytes(HTTP.UTF_8));
-                    entity.setContentType("application/json");
-                    ((HttpPost)httpReq).setEntity(entity);
-                }
+            }
+            else if (HttpPut.METHOD_NAME.equals(httpMethod)) {
+                httpReq = new HttpPut(uri);
             }
             else {
                 throw new UnsupportedOperationException("Method not supported");
+            }
+
+            if (jsonReq != null && httpReq instanceof HttpEntityEnclosingRequestBase) {
+                ByteArrayEntity entity = new ByteArrayEntity(jsonReq.toString().getBytes(HTTP.UTF_8));
+                entity.setContentType("application/json");
+                ((HttpEntityEnclosingRequestBase)httpReq).setEntity(entity);
             }
 
 
