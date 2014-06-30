@@ -103,4 +103,11 @@
     <string name="maxAmountErr">Maximální částka je 2 mil. Kč</string>
     <string name="invalidAmountFormat">Nevalidní částka</string>
     <string name="sender_id">40497491311</string>
+    <string name="notifPaymentAccepted">byla provedena</string>
+    <string name="notifPaymentRefused">byla zamítnuta</string>
+    <string name="notifPartAccepted">Slíbil příspět</string>
+    <string name="notifPartRefused">Odmítl příspět</string>
+    <string name="notifPartPayed">Příspěl</string>
+    <string name="notifToYourCollection">na Vaši sbírku</string>
+    <string name="notifCollectionStatusChange">Změna stavu sbírky. </string>
 </resources>

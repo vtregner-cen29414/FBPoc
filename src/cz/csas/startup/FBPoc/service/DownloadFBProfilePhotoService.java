@@ -135,7 +135,6 @@ public class DownloadFBProfilePhotoService extends IntentService {
                 try {
                     int height = (int) getResources().getDimension(android.R.dimen.notification_large_icon_height);
                     int width = (int) getResources().getDimension(android.R.dimen.notification_large_icon_width);
-                    Log.d(TAG, "DIM: " + height+"/"+width);
                     url = new URL("http://graph.facebook.com/"+ fbUserId + "/picture?height="+height);
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setReadTimeout(10000 /* milliseconds */);
@@ -189,8 +188,8 @@ public class DownloadFBProfilePhotoService extends IntentService {
             Payment order = (Payment) data;
             String contentText = order.getRecipientName();
             String statusMsg="";
-            if (order.getStatus() == Payment.Status.ACCEPTED) statusMsg = "byla provedena";
-            if (order.getStatus() == Payment.Status.REFUSED) statusMsg = "byla zamítnuta";
+            if (order.getStatus() == Payment.Status.ACCEPTED) statusMsg = getString(R.string.notifPaymentAccepted);
+            if (order.getStatus() == Payment.Status.REFUSED) statusMsg = getString(R.string.notifPaymentRefused);
             NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle()
                     .addLine("Platba " + order.getNote())
                     .addLine(statusMsg);
@@ -208,11 +207,11 @@ public class DownloadFBProfilePhotoService extends IntentService {
                     ((EmailCollectionParticipant) participantStatus.participant).getEmail();
 
             String msg="";
-            if (participantStatus.participant.getStatus() == CollectionParticipant.Status.ACCEPTED) msg = "Slíbil příspět";
-            if (participantStatus.participant.getStatus() == CollectionParticipant.Status.REFUSED) msg = "Odmítl příspět";
-            if (participantStatus.participant.getStatus() == CollectionParticipant.Status.DONE) msg = "Příspěl";
+            if (participantStatus.participant.getStatus() == CollectionParticipant.Status.ACCEPTED) msg = getString(R.string.notifPartAccepted);
+            if (participantStatus.participant.getStatus() == CollectionParticipant.Status.REFUSED) msg = getString(R.string.notifPartRefused);
+            if (participantStatus.participant.getStatus() == CollectionParticipant.Status.DONE) msg = getString(R.string.notifPartPayed);
 
-            msg = msg + " na Vaši sbírku '" + participantStatus.name + "'";
+            msg = msg + " "+getString(R.string.notifToYourCollection)+" '" + participantStatus.name + "'";
 
             NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle()
                     .bigText(msg);
@@ -220,7 +219,7 @@ public class DownloadFBProfilePhotoService extends IntentService {
             builder.setContentTitle(partName)
                     .setStyle(bigTextStyle)
                     .setContentText(msg)
-                    .setTicker("Změna stavu sbírky. " + partName + " " + msg);
+                    .setTicker(getString(R.string.notifCollectionStatusChange) + partName + " " + msg);
         }
 
     }
