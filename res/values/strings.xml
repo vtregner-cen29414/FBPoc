@@ -110,4 +110,6 @@
     <string name="notifPartPayed">Příspěl</string>
     <string name="notifToYourCollection">na Vaši sbírku</string>
     <string name="notifCollectionStatusChange">Změna stavu sbírky. </string>
+    <string name="notifPayment1">Platba</string>
+    <string name="notifPaymentStatusChange">Změna stavu platby. </string>
 </resources>

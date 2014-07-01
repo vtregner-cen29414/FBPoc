@@ -15,10 +15,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
-import cz.csas.startup.FBPoc.CollectionDetailActivity;
-import cz.csas.startup.FBPoc.Friends24Application;
-import cz.csas.startup.FBPoc.PaymentsActivity;
-import cz.csas.startup.FBPoc.R;
+import cz.csas.startup.FBPoc.*;
 import cz.csas.startup.FBPoc.model.CollectionParticipant;
 import cz.csas.startup.FBPoc.model.EmailCollectionParticipant;
 import cz.csas.startup.FBPoc.model.FacebookCollectionParticipant;
@@ -38,17 +35,17 @@ import java.net.URL;
 /**
  * Created by cen29414 on 2.6.2014.
  */
-public class DownloadFBProfilePhotoService extends IntentService {
+public class NotificationService extends IntentService {
     public static final String TAG="Friends24";
 
 
-    public DownloadFBProfilePhotoService() {
-        super("DownloadFBProfilePhotoService");
+    public NotificationService() {
+        super("NotificationService");
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        Log.d(TAG, "DownloadFBProfilePhotoService started");
+        Log.d(TAG, "NotificationService started");
 
         String notificationType = intent.getStringExtra("notificationType");
         if (Constants.NOTIFICATION_PAYMENT_STATUS_CHANGED.equals(notificationType)) {
@@ -56,8 +53,9 @@ public class DownloadFBProfilePhotoService extends IntentService {
             payment.setId(intent.getStringExtra("id"));
             payment.setNote(intent.getStringExtra("note"));
             payment.setRecipientName(intent.getStringExtra("recipientName"));
+            payment.setRecipientId(intent.getStringExtra("recipientId"));
             payment.setStatus(Payment.Status.valueOf(Integer.valueOf(intent.getStringExtra("status"))));
-            sendNotification(this, notificationType, payment);
+            sendNotification( notificationType, payment);
         }
         else if (Constants.NOTIFICATION_COLLECTION_PARTICIPANT_STATUS_CHANGED.equals(notificationType)) {
             boolean isFbParticipant = Boolean.parseBoolean(intent.getStringExtra("isFbParticipant"));
@@ -74,7 +72,7 @@ public class DownloadFBProfilePhotoService extends IntentService {
             collectionParticipantStatus.participant = participant;
             collectionParticipantStatus.id =  intent.getStringExtra("id");
             collectionParticipantStatus.name= intent.getStringExtra("name");
-            sendNotification(this, notificationType, collectionParticipantStatus);
+            sendNotification(notificationType, collectionParticipantStatus);
         }
         else {
             Log.e(TAG, "Unsupported notification: '" + notificationType + "'");
@@ -83,7 +81,7 @@ public class DownloadFBProfilePhotoService extends IntentService {
     }
 
     // Put the GCM message into a notification and post it.
-    private void sendNotification(Context context, String notificationType, Object data) {
+    private void sendNotification(String notificationType, Object data) {
         NotificationManager mNotificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
 
         Class activityForNotification = getActivityForNotification(notificationType);
@@ -105,7 +103,7 @@ public class DownloadFBProfilePhotoService extends IntentService {
 
         PendingIntent contentIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        long[] vibrationPattern = { 0, 200, 150, 200, 150, 300};  // tree short vibrations
+        long[] vibrationPattern = { 0, 200, 150, 200};  // two short vibrations
         Bitmap bm = getLargeIcon(data);
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
@@ -123,18 +121,22 @@ public class DownloadFBProfilePhotoService extends IntentService {
         mNotificationManager.notify(1, mBuilder.build());
     }
 
-
-
     private Bitmap getLargeIcon(Object data) {
+        String fbUserId  = null;
         if (data instanceof CollectionParticipantStatus && ((CollectionParticipantStatus) data).participant instanceof FacebookCollectionParticipant) {
-            String fbUserId = ((FacebookCollectionParticipant) ((CollectionParticipantStatus) data).participant).getFbUserId();
+            fbUserId = ((FacebookCollectionParticipant) ((CollectionParticipantStatus) data).participant).getFbUserId();
+        }
+        else if (data instanceof Payment) {
+            fbUserId = ((Payment) data).getRecipientId();
+        }
+
+        if (fbUserId != null) {
             ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
             if (networkInfo != null && networkInfo.isConnected()) {
                 URL url = null;
                 try {
                     int height = (int) getResources().getDimension(android.R.dimen.notification_large_icon_height);
-                    int width = (int) getResources().getDimension(android.R.dimen.notification_large_icon_width);
                     url = new URL("http://graph.facebook.com/"+ fbUserId + "/picture?height="+height);
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setReadTimeout(10000 /* milliseconds */);
@@ -190,15 +192,14 @@ public class DownloadFBProfilePhotoService extends IntentService {
             String statusMsg="";
             if (order.getStatus() == Payment.Status.ACCEPTED) statusMsg = getString(R.string.notifPaymentAccepted);
             if (order.getStatus() == Payment.Status.REFUSED) statusMsg = getString(R.string.notifPaymentRefused);
-            NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle()
-                    .addLine("Platba " + order.getNote())
-                    .addLine(statusMsg);
+            String msg = getString(R.string.notifPayment1) + " '" + order.getNote() + "' vašemu příteli " + statusMsg;
+            NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle()
+                    .bigText(msg);
 
-            String title = "Změna stavu platby";
-            builder.setContentTitle(title)
-                    .setStyle(inboxStyle)
+            builder.setContentTitle(order.getRecipientName())
+                    .setStyle(bigTextStyle)
                     .setContentText(contentText)
-                    .setTicker(title) ;
+                    .setTicker(getString(R.string.notifPaymentStatusChange) + msg) ;
         }
         else if (notificationType.equals(Constants.NOTIFICATION_COLLECTION_PARTICIPANT_STATUS_CHANGED)) {
             CollectionParticipantStatus participantStatus = (CollectionParticipantStatus) data;
@@ -226,7 +227,7 @@ public class DownloadFBProfilePhotoService extends IntentService {
 
     private Class getActivityForNotification(String notificationType) {
         if (notificationType.equals(Constants.NOTIFICATION_PAYMENT_STATUS_CHANGED)) return PaymentsActivity.class;
-        else if (notificationType.equals(Constants.NOTIFICATION_COLLECTION_PARTICIPANT_STATUS_CHANGED)) return CollectionDetailActivity.class;
+        else if (notificationType.equals(Constants.NOTIFICATION_COLLECTION_PARTICIPANT_STATUS_CHANGED)) return CollectionsActivity.class;
         else return null;
     }
 
