@@ -80,7 +80,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="abb190a0-38a9-4be4-b69c-02871f6c8ad1" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/Friends24Context.java" afterPath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/Friends24Context.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/LoginActivity.java" afterPath="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/LoginActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -105,14 +104,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="LoginActivity.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="LoginActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/LoginActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="6326" max-vertical-offset="7123">
-              <caret line="431" column="0" selection-start-line="431" selection-start-column="0" selection-end-line="431" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.5053111" vertical-offset="5685" max-vertical-offset="7140">
+              <caret line="408" column="41" selection-start-line="408" selection-start-column="41" selection-end-line="408" selection-end-column="41" />
               <folding>
-                <element signature="e#14430#14488#0" expanded="true" />
-                <element signature="e#17084#17126#0" expanded="true" />
+                <element signature="e#14576#14634#0" expanded="true" />
+                <element signature="e#17230#17272#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -152,10 +151,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="strings.xml" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="strings.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.28831562" vertical-offset="201" max-vertical-offset="2057">
+            <state vertical-scroll-proportion="0.0" vertical-offset="201" max-vertical-offset="2057">
               <caret line="23" column="56" selection-start-line="23" selection-start-column="56" selection-end-line="23" selection-end-column="56" />
               <folding />
             </state>
@@ -348,7 +347,7 @@
     <property name="extract.method.default.visibility" value="private" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/cz/csas/startup/FBPoc/service" />
     <property name="SearchEverywhereHistoryKey" value="new_collection&#9;FILE&#9;file://C:/startup/FBPoc/res/layout/new_collection.xml&#10;confirmation&#9;FILE&#9;file://C:/startup/FBPoc/res/layout/payment_confirmation.xml" />
-    <property name="AndroidTargetDevices" value="01498FE719019012" />
+    <property name="AndroidTargetDevices" value="192.168.56.101:5555" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -712,7 +711,7 @@
       <workItem from="1403875977254" duration="493000" />
       <workItem from="1404131992745" duration="3337000" />
       <workItem from="1404198213276" duration="6674000" />
-      <workItem from="1404216636949" duration="3497000" />
+      <workItem from="1404216636949" duration="5012000" />
     </task>
     <task id="LOCAL-00001" summary="VTR: FriendPicker">
       <created>1397823692422</created>
@@ -898,11 +897,15 @@
       <created>1404203913169</created>
       <updated>1404203913169</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="VTR - update facebook id on first start">
+      <created>1404220173548</created>
+      <updated>1404220173548</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="546691000" />
+    <option name="totallyTimeSpent" value="548206000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -951,7 +954,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19108762" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30945557" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30802292" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" x="92" y="92" width="1736" height="976" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1010,7 +1013,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="VTR: FriendPicker" />
     <MESSAGE value="VTR: Chat API" />
     <MESSAGE value="VTR: Home screen" />
     <MESSAGE value="VTR: Home screen - scrolling" />
@@ -1035,7 +1037,8 @@
     <MESSAGE value="VTR - validations + logo on login page" />
     <MESSAGE value="VTR - UI polish" />
     <MESSAGE value="VTR - push messages" />
-    <option name="LAST_COMMIT_MESSAGE" value="VTR - push messages" />
+    <MESSAGE value="VTR - update facebook id on first start" />
+    <option name="LAST_COMMIT_MESSAGE" value="VTR - update facebook id on first start" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1453,22 +1456,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/LoginActivity.java">
+    <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="6326" max-vertical-offset="7123">
-          <caret line="431" column="0" selection-start-line="431" selection-start-column="0" selection-end-line="431" selection-end-column="0" />
-          <folding>
-            <element signature="e#14430#14488#0" expanded="true" />
-            <element signature="e#17084#17126#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="201" max-vertical-offset="2057">
+          <caret line="23" column="56" selection-start-line="23" selection-start-column="56" selection-end-line="23" selection-end-column="56" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
+    <entry file="file://$PROJECT_DIR$/src/cz/csas/startup/FBPoc/LoginActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.28831562" vertical-offset="201" max-vertical-offset="2057">
-          <caret line="23" column="56" selection-start-line="23" selection-start-column="56" selection-end-line="23" selection-end-column="56" />
-          <folding />
+        <state vertical-scroll-proportion="0.5053111" vertical-offset="5685" max-vertical-offset="7140">
+          <caret line="408" column="41" selection-start-line="408" selection-start-column="41" selection-end-line="408" selection-end-column="41" />
+          <folding>
+            <element signature="e#14576#14634#0" expanded="true" />
+            <element signature="e#17230#17272#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

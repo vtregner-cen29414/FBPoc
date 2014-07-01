@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.facebook.*;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.FacebookDialog;
@@ -140,9 +141,10 @@ public class LoginActivity extends Activity {
         googlePlayServicesAvailable = resultCode == ConnectionResult.SUCCESS;
         if(resultCode != ConnectionResult.SUCCESS)
         {
-            Dialog dialog = GooglePlayServicesUtil.getErrorDialog(resultCode, this, 69);
-            dialog.setCancelable(false);
-            dialog.show();
+            //Dialog dialog = GooglePlayServicesUtil.getErrorDialog(resultCode, this, 69);
+            //dialog.setCancelable(false);
+            //dialog.show();
+            Toast.makeText(this, GooglePlayServicesUtil.getErrorString(resultCode), Toast.LENGTH_LONG).show();
         }
 
         Log.d(TAG, "Result of checking of google play services is: " + resultCode);
