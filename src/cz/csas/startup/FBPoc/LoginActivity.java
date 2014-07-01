@@ -32,11 +32,11 @@ import cz.csas.startup.FBPoc.utils.GothamFont;
 import cz.csas.startup.FBPoc.utils.RegistrationUtils;
 import cz.csas.startup.FBPoc.utils.Utils;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -51,6 +51,8 @@ public class LoginActivity extends Activity {
     private static final String TAG = "Friends24";
     public static final String PREFERENCES_NAME = Constants.FRIENDS24_SHARED_PREFERENCES;
     public static final String USERNAME_PREF_KEY = "username";
+    public static final String REGISTERED_FACEBOOK_ID = "registeredFacebookId";
+    public static final String REGISTERED_FACEBOOK_USERNAME = "registeredFacebookUsername";
 
     private boolean isFetching=false;
     private UiLifecycleHelper uiHelper;
@@ -190,6 +192,8 @@ public class LoginActivity extends Activity {
                         application.getFriends24Context().setFbUser(user);
                         if (application.getFriends24Context().isAppLogged()) {
                             application.saveSessionToPreferences();
+
+                            updateFacebookIdIfNeeded();
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             // home screen is always on the top
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -210,6 +214,23 @@ public class LoginActivity extends Activity {
                 }
             }
             Log.i(TAG, "Logged out...");
+        }
+    }
+
+    public void updateFacebookIdIfNeeded() {
+        Friends24Context friends24Context = ((Friends24Application) getApplication()).getFriends24Context();
+        if (friends24Context.getFbUser() != null && friends24Context.isAppLogged()) {
+            SharedPreferences preferences = RegistrationUtils.getGCMPreferences(this);
+            String registeredFacebookId = preferences.getString(REGISTERED_FACEBOOK_ID, null);
+            String registeredFacebookUsername = preferences.getString(REGISTERED_FACEBOOK_USERNAME, null);
+            if (registeredFacebookId == null
+                    || registeredFacebookUsername == null
+                    || !registeredFacebookId.equals(friends24Context.getFbUser().getId())
+                    || !registeredFacebookUsername.equals(friends24Context.getLoggedUser())) {
+
+                Log.d(TAG, String.format("Updating facebook id %s of current user %s", friends24Context.getFbUser().getId(), friends24Context.getLoggedUser()));
+                new UpdateFacebookIdTask(this).execute();
+            }
         }
     }
 
@@ -334,6 +355,7 @@ public class LoginActivity extends Activity {
                 final EditText username = (EditText) findViewById(R.id.loginUsername);
                 SharedPreferences preferences = getSharedPreferences(PREFERENCES_NAME, MODE_PRIVATE);
                 String user = username.getText().toString().trim();
+                getApplication().getFriends24Context().setLoggedUser(user);
                 preferences.edit().putString(USERNAME_PREF_KEY, user).commit();
 
                 String gcmRegistrationId = RegistrationUtils.getGcmRegistrationId(getContext(), user);
@@ -344,6 +366,8 @@ public class LoginActivity extends Activity {
 
                 // login to FB
                 if (LoginActivity.this.ensureOpenSession() && getApplication().getFriends24Context().getFbUser() != null) {
+                    updateFacebookIdIfNeeded();
+
                     Intent intent = new Intent(getContext(), HomeActivity.class);
                     // home screen is always on the top
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -403,6 +427,39 @@ public class LoginActivity extends Activity {
             }
 
 
+        }
+    }
+
+    public class UpdateFacebookIdTask extends AsyncTask<JSONObject, Void, Void> {
+        public static final String URI = "userProfile";
+
+        public UpdateFacebookIdTask(Context context) {
+            super(context, URI, HttpPost.METHOD_NAME, createUpdateFacebookIdRequest(context) , false, false);
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult<Void> result) {
+            if (result.getStatus() != AsyncTaskResult.Status.OK) {
+                Utils.showToast(getContext(), result);
+            }
+            else {
+                SharedPreferences.Editor edit = RegistrationUtils.getGCMPreferences(getContext()).edit();
+                edit.putString(REGISTERED_FACEBOOK_ID, getApplication().getFriends24Context().getFbUser().getId());
+                edit.putString(REGISTERED_FACEBOOK_USERNAME, getApplication().getFriends24Context().getLoggedUser());
+                edit.commit();
+                Log.d(TAG, "Facebook id if current user was updated");
+            }
+        }
+    }
+
+    private static JSONObject createUpdateFacebookIdRequest(Context context) {
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("facebookId", ((Friends24Application) context.getApplicationContext()).getFriends24Context().getFbUser().getId());
+            return jsonObject;
+        } catch (JSONException e) {
+            Log.e(TAG, "Error", e);
+            throw new RuntimeException(e);
         }
     }
 

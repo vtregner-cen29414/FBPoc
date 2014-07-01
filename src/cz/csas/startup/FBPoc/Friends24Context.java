@@ -22,7 +22,15 @@ public class Friends24Context {
     private transient Map<Account, List<Payment>> payments;
     private transient Map<Account, List<Collection>> collections;
     private String authHeader;
+    private String loggedUser;
 
+    public String getLoggedUser() {
+        return loggedUser;
+    }
+
+    public void setLoggedUser(String loggedUser) {
+        this.loggedUser = loggedUser;
+    }
 
     public List<GraphUser> getSelectedFriends() {
         return selectedFrieds;
